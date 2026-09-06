@@ -147,22 +147,16 @@ export default function AboutView({ onStartJourney, language = 'en' }) {
             </div>
 
             {/* Center Column: Farmer + Mascot Visual */}
-            <div className="lg:col-span-4 relative flex items-center justify-center">
-              <div className="relative rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-xl bg-slate-50">
+            <div className="lg:col-span-4 relative flex flex-col items-center justify-center">
+              <div className="w-full rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-xl bg-slate-50">
                 <img
                   src={heroVillageImg}
                   alt="Farmer with Aarambh Saathi Bot"
                   className="w-full h-auto object-cover max-h-[380px]"
                 />
                 
-                {/* Speech Bubble */}
-                <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl border border-emerald-400 p-2.5 shadow-md text-center max-w-[150px]">
-                  <p className="text-[11px] font-bold italic text-[#064e3b] leading-tight whitespace-pre-line">
-                    {t.speechBubble}
-                  </p>
-                </div>
-
-                <div className="absolute bottom-3 left-3 right-3 bg-emerald-950/80 backdrop-blur-sm px-3 py-1.5 rounded-lg text-center text-xs font-bold text-emerald-200">
+                {/* Status Bar below photo (not covering photo content) */}
+                <div className="bg-[#063f39] px-3.5 py-2 text-center text-xs font-bold text-emerald-200 border-t border-emerald-800">
                   {t.ruralTogetherBadge}
                 </div>
               </div>

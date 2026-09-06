@@ -511,24 +511,25 @@ export default function VoiceChatMode({
       {/* Center AI Bot Mascot + Wave & Mic Control */}
       <div className="flex flex-col items-center text-center my-4 sm:my-6 space-y-3.5 max-w-xl w-full">
         
-        {/* Robot Avatar with Speech Bubble */}
-        <div className="relative pt-6 sm:pt-0">
-          <div className="w-32 h-32 sm:w-44 sm:h-44 rounded-full p-2 bg-gradient-to-tr from-emerald-400 via-teal-300 to-amber-300 shadow-2xl animate-soft-pulse mx-auto">
-            <img
-              src={robotAvatarImg}
-              alt="Aarambh Saathi Bot"
-              className="w-full h-full object-cover rounded-full bg-emerald-950 border-4 border-white shadow-inner"
-            />
-          </div>
-
-          {/* Speech Bubble (Centered above avatar on mobile, right on sm+) */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-top-5 sm:-right-20 bg-white rounded-2xl border-2 border-[#15803d] px-3 py-1.5 sm:px-4 sm:py-2.5 shadow-xl text-center max-w-[170px] sm:max-w-[190px] z-10">
+        {/* Robot Avatar & Speech Bubble (Clean layout without overlap) */}
+        <div className="flex flex-col items-center space-y-3">
+          {/* Speech Bubble cleanly positioned ABOVE avatar */}
+          <div className="bg-white rounded-2xl border-2 border-[#15803d] px-4 py-2 sm:px-5 sm:py-2.5 shadow-md text-center max-w-[240px] sm:max-w-[260px] mx-auto">
             <p className="text-xs sm:text-sm font-black text-[#064e3b] font-display leading-tight">
               {t.voiceBubblePrompt}
             </p>
             <p className="text-[9px] sm:text-[10px] text-emerald-700 font-semibold mt-0.5">
               {t.voiceBubbleSub}
             </p>
+          </div>
+
+          {/* Robot Avatar Image */}
+          <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full p-2 bg-gradient-to-tr from-emerald-400 via-teal-300 to-amber-300 shadow-2xl animate-soft-pulse mx-auto">
+            <img
+              src={robotAvatarImg}
+              alt="Aarambh Saathi Bot"
+              className="w-full h-full object-cover rounded-full bg-emerald-950 border-4 border-white shadow-inner"
+            />
           </div>
         </div>
 

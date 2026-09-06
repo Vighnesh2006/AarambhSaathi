@@ -200,21 +200,30 @@ export default function HomeView({
           </div>
 
           {/* Right Hero Visual (Farmer + AI Robot + Speech Bubble) */}
-          <div className="relative w-full max-w-[540px] lg:max-w-[580px] flex items-center justify-center">
-            {/* Main Visual Image */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/80 bg-white group">
+          <div className="relative w-full max-w-[540px] lg:max-w-[580px] flex flex-col items-center">
+            
+            {/* Speech Bubble placed cleanly ABOVE the hero image (not overlapping faces) */}
+            <div className="w-full max-w-[280px] sm:max-w-[320px] mb-3 bg-white/95 backdrop-blur-md rounded-2xl border-2 border-[#15803d] p-3 shadow-lg text-center mx-auto animate-soft-pulse">
+              <p className="text-xs sm:text-sm font-bold italic text-[#064e3b] leading-tight font-display whitespace-pre-line">
+                {t.speechBubble}
+              </p>
+              <div className="flex items-center justify-center gap-1 mt-1 text-[11px] font-bold text-[#15803d]">
+                <Sprout className="w-3.5 h-3.5 text-[#15803d]" />
+                <span>{t.appName}</span>
+              </div>
+            </div>
+
+            {/* Main Visual Image Card (Unobstructed photo view) */}
+            <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-white group">
               <img
                 src={heroVillageImg}
                 alt="Aarambh Saathi Farmer and AI Robot Assistant"
                 className="w-full h-auto object-cover max-h-[360px] group-hover:scale-105 transition-transform duration-700"
               />
 
-              {/* Gradient Bottom Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#063f39]/80 via-transparent to-transparent opacity-60" />
-
-              {/* Badge on Image */}
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
-                <div className="flex items-center gap-2 bg-emerald-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-emerald-400/30 text-xs font-bold">
+              {/* Status Bar below photo (not covering photo content) */}
+              <div className="bg-[#063f39] p-3 flex flex-wrap items-center justify-between gap-2 text-white border-t border-emerald-800">
+                <div className="flex items-center gap-2 bg-emerald-950/80 backdrop-blur-md px-3 py-1 rounded-xl border border-emerald-400/30 text-xs font-bold">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                   <span>{t.aiEngineBadge}</span>
                 </div>
@@ -224,16 +233,6 @@ export default function HomeView({
               </div>
             </div>
 
-            {/* Authentic Speech Bubble Overlay */}
-            <div className="absolute -top-5 sm:-top-8 right-2 sm:right-6 bg-white/95 backdrop-blur-md rounded-2xl border-2 border-[#15803d] p-3 sm:p-4 shadow-xl text-center max-w-[200px] sm:max-w-[220px] animate-soft-pulse">
-              <p className="text-xs sm:text-sm font-bold italic text-[#064e3b] leading-tight font-display whitespace-pre-line">
-                {t.speechBubble}
-              </p>
-              <div className="flex items-center justify-center gap-1 mt-1 text-[11px] font-bold text-[#15803d]">
-                <Sprout className="w-3.5 h-3.5 text-[#15803d]" />
-                <span>{t.appName}</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
