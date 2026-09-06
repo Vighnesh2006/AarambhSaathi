@@ -71,6 +71,27 @@ BIZ_SECTOR_TO_MACHINE_CATEGORIES = {
     "nursery": ["nursery", "seedling", "horticulture"],
 }
 
+# Occupation → Relevant Skills (deterministic MVP – shown as quick-reply buttons)
+OCCUPATION_SKILLS_MAP = {
+    "farmer":              ["Crop Cultivation & Land Management", "Cattle Rearing & Dairy", "Agricultural Equipment Operation", "Irrigation & Water Management"],
+    "tailor":              ["Stitching & Tailoring", "Pattern Cutting & Design", "Sewing Machine Operation", "Fabric Selection & Handling"],
+    "student":             ["Computer Skills & Digital Marketing", "Sales & Customer Service", "Business Planning & Management", "Basic Accounting"],
+    "homemaker":           ["Food Processing & Preservation", "Handicraft & Embroidery", "Retail & Customer Service", "Packaging & Labelling"],
+    "daily wage labourer": ["Manual Labour & Construction", "Agricultural Field Work", "Machine Operation Basics", "Transport & Logistics"],
+    "retail shopkeeper":   ["Retail Inventory Management", "Customer Service & Sales", "Basic Accounting & GST", "Supply Chain & Procurement"],
+}
+
+# Occupation → Relevant Business Ideas (deterministic MVP – quick-reply options at BUSINESS_INTEREST stage)
+OCCUPATION_BUSINESS_MAP = {
+    "farmer":              ["Dairy Farming", "Mushroom Farming", "Poultry Farming", "Vermicompost Production"],
+    "tailor":              ["Rural Tailoring & Garment Unit", "School Uniform Manufacturing", "Boutique Garments Unit"],
+    "student":             ["Mushroom Farming", "Beekeeping & Honey Production", "Rural Tailoring & Garment Unit"],
+    "homemaker":           ["Pickle & Papad Production", "Rural Tailoring & Garment Unit", "Beekeeping & Honey Production"],
+    "daily wage labourer": ["Mini Flour Mill (Atta Chakki)", "Goat Rearing & Breeding", "Vermicompost Production"],
+    "retail shopkeeper":   ["Mini Flour Mill (Atta Chakki)", "Spice Processing & Packaging", "Bakery & Snack Production Unit"],
+}
+
+
 def extract_capital_from_text(text: str) -> Optional[float]:
     """Helper regex to parse Indian capital formats in English, Hindi, Marathi."""
     t = text.lower().replace(",", "").replace("₹", "").replace("rs.", "").replace("rs", "").strip()
@@ -403,15 +424,23 @@ def build_state_response(
             quick_replies = ["Farmer", "Daily Wage Labourer", "Retail Shopkeeper", "Homemaker"]
 
     elif state == "BUSINESS_SKILLS":
+        # Determine occupation-specific quick-reply skills
+        occ_key = (profile.occupation or "").lower()
+        occ_skills: list = []
+        for _key, _skills in OCCUPATION_SKILLS_MAP.items():
+            if _key in occ_key or occ_key in _key:
+                occ_skills = _skills
+                break
+
         if lang == "mr":
-            reply = f"उत्तम! **{occ}** म्हणून तुमचा अनुभव नवीन व्यवसायासाठी मोठा पाया ठरेल. 💡\n\nतुमच्याकडे कोणती **प्रात्यक्षिक कौशल्ये किंवा कामाचा अनुभव** आहे? (उदा. पशुपालन, सिलाई/टेलरिंग, पीक व्यवस्थापन, यंत्रसामग्री चालवणे, वेल्डिंग)"
-            quick_replies = ["पशुपालन व दुग्ध व्यवसाय", "सिलाई व टेलरिंग", "शेती व पीक काळजी", "मशिनरी चालवणे"]
+            reply = f"उत्तम! **{occ}** म्हणून तुमचा अनुभव नवीन व्यवसायासाठी मोठा पाया ठरेल. 💡\n\nतुमच्याकडे कोणती **प्रात्यक्षिक कौशल्ये किंवा कामाचा अनुभव** आहे?"
+            quick_replies = occ_skills[:4] if occ_skills else ["पशुपालन व दुग्ध व्यवसाय", "सिलाई व टेलरिंग", "शेती व पीक काळजी", "मशिनरी चालवणे"]
         elif lang == "hi":
-            reply = f"बहुत बढ़िया! **{occ}** के रूप में आपका व्यावहारिक अनुभव बहुत काम आएगा। 💡\n\nआपके पास कौन सा **व्यावहारिक कौशल या अनुभव** है? (जैसे पशुपालन, सिलाई, फसल प्रबंधन, मशीन संचालन, वेल्डिंग)"
-            quick_replies = ["पशुपालन व डेयरी", "सिलाई व दर्जी काम", "खेती व फसल देखभाल", "मशीन संचालन"]
+            reply = f"बहुत बढ़िया! **{occ}** के रूप में आपका व्यावहारिक अनुभव बहुत काम आएगा। 💡\n\nआपके पास कौन सा **व्यावहारिक कौशल या अनुभव** है?"
+            quick_replies = occ_skills[:4] if occ_skills else ["पशुपालन व डेयरी", "सिलाई व दर्जी काम", "खेती व फसल देखभाल", "मशीन संचालन"]
         else:
-            reply = f"Great! Working as a **{occ}** provides a strong practical foundation. 💡\n\nWhat specific **hands-on skills or experience** do you possess? (e.g., Cattle/livestock care, Tailoring, Crop cultivation, Machinery operation, Electrician/welding)"
-            quick_replies = ["Livestock & Dairy Care", "Tailoring & Stitching", "Farming & Crop Care", "Machinery Operation"]
+            reply = f"Great! Working as a **{occ}** provides a strong practical foundation. 💡\n\nWhat specific **hands-on skills or experience** do you possess?"
+            quick_replies = occ_skills[:4] if occ_skills else ["Livestock & Dairy Care", "Tailoring & Stitching", "Farming & Crop Care", "Machinery Operation"]
 
     elif state == "BUSINESS_RESOURCES":
         if lang == "mr":
@@ -436,15 +465,25 @@ def build_state_response(
             quick_replies = ["₹50,000", "₹1 Lakh (₹1,00,000)", "₹2.5 Lakhs (₹2,50,000)", "₹5 Lakhs"]
 
     elif state == "BUSINESS_INTEREST":
+        # Show occupation-specific business ideas
+        occ_key = (profile.occupation or "").lower()
+        biz_opts_en: list = []
+        for _key, _biz_list in OCCUPATION_BUSINESS_MAP.items():
+            if _key in occ_key or occ_key in _key:
+                biz_opts_en = _biz_list
+                break
+        if not biz_opts_en:
+            biz_opts_en = ["Dairy Farming", "Mushroom Farming", "Poultry Farming"]
+
         if lang == "mr":
-            reply = f"उत्तम! **{cap_val}** चे भांडवल आणि **{skills_text}** चे कौशल्य यासह तुमच्याकडे उत्तम संधी आहे. 🎯\n\nतुमच्या मनात आधीपासून कोणता **विशिष्ट व्यवसाय** आहे, की मी तुम्हाला **{loc}** साठी सर्वोत्कृष्ट ३ पर्याय सुचवू?"
-            quick_replies = ["दुग्ध व्यवसाय", "मशरूम शेती", "कुक्कुटपालन (पोल्ट्री)", "सर्वोत्कृष्ट ३ पर्याय सुचवा"]
+            reply = f"उत्तम! **{cap_val}** चे भांडवल आणि **{skills_text}** चे कौशल्य यासह तुमच्याकडे उत्तम संधी आहे. 🎯\n\nतुमच्या मनात आधीपासून कोणता **विशिष्ट व्यवसाय** आहे, की मी तुम्हाला **{loc}** साठी सर्वोत्कृष्ट पर्याय सुचवू?"
+            quick_replies = biz_opts_en[:3] + ["सर्वोत्कृष्ट पर्याय सुचवा"]
         elif lang == "hi":
             reply = f"शानदार! **{cap_val}** की पूंजी और **{skills_text}** के कौशल के साथ आपके लिए बेहतरीन अवसर हैं। 🎯\n\nक्या आपके मन में पहले से कोई **विशेष व्यवसाय** है, या मैं आपको **{loc}** के लिए सर्वश्रेष्ठ 3 विकल्प सुझाऊं?"
-            quick_replies = ["डेयरी फार्मिंग", "मशरूम खेती", "पोल्ट्री फार्मिंग", "सर्वश्रेष्ठ 3 विकल्प सुझाएं"]
+            quick_replies = biz_opts_en[:3] + ["सर्वश्रेष्ठ 3 विकल्प सुझाएं"]
         else:
             reply = f"Excellent! With **{cap_val}** capital and skills in **{skills_text}**, you have strong business potential. 🎯\n\nDo you already have a **specific business idea** in mind, or would you like me to recommend the top 3 best-suited options for **{loc}**?"
-            quick_replies = ["Dairy Farming", "Mushroom Farming", "Poultry Farming", "Suggest Best 3 Options"]
+            quick_replies = biz_opts_en[:3] + ["Suggest Best 3 Options"]
 
     elif state == "PROFILE_CONFIRMATION":
         if lang == "mr":
@@ -645,6 +684,140 @@ def build_state_response(
             reply = f"🏛️ **Matched Government Subsidy Schemes for You:**\n\n1. **PMEGP (Prime Minister's Employment Generation Programme)**\n   • **Eligible Subsidy:** Up to {sub_pct} Capital Subsidy\n   • **Max Loan Limit:** Up to ₹25 Lakhs project cost\n\n2. **PM-MUDRA Loan Scheme**\n   • **Credit Support:** ₹50,000 to ₹10 Lakhs collateral-free credit\n\n🎉 **Congratulations! Your 90-Day Comprehensive DPR Business Plan is fully generated!**"
             quick_replies = ["View DPR Report", "Download Summary"]
 
+    elif state in ["DPR", "COMPLETE"]:
+        biz_name = profile.business_interest or "Rural Business"
+        user_cap  = profile.capital or 100000.0
+        occ_lower = (profile.occupation or "").lower()
+        biz_lower = biz_name.lower()
+
+        # ── Choose archetype DPR template ──
+        if "dairy" in biz_lower or "milk" in biz_lower:
+            project_cost, loan_amt = 300000, max(0, 300000 - int(user_cap))
+            monthly_revenue, monthly_profit, payback = 35000, 22000, "12-15"
+            machines = "Milking Machine (₹35,000) | Milk Chiller / Bulk Cooler (₹85,000) | Pasteurization Unit (₹60,000)"
+            scheme   = "NABARD DEDS – 25%-33% Subsidy | PM-MUDRA Kishore Loan (₹50K–₹5L)"
+            month1   = "Register FSSAI licence, identify 5-6 high-yield cattle (HF/Jersey), join local milk co-op (AMUL / KMF)"
+            month2   = "Purchase cattle & milking equipment, apply for NABARD/MUDRA loan, start local supply (50 L/day)"
+            month3   = "Scale to 100 L/day, sign bulk contract with dairy co-op, achieve ₹35,000/month revenue"
+        elif "tailor" in biz_lower or "garment" in biz_lower or "tailor" in occ_lower:
+            project_cost, loan_amt = 120000, max(0, 120000 - int(user_cap))
+            monthly_revenue, monthly_profit, payback = 25000, 16000, "8-12"
+            machines = "Industrial Sewing Machine ×2 (₹40,000) | Overlock Machine (₹15,000) | Cutting Table & Tools (₹8,000)"
+            scheme   = "PMEGP – 25%-35% Subsidy | PM-MUDRA Shishu/Kishore (₹50K–₹5L collateral-free)"
+            month1   = "Register Udyam (MSME), purchase 2 sewing machines, attend garment stitching training at ITI"
+            month2   = "Accept school uniform orders & alteration work, market via WhatsApp with price list"
+            month3   = "Hire 1 helper, launch readymade blouse/kurta collection, target ₹25,000/month revenue"
+        elif "mushroom" in biz_lower:
+            project_cost, loan_amt = 80000, max(0, 80000 - int(user_cap))
+            monthly_revenue, monthly_profit, payback = 18000, 12000, "6-9"
+            machines = "Spawn Culture Bags (₹15,000) | Sterilization Drum (₹8,000) | Polythene Shelving & Polyhouse (₹25,000)"
+            scheme   = "PMEGP – 25%-35% Subsidy | NABARD Horticulture Promotion Scheme"
+            month1   = "Source paddy straw substrate, buy spawn from KVK, set up polyhouse (14°C–28°C range)"
+            month2   = "First harvest in 30-40 days, supply fresh mushrooms to vegetable vendors & restaurants"
+            month3   = "Scale to 200 kg/month, explore dried mushroom value-added products for higher margins"
+        elif "poultry" in biz_lower:
+            project_cost, loan_amt = 200000, max(0, 200000 - int(user_cap))
+            monthly_revenue, monthly_profit, payback = 30000, 18000, "10-14"
+            machines = "Brooder & Heating System (₹15,000) | Automatic Feeder & Drinkers (₹10,000) | Egg Trays & Crates (₹5,000)"
+            scheme   = "NABARD Poultry Development Scheme | PMEGP | State Animal Husbandry Dept Subsidy"
+            month1   = "Register with State Animal Husbandry Dept, construct shed for 500 birds, procure day-old chicks (DOC)"
+            month2   = "Manage 6-8 week feed & vaccination cycle, tie-up with local poultry market/aggregator"
+            month3   = "Complete first batch (500 birds), target ₹30,000/month, plan second batch cycle"
+        elif "flour" in biz_lower or "chakki" in biz_lower or "atta" in biz_lower:
+            project_cost, loan_amt = 150000, max(0, 150000 - int(user_cap))
+            monthly_revenue, monthly_profit, payback = 20000, 13000, "10-14"
+            machines = "Atta Chakki / Flour Mill (₹75,000) | Weighing Scale (₹5,000) | Packing Machine (₹20,000)"
+            scheme   = "PMEGP – 25%-35% Subsidy | PM-MUDRA Kishore Loan"
+            month1   = "Register Udyam, secure location, procure flour mill, obtain FSSAI licence"
+            month2   = "Begin wheat/jowar/bajra milling, supply to local kirana stores & households"
+            month3   = "Add home delivery, target 500 kg/day milling, achieve ₹20,000/month profit"
+        elif "goat" in biz_lower:
+            project_cost, loan_amt = 100000, max(0, 100000 - int(user_cap))
+            monthly_revenue, monthly_profit, payback = 15000, 9000, "12-18"
+            machines = "Feeder Troughs (₹5,000) | Goat Shed / Housing (₹30,000) | Weighing Balance (₹3,000)"
+            scheme   = "NABARD Animal Husbandry Scheme | PMEGP | State Goat Development Corporation Subsidy"
+            month1   = "Register with Animal Husbandry Dept, build shed for 20 goats, procure Osmanabadi/Sirohi goats"
+            month2   = "Set up feed & health management, establish tie-up with local meat market"
+            month3   = "First kidding cycle, expand to 40 goats, target ₹15,000/month revenue"
+        else:
+            project_cost = max(150000, int(user_cap) * 2)
+            loan_amt     = max(0, project_cost - int(user_cap))
+            monthly_revenue = int(project_cost * 0.25)
+            monthly_profit  = int(monthly_revenue * 0.6)
+            payback  = "12-18"
+            machines = "Primary Processing & Production Equipment (as listed in supplier section above)"
+            scheme   = "PMEGP – 25%-35% Capital Subsidy | PM-MUDRA Loan (up to ₹10 Lakhs collateral-free)"
+            month1   = "Business registration (Udyam/GST/FSSAI), equipment procurement, raw material sourcing"
+            month2   = "Trial production, local market entry, bank loan disbursement, hire 1-2 helpers"
+            month3   = "Full production scale-up, achieve monthly revenue target, open business bank account"
+
+        if lang == "mr":
+            reply = (
+                f"📄 **{name} जी — '{biz_name}' साठी संपूर्ण DPR (Detailed Project Report):**\n\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                f"🏭 **प्रकल्प सारांश**\n"
+                f"• **व्यवसाय:** {biz_name}\n"
+                f"• **उद्योजक:** {name}, {loc}\n"
+                f"• **एकूण प्रकल्प खर्च:** ₹{project_cost:,.0f}\n"
+                f"• **स्वतःचे भांडवल:** ₹{int(user_cap):,.0f}\n"
+                f"• **बँक कर्ज / अनुदान आवश्यक:** ₹{loan_amt:,.0f}\n"
+                f"• **अंदाजे मासिक उत्पन्न:** ₹{monthly_revenue:,}\n"
+                f"• **अंदाजे मासिक निव्वळ नफा:** ₹{monthly_profit:,}\n"
+                f"• **गुंतवणूक परतावा कालावधी:** {payback} महिने\n\n"
+                f"🛠️ **आवश्यक यंत्रसामग्री व उपकरणे**\n{machines}\n\n"
+                f"📅 **९०-दिवसीय कृती योजना**\n"
+                f"• **महिना १:** {month1}\n"
+                f"• **महिना २:** {month2}\n"
+                f"• **महिना ३:** {month3}\n\n"
+                f"🏛️ **पात्र शासकीय योजना व अनुदान**\n{scheme}\n\n"
+                f"🎉 **अभिनंदन {name} जी! तुमचा व्यवसाय प्रवास आता सुरू होत आहे. आरंभ साथी सदैव तुमच्यासोबत! 🌟**"
+            )
+            quick_replies = ["पुन्हा नवीन सुरुवात करा", "सप्लायर पुन्हा पहा"]
+        elif lang == "hi":
+            reply = (
+                f"📄 **{name} जी — '{biz_name}' के लिए पूर्ण DPR (विस्तृत परियोजना रिपोर्ट):**\n\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                f"🏭 **परियोजना सारांश**\n"
+                f"• **व्यवसाय:** {biz_name}\n"
+                f"• **उद्यमी:** {name}, {loc}\n"
+                f"• **कुल परियोजना लागत:** ₹{project_cost:,.0f}\n"
+                f"• **स्वयं की पूंजी:** ₹{int(user_cap):,.0f}\n"
+                f"• **बैंक ऋण / सब्सिडी आवश्यक:** ₹{loan_amt:,.0f}\n"
+                f"• **अनुमानित मासिक आय:** ₹{monthly_revenue:,}\n"
+                f"• **अनुमानित मासिक शुद्ध लाभ:** ₹{monthly_profit:,}\n"
+                f"• **निवेश वापसी अवधि:** {payback} महीने\n\n"
+                f"🛠️ **आवश्यक मशीनरी व उपकरण**\n{machines}\n\n"
+                f"📅 **90-दिवसीय कार्य योजना**\n"
+                f"• **महीना 1:** {month1}\n"
+                f"• **महीना 2:** {month2}\n"
+                f"• **महीना 3:** {month3}\n\n"
+                f"🏛️ **पात्र सरकारी योजनाएं व सब्सिडी**\n{scheme}\n\n"
+                f"🎉 **बधाई हो {name} जी! आपकी व्यावसायिक यात्रा शुरू हो रही है। आरंभ साथी हमेशा आपके साथ! 🌟**"
+            )
+            quick_replies = ["पुनः नई शुरुआत करें", "सप्लायर पुनः देखें"]
+        else:
+            reply = (
+                f"📄 **Detailed Project Report (DPR) — '{biz_name}' for {name}:**\n\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                f"🏭 **Project Overview**\n"
+                f"• **Business:** {biz_name}\n"
+                f"• **Entrepreneur:** {name}, {loc}\n"
+                f"• **Total Project Cost:** ₹{project_cost:,.0f}\n"
+                f"• **Own Capital Contribution:** ₹{int(user_cap):,.0f}\n"
+                f"• **Bank Loan / Subsidy Required:** ₹{loan_amt:,.0f}\n"
+                f"• **Estimated Monthly Revenue:** ₹{monthly_revenue:,}\n"
+                f"• **Estimated Monthly Net Profit:** ₹{monthly_profit:,}\n"
+                f"• **Investment Payback Period:** {payback} months\n\n"
+                f"🛠️ **Required Machinery & Equipment**\n{machines}\n\n"
+                f"📅 **90-Day Action Plan**\n"
+                f"• **Month 1:** {month1}\n"
+                f"• **Month 2:** {month2}\n"
+                f"• **Month 3:** {month3}\n\n"
+                f"🏛️ **Eligible Government Schemes & Subsidies**\n{scheme}\n\n"
+                f"🎉 **Congratulations {name}! Your entrepreneurial journey begins now. Aarambh Saathi is always with you! 🌟**"
+            )
+            quick_replies = ["Start a New Consultation", "View Suppliers Again"]
+
     else:
         reply = f"Thank you {name}! Your advisory workflow is fully active."
         quick_replies = ["View DPR Report", "Check Suppliers", "Edit Profile"]
@@ -727,7 +900,14 @@ def process_chat(request: ChatRequest) -> ChatResponse:
 
     asking_suppliers = any(k in msg_lower for k in ["supplier", "suppliers", "machinery", "machine", "equipment", "vendor", "vendors"])
 
-    if matched_biz or asking_suppliers:
+    # Don't intercept during early profile-collection states — occupation/skill answers
+    # contain business keywords but should not skip the funnel.
+    PROFILE_COLLECTION_STATES = {
+        "PERSONAL_NAME", "PERSONAL_PLACE", "PERSONAL_OCCUPATION",
+        "BUSINESS_SKILLS", "BUSINESS_RESOURCES", "BUSINESS_CAPITAL", "BUSINESS_INTEREST"
+    }
+
+    if (matched_biz or asking_suppliers) and current_state not in PROFILE_COLLECTION_STATES:
         if matched_biz:
             current_profile.business_interest = matched_biz
         elif not current_profile.business_interest:
@@ -806,8 +986,8 @@ def process_chat(request: ChatRequest) -> ChatResponse:
         elif any(k in msg_lower for k in ["scheme", "government", "subsidy", "pmegp", "mudra", "nabard", "योजना"]):
             current_state = "SCHEME_OPT_IN"
         # Route to COMPLETE if asking for DPR report
-        elif any(k in msg_lower for k in ["dpr", "report", "download", "अहवाल"]):
-            current_state = "COMPLETE"
+        elif any(k in msg_lower for k in ["dpr", "report", "download", "अहवाल", "रिपोर्ट"]):
+            current_state = "DPR"
         elif any(k in msg_lower for k in ["no", "skip"]):
             current_state = "SCHEME_OPT_IN"
         else:
@@ -822,7 +1002,7 @@ def process_chat(request: ChatRequest) -> ChatResponse:
 
     elif current_state == "SCHEME_OPT_IN":
         if any(k in msg_lower for k in ["dpr", "report", "plan", "अहवाल", "रिपोर्ट"]):
-            current_state = "COMPLETE"
+            current_state = "DPR"
         elif any(k in msg_lower for k in ["yes", "check", "scheme", "होय", "हाँ", "हां", "योजना", "सरकारी", "government", "subsidy", "pmegp", "mudra", "nabard"]):
             current_state = "SCHEME_PROFILE"
         elif any(k in msg_lower for k in ["no", "skip", "continue", "नाही", "नहीं"]):
@@ -834,6 +1014,9 @@ def process_chat(request: ChatRequest) -> ChatResponse:
         current_state = "SCHEME_MATCHING"
 
     elif current_state == "SCHEME_MATCHING":
+        current_state = "DPR"
+
+    elif current_state == "DPR":
         current_state = "COMPLETE"
 
     # 2. Extract Entities from user message
@@ -865,7 +1048,7 @@ def process_chat(request: ChatRequest) -> ChatResponse:
         user_msg=user_msg
     )
 
-    is_ready = next_state in ["PROFILE_CONFIRMATION", "RECOMMENDATION", "FINANCIAL", "COMPLETE"]
+    is_ready = next_state in ["PROFILE_CONFIRMATION", "RECOMMENDATION", "FINANCIAL", "DPR", "COMPLETE"]
     missing_fields = []
     if not updated_profile.name: missing_fields.append("Name")
     if not updated_profile.location: missing_fields.append("Location")
