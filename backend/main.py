@@ -59,6 +59,12 @@ def root():
         "docs": "/docs"
     }
 
+@app.get("/health")
+@app.get("/api/health")
+def health_check():
+    return {"status": "ok", "app": "GramVantage AI"}
+
+
 @app.post("/api/chat", response_model=ChatResponse)
 def api_chat(request: ChatRequest):
     try:
