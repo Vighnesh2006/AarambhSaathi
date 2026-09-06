@@ -2,7 +2,12 @@
   {
     "supplier_id": "sup_pune_agromach_01",
     "supplier_name": "Deccan Agro-Food Machinery Works",
-    "machine_ids": ["sp_pulverizer_01", "sp_ribbon_blender_02", "fl_commercial_chakki_16", "gen_band_sealer_04"],
+    "machine_ids": [
+      "sp_pulverizer_01",
+      "sp_ribbon_blender_02",
+      "fl_commercial_chakki_16",
+      "gen_band_sealer_04"
+    ],
     "location": "Pune",
     "district": "Pune",
     "state": "Maharashtra",
@@ -20,7 +25,11 @@
   {
     "supplier_id": "sup_mumbai_packtech_02",
     "supplier_name": "Konkan Packaging & Sealing Equipments",
-    "machine_ids": ["sp_pouch_packing_03", "gen_band_sealer_04", "gen_digital_weighing_05"],
+    "machine_ids": [
+      "sp_pouch_packing_03",
+      "gen_band_sealer_04",
+      "gen_digital_weighing_05"
+    ],
     "location": "Navi Mumbai",
     "district": "Thane",
     "state": "Maharashtra",
@@ -38,7 +47,11 @@
   {
     "supplier_id": "sup_kolhapur_dairy_03",
     "supplier_name": "Sahyadri Dairy & Farm Technologies",
-    "machine_ids": ["dy_milking_machine_06", "dy_chaff_cutter_07", "dy_bulk_cooler_08"],
+    "machine_ids": [
+      "dy_milking_machine_06",
+      "dy_chaff_cutter_07",
+      "dy_bulk_cooler_08"
+    ],
     "location": "Kolhapur",
     "district": "Kolhapur",
     "state": "Maharashtra",
@@ -56,7 +69,11 @@
   {
     "supplier_id": "sup_ahmednagar_poultry_04",
     "supplier_name": "Kisan Livestock & Brooder Appliances",
-    "machine_ids": ["pt_brooder_setup_09", "pt_drinker_feeder_10", "gt_weighing_cage_11"],
+    "machine_ids": [
+      "pt_brooder_setup_09",
+      "pt_drinker_feeder_10",
+      "gt_weighing_cage_11"
+    ],
     "location": "Ahmednagar",
     "district": "Ahmednagar",
     "state": "Maharashtra",
@@ -74,7 +91,11 @@
   {
     "supplier_id": "sup_nagpur_agro_05",
     "supplier_name": "Vidarbha Agro Equipment & Solar Systems",
-    "machine_ids": ["fs_pond_aerator_14", "dy_chaff_cutter_07", "fl_commercial_chakki_16"],
+    "machine_ids": [
+      "fs_pond_aerator_14",
+      "dy_chaff_cutter_07",
+      "fl_commercial_chakki_16"
+    ],
     "location": "Nagpur",
     "district": "Nagpur",
     "state": "Maharashtra",
@@ -92,7 +113,12 @@
   {
     "supplier_id": "sup_ahmedabad_foodmach_06",
     "supplier_name": "Gujarat Precision Food Machinery",
-    "machine_ids": ["sp_pulverizer_01", "pk_papad_press_17", "bk_deck_oven_18", "gen_band_sealer_04"],
+    "machine_ids": [
+      "sp_pulverizer_01",
+      "pk_papad_press_17",
+      "bk_deck_oven_18",
+      "gen_band_sealer_04"
+    ],
     "location": "Ahmedabad",
     "district": "Ahmedabad",
     "state": "Gujarat",
@@ -110,7 +136,9 @@
   {
     "supplier_id": "sup_coimbatore_textile_07",
     "supplier_name": "Apex Garment & Stitching Machines Co.",
-    "machine_ids": ["tl_motorized_sewing_19"],
+    "machine_ids": [
+      "tl_motorized_sewing_19"
+    ],
     "location": "Coimbatore",
     "district": "Coimbatore",
     "state": "Tamil Nadu",
@@ -128,7 +156,10 @@
   {
     "supplier_id": "sup_delhi_electronix_08",
     "supplier_name": "Bharat Micro-Soldering & Tool Station",
-    "machine_ids": ["mb_smd_rework_20", "gen_digital_weighing_05"],
+    "machine_ids": [
+      "mb_smd_rework_20",
+      "gen_digital_weighing_05"
+    ],
     "location": "New Delhi",
     "district": "Central Delhi",
     "state": "Delhi",
@@ -146,7 +177,10 @@
   {
     "supplier_id": "sup_solan_mushroom_09",
     "supplier_name": "Himalayan Mushroom & Bio-Equipments",
-    "machine_ids": ["ms_autoclave_sterilizer_12", "ms_ultrasonic_humidifier_13"],
+    "machine_ids": [
+      "ms_autoclave_sterilizer_12",
+      "ms_ultrasonic_humidifier_13"
+    ],
     "location": "Solan",
     "district": "Solan",
     "state": "Himachal Pradesh",
@@ -164,7 +198,9 @@
   {
     "supplier_id": "sup_ludhiana_beekeeping_10",
     "supplier_name": "Punjab Honey Bee Boxes & Extractors",
-    "machine_ids": ["bk_extractor_honey_15"],
+    "machine_ids": [
+      "bk_extractor_honey_15"
+    ],
     "location": "Ludhiana",
     "district": "Ludhiana",
     "state": "Punjab",
@@ -182,7 +218,9 @@
   {
     "supplier_id": "sup_guwahati_bamboo_11",
     "supplier_name": "Assam Eco-Bamboo Machinery Crafts",
-    "machine_ids": ["hc_bamboo_splitting_21"],
+    "machine_ids": [
+      "hc_bamboo_splitting_21"
+    ],
     "location": "Guwahati",
     "district": "Kamrup",
     "state": "Assam",
@@ -200,7 +238,11 @@
   {
     "supplier_id": "sup_indore_flour_12",
     "supplier_name": "Malwa Food Processing & Agro Mills",
-    "machine_ids": ["fl_commercial_chakki_16", "sp_pulverizer_01", "gen_band_sealer_04"],
+    "machine_ids": [
+      "fl_commercial_chakki_16",
+      "sp_pulverizer_01",
+      "gen_band_sealer_04"
+    ],
     "location": "Indore",
     "district": "Indore",
     "state": "Madhya Pradesh",
@@ -214,5 +256,644 @@
     "source": "Central India MSME Engineering Directory",
     "source_type": "demo",
     "last_verified": "2026-08-17"
+  },
+  {
+    "supplier_id": "SUP001",
+    "supplier_name": "Demo DairyTech Solutions",
+    "machine_ids": [
+      "M001",
+      "M002"
+    ],
+    "location": "Pune",
+    "district": "Pune",
+    "state": "Maharashtra",
+    "website": "https://demodairytechsolutions.co.in",
+    "contact": "+91-1585-XXXX",
+    "price_range": "₹85,000–₹2,20,000",
+    "capacity": "100–500 L/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP002",
+    "supplier_name": "Demo Milko Machinery",
+    "machine_ids": [
+      "M001",
+      "M003"
+    ],
+    "location": "Satara",
+    "district": "Satara",
+    "state": "Maharashtra",
+    "website": "https://demomilkomachinery.co.in",
+    "contact": "+91-6835-XXXX",
+    "price_range": "₹65,000–₹1,60,000",
+    "capacity": "50–300 L/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP003",
+    "supplier_name": "Demo Agro Dairy Systems",
+    "machine_ids": [
+      "M002",
+      "M004"
+    ],
+    "location": "Kolhapur",
+    "district": "Kolhapur",
+    "state": "Maharashtra",
+    "website": "https://demoagrodairysystems.co.in",
+    "contact": "+91-3338-XXXX",
+    "price_range": "₹1,10,000–₹2,75,000",
+    "capacity": "200–1,000 L/day",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP004",
+    "supplier_name": "Demo FreshMilk Equipments",
+    "machine_ids": [
+      "M003",
+      "M005"
+    ],
+    "location": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "website": "https://demofreshmilkequipments.co.in",
+    "contact": "+91-7383-XXXX",
+    "price_range": "₹45,000–₹1,25,000",
+    "capacity": "50–500 L/hr",
+    "installation_available": true,
+    "warranty_available": false,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP005",
+    "supplier_name": "Demo Rural Dairy Machines",
+    "machine_ids": [
+      "M001",
+      "M004",
+      "M005"
+    ],
+    "location": "Ahmednagar",
+    "district": "Ahmednagar",
+    "state": "Maharashtra",
+    "website": "https://demoruraldairymachines.co.in",
+    "contact": "+91-8991-XXXX",
+    "price_range": "₹55,000–₹2,40,000",
+    "capacity": "50–500 L/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP006",
+    "supplier_name": "Demo SpiceTech Engineering",
+    "machine_ids": [
+      "M006",
+      "M007"
+    ],
+    "location": "Pune",
+    "district": "Pune",
+    "state": "Maharashtra",
+    "website": "https://demospicetechengineering.co.in",
+    "contact": "+91-8356-XXXX",
+    "price_range": "₹55,000–₹1,45,000",
+    "capacity": "50–250 kg/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP007",
+    "supplier_name": "Demo Masala Machinery Works",
+    "machine_ids": [
+      "M006",
+      "M008",
+      "M009"
+    ],
+    "location": "Sangli",
+    "district": "Sangli",
+    "state": "Maharashtra",
+    "website": "https://demomasalamachineryworks.co.in",
+    "contact": "+91-8496-XXXX",
+    "price_range": "₹45,000–₹1,80,000",
+    "capacity": "40–300 kg/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP008",
+    "supplier_name": "Demo FoodProcess Systems",
+    "machine_ids": [
+      "M008",
+      "M010"
+    ],
+    "location": "Kolhapur",
+    "district": "Kolhapur",
+    "state": "Maharashtra",
+    "website": "https://demofoodprocesssystems.co.in",
+    "contact": "+91-6743-XXXX",
+    "price_range": "₹70,000–₹2,10,000",
+    "capacity": "30–120 packs/min",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP009",
+    "supplier_name": "Demo Western Pulverizer Co",
+    "machine_ids": [
+      "M006",
+      "M009"
+    ],
+    "location": "Satara",
+    "district": "Satara",
+    "state": "Maharashtra",
+    "website": "https://demowesternpulverizerco.co.in",
+    "contact": "+91-2844-XXXX",
+    "price_range": "₹50,000–₹1,20,000",
+    "capacity": "50–200 kg/hr",
+    "installation_available": true,
+    "warranty_available": false,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP010",
+    "supplier_name": "Demo PackPro Rural Machines",
+    "machine_ids": [
+      "M009",
+      "M010"
+    ],
+    "location": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "website": "https://demopackproruralmachines.co.in",
+    "contact": "+91-6379-XXXX",
+    "price_range": "₹60,000–₹1,90,000",
+    "capacity": "20–100 packs/min",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP011",
+    "supplier_name": "Demo BakeTech Systems",
+    "machine_ids": [
+      "M011",
+      "M012"
+    ],
+    "location": "Pune",
+    "district": "Pune",
+    "state": "Maharashtra",
+    "website": "https://demobaketechsystems.co.in",
+    "contact": "+91-5807-XXXX",
+    "price_range": "₹65,000–₹2,50,000",
+    "capacity": "20–80 kg/batch",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP012",
+    "supplier_name": "Demo Bakery Equipment Hub",
+    "machine_ids": [
+      "M012",
+      "M013"
+    ],
+    "location": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "website": "https://demobakeryequipmenthub.co.in",
+    "contact": "+91-7070-XXXX",
+    "price_range": "₹75,000–₹2,20,000",
+    "capacity": "30–100 kg/batch",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP013",
+    "supplier_name": "Demo FoodCraft Machinery",
+    "machine_ids": [
+      "M011",
+      "M014",
+      "M015"
+    ],
+    "location": "Kolhapur",
+    "district": "Kolhapur",
+    "state": "Maharashtra",
+    "website": "https://demofoodcraftmachinery.co.in",
+    "contact": "+91-4439-XXXX",
+    "price_range": "₹45,000–₹1,75,000",
+    "capacity": "20–100 kg/batch",
+    "installation_available": true,
+    "warranty_available": false,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP014",
+    "supplier_name": "Demo Oven & Mixer Works",
+    "machine_ids": [
+      "M012",
+      "M013",
+      "M014"
+    ],
+    "location": "Satara",
+    "district": "Satara",
+    "state": "Maharashtra",
+    "website": "https://demooven&mixerworks.co.in",
+    "contact": "+91-8805-XXXX",
+    "price_range": "₹80,000–₹2,40,000",
+    "capacity": "25–120 kg/batch",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP015",
+    "supplier_name": "Demo BakeryPro Machines",
+    "machine_ids": [
+      "M013",
+      "M015"
+    ],
+    "location": "Ahmednagar",
+    "district": "Ahmednagar",
+    "state": "Maharashtra",
+    "website": "https://demobakerypromachines.co.in",
+    "contact": "+91-6414-XXXX",
+    "price_range": "₹50,000–₹1,50,000",
+    "capacity": "20–80 kg/batch",
+    "installation_available": false,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP016",
+    "supplier_name": "Demo PoultryTech Systems",
+    "machine_ids": [
+      "M016",
+      "M017"
+    ],
+    "location": "Pune",
+    "district": "Pune",
+    "state": "Maharashtra",
+    "website": "https://demopoultrytechsystems.co.in",
+    "contact": "+91-2090-XXXX",
+    "price_range": "₹55,000–₹1,40,000",
+    "capacity": "100–500 kg/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP017",
+    "supplier_name": "Demo Hatchery Equipment Co",
+    "machine_ids": [
+      "M018",
+      "M020"
+    ],
+    "location": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "website": "https://demohatcheryequipmentco.co.in",
+    "contact": "+91-3430-XXXX",
+    "price_range": "₹35,000–₹1,25,000",
+    "capacity": "500–5,000 eggs/cycle",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP018",
+    "supplier_name": "Demo Farm Automation Works",
+    "machine_ids": [
+      "M016",
+      "M018",
+      "M019"
+    ],
+    "location": "Sangli",
+    "district": "Sangli",
+    "state": "Maharashtra",
+    "website": "https://demofarmautomationworks.co.in",
+    "contact": "+91-8517-XXXX",
+    "price_range": "₹70,000–₹2,50,000",
+    "capacity": "500–3,000 birds/eggs",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP019",
+    "supplier_name": "Demo Poultry Machinery Hub",
+    "machine_ids": [
+      "M017",
+      "M020"
+    ],
+    "location": "Satara",
+    "district": "Satara",
+    "state": "Maharashtra",
+    "website": "https://demopoultrymachineryhub.co.in",
+    "contact": "+91-4231-XXXX",
+    "price_range": "₹40,000–₹1,10,000",
+    "capacity": "100–400 kg/hr",
+    "installation_available": true,
+    "warranty_available": false,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP020",
+    "supplier_name": "Demo EggTech Solutions",
+    "machine_ids": [
+      "M019",
+      "M018"
+    ],
+    "location": "Kolhapur",
+    "district": "Kolhapur",
+    "state": "Maharashtra",
+    "website": "https://demoeggtechsolutions.co.in",
+    "contact": "+91-2179-XXXX",
+    "price_range": "₹60,000–₹1,80,000",
+    "capacity": "500–2,500 eggs/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP021",
+    "supplier_name": "Demo FlourMill Engineering",
+    "machine_ids": [
+      "M021",
+      "M022"
+    ],
+    "location": "Pune",
+    "district": "Pune",
+    "state": "Maharashtra",
+    "website": "https://demoflourmillengineering.co.in",
+    "contact": "+91-1441-XXXX",
+    "price_range": "₹1,20,000–₹3,50,000",
+    "capacity": "100–500 kg/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP022",
+    "supplier_name": "Demo Grain Processing Works",
+    "machine_ids": [
+      "M022",
+      "M023"
+    ],
+    "location": "Satara",
+    "district": "Satara",
+    "state": "Maharashtra",
+    "website": "https://demograinprocessingworks.co.in",
+    "contact": "+91-1059-XXXX",
+    "price_range": "₹75,000–₹2,20,000",
+    "capacity": "100–400 kg/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP023",
+    "supplier_name": "Demo AttaTech Machinery",
+    "machine_ids": [
+      "M021",
+      "M024",
+      "M025"
+    ],
+    "location": "Kolhapur",
+    "district": "Kolhapur",
+    "state": "Maharashtra",
+    "website": "https://demoattatechmachinery.co.in",
+    "contact": "+91-3861-XXXX",
+    "price_range": "₹1,00,000–₹3,00,000",
+    "capacity": "100–500 kg/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP024",
+    "supplier_name": "Demo GrainClean Systems",
+    "machine_ids": [
+      "M022",
+      "M024"
+    ],
+    "location": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "website": "https://demograincleansystems.co.in",
+    "contact": "+91-2558-XXXX",
+    "price_range": "₹60,000–₹1,60,000",
+    "capacity": "150–600 kg/hr",
+    "installation_available": true,
+    "warranty_available": false,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP025",
+    "supplier_name": "Demo Rural Flour Solutions",
+    "machine_ids": [
+      "M021",
+      "M023",
+      "M025"
+    ],
+    "location": "Ahmednagar",
+    "district": "Ahmednagar",
+    "state": "Maharashtra",
+    "website": "https://demoruralfloursolutions.co.in",
+    "contact": "+91-7214-XXXX",
+    "price_range": "₹90,000–₹2,80,000",
+    "capacity": "100–400 kg/hr",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP026",
+    "supplier_name": "Demo TailorTech Machines",
+    "machine_ids": [
+      "M026",
+      "M027"
+    ],
+    "location": "Pune",
+    "district": "Pune",
+    "state": "Maharashtra",
+    "website": "https://demotailortechmachines.co.in",
+    "contact": "+91-3181-XXXX",
+    "price_range": "₹35,000–₹1,10,000",
+    "capacity": "1–3 machines",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP027",
+    "supplier_name": "Demo StitchPro Equipment",
+    "machine_ids": [
+      "M026",
+      "M028",
+      "M029"
+    ],
+    "location": "Satara",
+    "district": "Satara",
+    "state": "Maharashtra",
+    "website": "https://demostitchproequipment.co.in",
+    "contact": "+91-6859-XXXX",
+    "price_range": "₹45,000–₹1,50,000",
+    "capacity": "1–5 machines",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP028",
+    "supplier_name": "Demo Garment Machinery Hub",
+    "machine_ids": [
+      "M027",
+      "M028",
+      "M030"
+    ],
+    "location": "Kolhapur",
+    "district": "Kolhapur",
+    "state": "Maharashtra",
+    "website": "https://demogarmentmachineryhub.co.in",
+    "contact": "+91-3455-XXXX",
+    "price_range": "₹60,000–₹2,25,000",
+    "capacity": "1–4 machines",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP029",
+    "supplier_name": "Demo Rural Tailoring Systems",
+    "machine_ids": [
+      "M026",
+      "M029"
+    ],
+    "location": "Nashik",
+    "district": "Nashik",
+    "state": "Maharashtra",
+    "website": "https://demoruraltailoringsystems.co.in",
+    "contact": "+91-9252-XXXX",
+    "price_range": "₹30,000–₹90,000",
+    "capacity": "1–3 machines",
+    "installation_available": true,
+    "warranty_available": false,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
+  },
+  {
+    "supplier_id": "SUP030",
+    "supplier_name": "Demo Embroidery & Stitch Works",
+    "machine_ids": [
+      "M027",
+      "M030"
+    ],
+    "location": "Ahmednagar",
+    "district": "Ahmednagar",
+    "state": "Maharashtra",
+    "website": "https://demoembroidery&stitchworks.co.in",
+    "contact": "+91-3236-XXXX",
+    "price_range": "₹70,000–₹2,50,000",
+    "capacity": "1–3 machines",
+    "installation_available": true,
+    "warranty_available": true,
+    "verified": false,
+    "source": "Demo Synthetic Data",
+    "source_type": "imported",
+    "last_verified": "2026-09-06"
   }
 ]

@@ -311,10 +311,12 @@ def api_train_model(request: Optional[ImportPathRequest] = None):
         "meta": meta
     }
 
+from backend.importer import import_business_catalogue, import_supplier_catalogue
+
 @app.post("/api/businesses/import")
 async def api_upload_and_train(file: UploadFile = File(...)):
     """
-    Upload an Excel (.xlsx) or CSV file directly from the browser to train the model.
+    Upload an Excel (.xlsx) or CSV file directly from the browser to train businesses or suppliers.
     """
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     saved_path = DATA_DIR / file.filename
@@ -323,14 +325,49 @@ async def api_upload_and_train(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
 
     try:
-        result = import_business_catalogue(str(saved_path))
+        import openpyxl
+        res_biz = None
+        res_sup = None
+
+        if saved_path.suffix.lower() in ['.xlsx', '.xls']:
+            wb = openpyxl.load_workbook(str(saved_path), data_only=True)
+            if 'Suppliers' in wb.sheetnames or 'Machines' in wb.sheetnames:
+                res_sup = import_supplier_catalogue(str(saved_path))
+            if 'Business Master' in wb.sheetnames or any('business' in s.lower() for s in wb.sheetnames):
+                res_biz = import_business_catalogue(str(saved_path))
+
+        if not res_biz and not res_sup:
+            res_biz = import_business_catalogue(str(saved_path))
+
         return {
             "status": "success",
-            "message": f"Successfully uploaded and trained on {result['total_businesses']} business ideas from {file.filename}.",
-            "meta": result
+            "message": f"Successfully ingested dataset from {file.filename}.",
+            "business_meta": res_biz,
+            "supplier_meta": res_sup
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to parse and train on uploaded file: {str(e)}")
+
+@app.post("/api/suppliers/import")
+async def api_import_suppliers(file: UploadFile = File(...)):
+    """
+    Direct endpoint to upload and train supplier/machine datasets.
+    """
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    saved_path = DATA_DIR / file.filename
+
+    with open(saved_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        res = import_supplier_catalogue(str(saved_path))
+        return {
+            "status": "success",
+            "message": f"Successfully imported {res['imported_suppliers']} suppliers and {res['imported_machines']} machines.",
+            "meta": res
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to import supplier file: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn
