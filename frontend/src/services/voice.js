@@ -2,7 +2,9 @@ let cachedVoices = [];
 
 function initVoices() {
   if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-    cachedVoices = window.speechSynthesis.getVoices() || [];
+    try {
+      cachedVoices = window.speechSynthesis.getVoices() || [];
+    } catch (e) {}
   }
 }
 
@@ -10,7 +12,9 @@ if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
   initVoices();
   if (window.speechSynthesis.onvoiceschanged !== undefined) {
     window.speechSynthesis.onvoiceschanged = () => {
-      cachedVoices = window.speechSynthesis.getVoices() || [];
+      try {
+        cachedVoices = window.speechSynthesis.getVoices() || [];
+      } catch (e) {}
     };
   }
 }
@@ -21,7 +25,7 @@ export function speakText(text, lang = 'en') {
     return;
   }
 
-  // Ensure speech synthesis is unpaused in Chrome/Edge
+  // Ensure speech synthesis is unpaused in Chrome/Edge/Safari
   try {
     window.speechSynthesis.cancel();
     window.speechSynthesis.resume();
@@ -43,7 +47,8 @@ export function speakText(text, lang = 'en') {
 
   // Truncate to first 300 chars to avoid Chromium long-utterance freeze bug
   if (cleanText.length > 320) {
-    const periodIdx = cleanText.indexOf('.', 200);
+    let periodIdx = cleanText.indexOf('.', 200);
+    if (periodIdx === -1) periodIdx = cleanText.indexOf('।', 200);
     if (periodIdx !== -1 && periodIdx < 350) {
       cleanText = cleanText.substring(0, periodIdx + 1);
     } else {
@@ -51,19 +56,25 @@ export function speakText(text, lang = 'en') {
     }
   }
 
-  const availableVoices = cachedVoices.length > 0 ? cachedVoices : (window.speechSynthesis.getVoices() || []);
+  let freshVoices = [];
+  try {
+    freshVoices = window.speechSynthesis.getVoices() || [];
+  } catch (e) {}
+  const availableVoices = freshVoices.length > 0 ? freshVoices : cachedVoices;
   
   let targetLang = 'en-IN';
   let selectedVoice = null;
 
   if (lang === 'mr') {
-    targetLang = 'mr-IN';
+    // 1. Check for native Marathi voice
     selectedVoice = availableVoices.find(v => 
       v.lang.toLowerCase().includes('mr') || 
       v.name.toLowerCase().includes('marathi')
     );
-    // Fallback to Hindi voice if no native Marathi voice (reads Devanagari script fluently)
-    if (!selectedVoice) {
+    if (selectedVoice) {
+      targetLang = 'mr-IN';
+    } else {
+      // 2. Fallback to Hindi voice (Hindi engine reads Marathi Devanagari script fluently)
       targetLang = 'hi-IN';
       selectedVoice = availableVoices.find(v => 
         v.lang.toLowerCase().includes('hi') || 
@@ -93,12 +104,12 @@ export function speakText(text, lang = 'en') {
   utterance.rate = 0.92;
   utterance.pitch = 1.0;
 
-  // Utterance Error Fallback: retry without explicit voice object if browser rejects selectedVoice
+  // Utterance Error Fallback: retry with generic Hindi/English lang if browser rejects voice
   utterance.onerror = (evt) => {
-    console.warn('SpeechSynthesis error, retrying with default voice:', evt);
+    console.warn('SpeechSynthesis error, retrying with fallback voice:', evt);
     try {
       const fallbackUtterance = new SpeechSynthesisUtterance(cleanText);
-      fallbackUtterance.lang = targetLang;
+      fallbackUtterance.lang = (lang === 'mr' || lang === 'hi') ? 'hi-IN' : 'en-IN';
       fallbackUtterance.rate = 0.92;
       window.speechSynthesis.resume();
       window.speechSynthesis.speak(fallbackUtterance);
@@ -112,12 +123,14 @@ export function speakText(text, lang = 'en') {
     } catch (err) {
       console.warn('Speech synthesis speak error:', err);
     }
-  }, 50);
+  }, 60);
 }
 
 export function stopSpeaking() {
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    try {
+      window.speechSynthesis.cancel();
+    } catch (e) {}
   }
 }
 
@@ -147,6 +160,7 @@ export function playActivationChime() {
 }
 
 export function createSpeechRecognizer(lang, callbacks = {}) {
+  if (typeof window === 'undefined') return null;
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) {
     return null;
@@ -164,3 +178,4 @@ export function createSpeechRecognizer(lang, callbacks = {}) {
 
   return rec;
 }
+

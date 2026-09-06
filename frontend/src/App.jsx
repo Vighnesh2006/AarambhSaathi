@@ -494,6 +494,7 @@ export default function App() {
                   setChatMode('text');
                 }}
                 language={language}
+                onLanguageChange={handleLanguageChange}
                 isLoading={isLoading}
               />
             )}

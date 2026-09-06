@@ -8,11 +8,13 @@ import {
   Sparkles,
   ArrowRight,
   Sprout,
-  Bot,
   AlertCircle,
   Zap,
   Play,
-  Power
+  Power,
+  Send,
+  X,
+  Globe
 } from 'lucide-react';
 import { getTranslation } from '../services/translations';
 import { createSpeechRecognizer, speakText, stopSpeaking, playActivationChime } from '../services/voice';
@@ -23,6 +25,7 @@ export default function VoiceChatMode({
   onSendMessage,
   onSwitchToText,
   language = 'en',
+  onLanguageChange,
   isLoading
 }) {
   const t = getTranslation(language);
@@ -31,8 +34,10 @@ export default function VoiceChatMode({
   const [isMuted, setIsMuted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [transcript, setTranscript] = useState('');
+  const [interimText, setInterimText] = useState('');
   const [audioLevel, setAudioLevel] = useState([40, 70, 30, 90, 60, 45, 80, 55, 65, 35]);
   const recognitionRef = useRef(null);
+  const isHoldingRef = useRef(false);
 
   // Latest assistant message
   const lastBotMessage = messages.slice().reverse().find(m => m.role === 'assistant');
@@ -48,6 +53,20 @@ export default function VoiceChatMode({
     };
   }, []);
 
+  // When language changes, update active speech synthesis or recognition if needed
+  const handleLangSelect = (newLang) => {
+    stopSpeaking();
+    if (recognitionRef.current && isListening) {
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {}
+      setIsListening(false);
+    }
+    if (onLanguageChange) {
+      onLanguageChange(newLang);
+    }
+  };
+
   const handleActivateBot = () => {
     try {
       if ('speechSynthesis' in window) {
@@ -60,9 +79,7 @@ export default function VoiceChatMode({
     if (lastBotMessage && lastBotMessage.content && !isMuted) {
       speakText(lastBotMessage.content, language);
     }
-    setTimeout(() => {
-      startListening();
-    }, 1000);
+    // Note: Auto-start listening removed so random noise is never recorded. User explicitly holds or taps mic.
   };
 
   const handleDeactivateBot = () => {
@@ -74,6 +91,8 @@ export default function VoiceChatMode({
     }
     setIsListening(false);
     setIsBotActivated(false);
+    setTranscript('');
+    setInterimText('');
   };
 
   // Animated wave visualizer effect when listening
@@ -114,33 +133,38 @@ export default function VoiceChatMode({
 
   // Speech Recognition Handling
   const startListening = () => {
+    stopSpeaking(); // stop AI bot voice if currently speaking
     setErrorMessage('');
+    setTranscript('');
+    setInterimText('');
+
     const rec = createSpeechRecognizer(language, {
       onStart: () => {
         setIsListening(true);
-        setTranscript('');
       },
       onResult: (event) => {
-        let currentText = '';
+        let finalStr = '';
+        let interimStr = '';
         for (let i = event.resultIndex; i < event.results.length; i++) {
-          currentText += event.results[i][0].transcript;
-        }
-        setTranscript(currentText);
-
-        if (event.results[0].isFinal) {
-          setIsListening(false);
-          if (currentText.trim()) {
-            onSendMessage(currentText.trim());
+          const res = event.results[i];
+          if (res.isFinal) {
+            finalStr += res[0].transcript;
+          } else {
+            interimStr += res[0].transcript;
           }
         }
+        if (finalStr) {
+          setTranscript(prev => (prev ? prev + ' ' + finalStr : finalStr).trim());
+        }
+        setInterimText(interimStr.trim());
       },
       onError: (e) => {
         console.error('Speech recognition error:', e);
         setIsListening(false);
         if (e.error === 'not-allowed' || e.error === 'permission-denied') {
-          setErrorMessage('Microphone access denied. Please click the camera/mic icon in your browser address bar to allow microphone access.');
-        } else {
-          setErrorMessage('Could not hear audio clearly. Please tap the mic to speak again or switch to Text mode.');
+          setErrorMessage('Microphone access denied. Please click the mic icon in your browser address bar to allow access.');
+        } else if (e.error !== 'no-speech' && e.error !== 'aborted') {
+          setErrorMessage('Could not capture audio clearly. Please tap or hold the mic button to speak again.');
         }
       },
       onEnd: () => {
@@ -162,15 +186,78 @@ export default function VoiceChatMode({
     }
   };
 
-  const stopListening = () => {
+  const stopListening = (autoSendIfText = false) => {
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
       } catch (e) {}
     }
     setIsListening(false);
-    if (transcript.trim()) {
-      onSendMessage(transcript.trim());
+
+    if (autoSendIfText) {
+      const fullText = (transcript + ' ' + interimText).trim();
+      if (fullText) {
+        onSendMessage(fullText);
+        setTranscript('');
+        setInterimText('');
+      }
+    }
+  };
+
+  const handleManualSend = () => {
+    const fullText = (transcript + ' ' + interimText).trim();
+    if (fullText) {
+      stopListening(false);
+      onSendMessage(fullText);
+      setTranscript('');
+      setInterimText('');
+    }
+  };
+
+  const handleClearTranscript = () => {
+    setTranscript('');
+    setInterimText('');
+  };
+
+  // Hold-to-Talk & Tap-to-Talk Event Handlers
+  const handleMouseDown = () => {
+    isHoldingRef.current = true;
+    if (!isListening) {
+      startListening();
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (isHoldingRef.current) {
+      isHoldingRef.current = false;
+      stopListening(true);
+    }
+  };
+
+  const handleTouchStart = (e) => {
+    e.preventDefault();
+    isHoldingRef.current = true;
+    if (!isListening) {
+      startListening();
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    e.preventDefault();
+    if (isHoldingRef.current) {
+      isHoldingRef.current = false;
+      stopListening(true);
+    }
+  };
+
+  const handleClickMic = () => {
+    // If it was just a tap without holding
+    if (!isHoldingRef.current) {
+      if (isListening) {
+        stopListening(true);
+      } else {
+        startListening();
+      }
     }
   };
 
@@ -205,8 +292,8 @@ export default function VoiceChatMode({
     return (
       <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-between min-h-[560px] p-6 sm:p-10 bg-gradient-to-b from-[#eaf5ee] via-[#f7fbf8] to-[#f0f7f2] rounded-3xl border border-[#d6e5da] shadow-card text-center relative overflow-hidden">
         
-        {/* Top Header Tagline */}
-        <div className="w-full flex items-center justify-between pb-4 border-b border-emerald-100">
+        {/* Top Header Tagline & Language Selector */}
+        <div className="w-full flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-emerald-100">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
               🌱
@@ -221,13 +308,43 @@ export default function VoiceChatMode({
             </div>
           </div>
 
-          <button
-            onClick={onSwitchToText}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-[#075247] hover:bg-emerald-50 shadow-2xs transition"
-          >
-            <Keyboard size={15} />
-            <span>{t.voiceSwitchToText}</span>
-          </button>
+          <div className="flex items-center gap-2">
+            {/* Language Switcher Pills */}
+            <div className="flex rounded-xl bg-white p-1 border border-emerald-200 shadow-2xs">
+              <button
+                onClick={() => handleLangSelect('en')}
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+                  language === 'en' ? 'bg-[#075247] text-white' : 'text-slate-600 hover:text-emerald-900'
+                }`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => handleLangSelect('hi')}
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+                  language === 'hi' ? 'bg-[#075247] text-white' : 'text-slate-600 hover:text-emerald-900'
+                }`}
+              >
+                हिन्दी
+              </button>
+              <button
+                onClick={() => handleLangSelect('mr')}
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+                  language === 'mr' ? 'bg-[#075247] text-white' : 'text-slate-600 hover:text-emerald-900'
+                }`}
+              >
+                मराठी
+              </button>
+            </div>
+
+            <button
+              onClick={onSwitchToText}
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-[#075247] hover:bg-emerald-50 shadow-2xs transition"
+            >
+              <Keyboard size={15} />
+              <span>{t.voiceSwitchToText}</span>
+            </button>
+          </div>
         </div>
 
         {/* Center Activation Card */}
@@ -257,7 +374,7 @@ export default function VoiceChatMode({
             </p>
           </div>
 
-          {/* Prominent START BOT / ACTIVATE MACHINE Button */}
+          {/* Prominent START BOT Button */}
           <button
             onClick={handleActivateBot}
             className="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-[#075247] via-[#15803d] to-emerald-600 hover:from-[#063f39] hover:to-emerald-700 text-white font-black text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 border-2 border-amber-300/40 active:scale-95 group cursor-pointer"
@@ -292,12 +409,14 @@ export default function VoiceChatMode({
     );
   }
 
-  // ================= VIEW 2: BOT ACTIVATED & LISTENING =================
+  // ================= VIEW 2: BOT ACTIVATED & READY FOR HOLD/TAP TO SPEAK =================
+  const activeTranscript = (transcript + ' ' + interimText).trim();
+
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-between min-h-[580px] p-4 sm:p-8 bg-gradient-to-b from-[#eaf5ee] via-[#f7fbf8] to-[#f0f7f2] rounded-3xl border border-[#d6e5da] shadow-card">
       
       {/* Top Banner Tagline & Active Controls */}
-      <div className="w-full flex items-center justify-between pb-4 border-b border-emerald-100">
+      <div className="w-full flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-emerald-100">
         <div className="flex items-center gap-2">
           <div className="relative">
             <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
@@ -322,6 +441,34 @@ export default function VoiceChatMode({
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Language Switcher Pills */}
+          <div className="flex rounded-xl bg-white p-1 border border-emerald-200 shadow-2xs">
+            <button
+              onClick={() => handleLangSelect('en')}
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+                language === 'en' ? 'bg-[#075247] text-white' : 'text-slate-600 hover:text-emerald-900'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => handleLangSelect('hi')}
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+                language === 'hi' ? 'bg-[#075247] text-white' : 'text-slate-600 hover:text-emerald-900'
+              }`}
+            >
+              हिन्दी
+            </button>
+            <button
+              onClick={() => handleLangSelect('mr')}
+              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+                language === 'mr' ? 'bg-[#075247] text-white' : 'text-slate-600 hover:text-emerald-900'
+              }`}
+            >
+              मराठी
+            </button>
+          </div>
+
           <button
             onClick={toggleMute}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition ${
@@ -332,7 +479,7 @@ export default function VoiceChatMode({
             title={isMuted ? 'Unmute Assistant Voice' : 'Mute Assistant Voice'}
           >
             {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-            <span>{isMuted ? 'Voice Muted' : 'Voice Active'}</span>
+            <span>{isMuted ? 'Muted' : 'Voice On'}</span>
           </button>
 
           <button
@@ -341,7 +488,7 @@ export default function VoiceChatMode({
             title="Stop / Deactivate Bot"
           >
             <Power size={14} className="text-amber-700" />
-            <span>Deactivate</span>
+            <span>Stop</span>
           </button>
 
           <button
@@ -361,8 +508,8 @@ export default function VoiceChatMode({
         </div>
       )}
 
-      {/* Center AI Bot Mascot + Animated Waves */}
-      <div className="flex flex-col items-center text-center my-6 space-y-4">
+      {/* Center AI Bot Mascot + Wave & Mic Control */}
+      <div className="flex flex-col items-center text-center my-6 space-y-4 max-w-xl w-full">
         
         {/* Robot Avatar with Speech Bubble */}
         <div className="relative">
@@ -398,24 +545,61 @@ export default function VoiceChatMode({
           ))}
         </div>
 
-        {/* Status Text */}
+        {/* Status Prompt */}
         <div>
           <h3 className="text-base sm:text-lg font-black text-[#072a24]">
             {isListening
-              ? (transcript ? `"${transcript}"` : t.voiceListening)
-              : (isLoading ? t.chatThinking : t.voiceTapToSpeak)}
+              ? (activeTranscript ? `"${activeTranscript}"` : t.voiceListening)
+              : (isLoading ? t.chatThinking : (activeTranscript ? `"${activeTranscript}"` : t.voiceTapToSpeak))}
           </h3>
-          <p className="text-xs text-[#527068] mt-0.5">
-            {t.voiceLangSupport}
+          <p className="text-xs text-[#527068] mt-0.5 font-medium">
+            {isListening
+              ? "Hold mic or tap again to stop & send"
+              : "Hold or Tap mic button to record your question"}
           </p>
         </div>
 
-        {/* Big Glowing Microphone Button */}
+        {/* Live Transcript Display Box with Send & Clear Buttons */}
+        {activeTranscript && (
+          <div className="w-full p-4 rounded-2xl bg-white border border-emerald-300 shadow-md flex items-center justify-between gap-3 animate-fade-in">
+            <div className="text-left flex-1 min-w-0">
+              <span className="text-[10px] uppercase tracking-wider font-extrabold text-emerald-700 block">
+                Recorded Input ({language === 'mr' ? 'मराठी' : language === 'hi' ? 'हिंदी' : 'English'}):
+              </span>
+              <p className="text-xs sm:text-sm font-semibold text-slate-800 break-words mt-0.5">
+                "{activeTranscript}"
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={handleClearTranscript}
+                className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 transition"
+                title="Clear transcript"
+              >
+                <X size={16} />
+              </button>
+              <button
+                onClick={handleManualSend}
+                disabled={isLoading}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#075247] hover:bg-[#063f39] text-white text-xs font-bold shadow-md transition cursor-pointer"
+              >
+                <Send size={14} />
+                <span>Send</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Big Glowing Microphone Button (Hold or Tap) */}
         <div className="pt-2">
           <button
-            onClick={isListening ? stopListening : startListening}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onClick={handleClickMic}
             disabled={isLoading}
-            className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center text-white shadow-2xl transition-all duration-300 transform active:scale-95 ${
+            className={`w-20 h-20 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center text-white shadow-2xl transition-all duration-300 transform active:scale-95 cursor-pointer user-select-none select-none touch-none ${
               isListening
                 ? 'bg-rose-600 hover:bg-rose-700 animate-pulse ring-8 ring-rose-300/50'
                 : 'bg-gradient-to-tr from-[#075247] to-[#15803d] hover:scale-105 ring-8 ring-emerald-200/60'
@@ -426,6 +610,9 @@ export default function VoiceChatMode({
               {isListening ? t.voiceTapToStop : t.voiceTapAction}
             </span>
           </button>
+          <p className="text-[11px] text-[#527068] mt-2 font-bold">
+            👆 Press & Hold OR Tap to Speak
+          </p>
         </div>
       </div>
 
