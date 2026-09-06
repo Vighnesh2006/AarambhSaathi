@@ -16,7 +16,10 @@ class UserProfile(BaseModel):
     goal: Optional[str] = None
     scale: Optional[str] = None
     constraints: List[str] = Field(default_factory=list)
+    gender: Optional[str] = None       # Scheme-specific field
+    category: Optional[str] = None     # Social Category (General/OBC/SC/ST)
     language: str = "en"  # "en", "hi", "mr"
+
 
 class ChatMessage(BaseModel):
     role: str  # "user", "assistant", "system"

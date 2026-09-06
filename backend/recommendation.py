@@ -2,6 +2,55 @@ from typing import List, Dict, Any, Optional
 from backend.models import UserProfile, BusinessRecommendation, RecommendationScoreBreakdown, RecommendationResponse
 from backend.database import load_businesses_data
 
+# Specific keyword-to-sector mapping
+SECTOR_KEYWORD_MAP = {
+    "DAIRY": ["dairy", "cow", "milk", "cattle", "buffalo", "chilling", "dugdha"],
+    "GOAT_SHEEP": ["goat", "sheep", "bakri", "sheli"],
+    "POULTRY": ["poultry", "chicken", "hen", "egg", "broiler", "murgi", "kukut"],
+    "FISHERIES": ["fish", "fishery", "aquaculture", "pisciculture", "machli", "masale"],
+    "BEEKEEPING": ["bee", "honey", "beekeeping", "apiculture", "madh", "madhumakhi"],
+    "AGRICULTURE": ["mushroom", "organic", "vermicompost", "nursery", "crop", "farm", "khet", "shet"],
+    "TEXTILES": ["tailor", "garment", "sewing", "cloth", "boutique", "stitching", "shilai"],
+    "FOOD_PROCESSING": ["flour", "atta", "chakki", "spice", "masala", "oil", "jaggery", "papad", "pickle", "processing"],
+    "MANUFACTURING": ["brick", "block", "plastic", "moulding", "concrete", "paper plate", "fly ash", "paving"]
+}
+
+def detect_user_target_sector(profile: UserProfile) -> Optional[str]:
+    """Detects primary sector preference from user interest, skills, resources, and occupation."""
+    combined_text = " ".join([
+        profile.business_interest or "",
+        profile.occupation or "",
+        profile.experience or "",
+        " ".join(profile.skills or []),
+        " ".join(profile.resources or [])
+    ]).lower()
+
+    for sector, keywords in SECTOR_KEYWORD_MAP.items():
+        if any(kw in combined_text for kw in keywords):
+            return sector
+    return None
+
+def detect_business_sector(b: dict) -> str:
+    """Categorizes a business into a standard sector based on category, name, and description."""
+    cat = (b.get("category") or "").upper()
+    name = (b.get("business_name") or "").lower()
+    desc = (b.get("description") or "").lower()
+    text = f"{cat} {name} {desc}"
+
+    for sector, keywords in SECTOR_KEYWORD_MAP.items():
+        if any(kw in text for kw in keywords):
+            return sector
+            
+    if "AGRICULTURE" in cat or "AGRI" in cat:
+        return "AGRICULTURE"
+    if "MANUFACTURING" in cat:
+        return "MANUFACTURING"
+    if "SERVICE" in cat:
+        return "SERVICES"
+    if "RETAIL" in cat:
+        return "RETAIL"
+    return "OTHER"
+
 def score_business(b: dict, profile: UserProfile) -> BusinessRecommendation:
     user_capital = float(profile.capital) if profile.capital is not None else 100000.0
     user_skills = [s.lower() for s in (profile.skills or [])]
@@ -9,7 +58,7 @@ def score_business(b: dict, profile: UserProfile) -> BusinessRecommendation:
     user_interest = (profile.business_interest or "").lower().strip()
     user_exp = (profile.experience or "").lower()
     user_occ = (profile.occupation or "").lower()
-    
+
     b_id = b.get("id", "")
     b_name = b.get("business_name", "")
     b_name_lower = b_name.lower()
@@ -23,13 +72,15 @@ def score_business(b: dict, profile: UserProfile) -> BusinessRecommendation:
     
     GENERIC_WORDS = {"farming", "agriculture", "manufacturing", "processing", "production", "unit", "mill", "business", "small", "mini", "rural", "and", "&", "the", "of", "for", "in", "making", "shop", "services", "center", "centre", "trade"}
     
+    # Detect sectors for hard compatibility check
+    user_sector = detect_user_target_sector(profile)
+    business_sector = detect_business_sector(b)
+    
     # 1. SKILL & INTEREST MATCH (Weight: 25%)
     skill_score = 10.0  # Base score
     skill_matched_items = []
     
-    # Direct interest match check
     if user_interest:
-        # Exact or substring match on business name
         if user_interest == b_name_lower or b_name_lower in user_interest:
             skill_score += 14.0
             why_matches.append(f"Directly matches your stated preference for {b_name}.")
@@ -40,7 +91,6 @@ def score_business(b: dict, profile: UserProfile) -> BusinessRecommendation:
             skill_score += 10.0
             why_matches.append(f"Belongs to your preferred {b_category} industry domain.")
         else:
-            # Meaningful non-generic word match
             interest_words = [w for w in user_interest.replace(",", " ").split() if len(w) > 2 and w not in GENERIC_WORDS]
             name_words = [w for w in b_name_lower.replace(",", " ").split() if len(w) > 2 and w not in GENERIC_WORDS]
             overlap = set(interest_words).intersection(set(name_words))
@@ -48,7 +98,6 @@ def score_business(b: dict, profile: UserProfile) -> BusinessRecommendation:
                 skill_score += 11.0
                 why_matches.append(f"Strongly aligns with your interest in {', '.join(overlap)}.")
 
-    # Skills and background overlap check
     for req in req_skills:
         for u_sk in user_skills:
             if u_sk in req or req in u_sk:
@@ -67,7 +116,6 @@ def score_business(b: dict, profile: UserProfile) -> BusinessRecommendation:
     skill_score = min(25.0, max(5.0, skill_score))
     
     # 2. CAPITAL MATCH (Weight: 25%)
-    # Under micro-enterprise lending guidelines, up to 90% loan can be structured
     capital_score = 15.0
     if profile.capital is not None:
         if user_capital >= rec_inv:
@@ -76,7 +124,7 @@ def score_business(b: dict, profile: UserProfile) -> BusinessRecommendation:
         elif user_capital >= min_inv:
             capital_score = 22.5
             why_matches.append(f"Available capital ₹{user_capital:,.0f} exceeds the minimum barrier (₹{min_inv:,.0f}) with room for working capital.")
-        elif user_capital >= (min_inv * 0.10):  # Can secure 90% loan under standard micro-enterprise credit schemes
+        elif user_capital >= (min_inv * 0.10):
             capital_score = 19.5
             why_matches.append(f"Your capital (₹{user_capital:,.0f}) provides the required 10% own margin money for loan eligibility.")
         else:
@@ -136,7 +184,13 @@ def score_business(b: dict, profile: UserProfile) -> BusinessRecommendation:
         risk_score = 6.8
 
     total_score = round(skill_score + capital_score + resource_score + market_score + risk_score, 1)
-    
+
+    # 6. SECTOR COMPATIBILITY HARD PENALTY
+    if user_sector and user_sector in ["DAIRY", "LIVESTOCK", "GOAT_SHEEP", "POULTRY", "FISHERIES", "BEEKEEPING", "AGRICULTURE", "TEXTILES"]:
+        # If user explicitly operates in agri/livestock/textiles, penalize unrelated manufacturing (e.g. concrete block, fly ash brick, plastic moulding)
+        if business_sector == "MANUFACTURING":
+            total_score = max(10.0, total_score - 45.0)
+
     if len(why_matches) < 3:
         why_matches.append(f"Suitable for scalable expansion into allied value-added products.")
 
@@ -176,9 +230,12 @@ def get_recommendations(profile: UserProfile, top_n: int = 3) -> RecommendationR
         rec = score_business(b, profile)
         scored_list.append(rec)
     
-    # Sort descending by overall_score
     scored_list.sort(key=lambda x: x.overall_score, reverse=True)
-    top_recommendations = scored_list[:top_n]
+    top_recommendations = [r for r in scored_list if r.overall_score >= 50.0][:top_n]
+    
+    # Fallback to top scored if none >= 50
+    if not top_recommendations:
+        top_recommendations = scored_list[:top_n]
     
     profile_summary = {
         "name": profile.name or "Rural Entrepreneur",
@@ -194,3 +251,4 @@ def get_recommendations(profile: UserProfile, top_n: int = 3) -> RecommendationR
         recommendations=top_recommendations,
         profile_summary=profile_summary
     )
+
