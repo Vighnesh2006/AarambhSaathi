@@ -16,14 +16,17 @@ import {
   MessageSquare,
   Sprout
 } from 'lucide-react';
+import { getTranslation } from '../services/translations';
 
 export default function ReportModal({
   report,
   isOpen,
   onClose,
   isProfileReady,
-  onStartChat
+  onStartChat,
+  language = 'en'
 }) {
+  const t = getTranslation(language);
   const printRef = useRef();
 
   if (!isOpen) return null;
@@ -46,26 +49,32 @@ export default function ReportModal({
 
           <div>
             <h3 className="text-xl font-black text-[#072a24] font-display">
-              Complete Profile to Generate DPR
+              {language === 'mr' ? 'DPR अहवाल तयार करण्यासाठी माहिती द्या' : language === 'hi' ? 'DPR रिपोर्ट बनाने के लिए जानकारी दें' : 'Complete Profile to Generate DPR'}
             </h3>
             <p className="text-xs sm:text-sm text-[#527068] mt-2 leading-relaxed">
-              Your customized 90-Day Detailed Project Report (DPR) requires your location, skills, and investment details so the AI can calculate accurate loan EMIs, profit margins, and government subsidies.
+              {language === 'mr'
+                ? 'तुमच्या व्यवसायासाठी ९० दिवसांचा सविस्तर DPR अहवाल, बँक कर्ज हप्ता व शासकीय अनुदान मोजण्यासाठी स्थान, कौशल्य व भांडवलाची माहिती आवश्यक आहे.'
+                : language === 'hi'
+                ? 'आपके व्यवसाय के लिए 90-दिवसीय विस्तृत DPR रिपोर्ट, बैंक लोन ईएमआई और सब्सिडी की गणना के लिए स्थान, कौशल और पूंजी की जानकारी आवश्यक है।'
+                : 'Your customized 90-Day Detailed Project Report (DPR) requires your location, skills, and investment details so the AI can calculate accurate loan EMIs, profit margins, and government subsidies.'}
             </p>
           </div>
 
           <div className="p-4 rounded-2xl bg-[#edf7ee] border border-emerald-200 text-left space-y-2 text-xs text-[#075247]">
-            <span className="font-bold block text-sm">How to unlock your DPR Plan:</span>
+            <span className="font-bold block text-sm">
+              {language === 'mr' ? 'DPR अहवाल कसा मिळवावा:' : language === 'hi' ? 'DPR रिपोर्ट कैसे प्राप्त करें:' : 'How to unlock your DPR Plan:'}
+            </span>
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-              <span>Share your preferred business or occupation in Chat</span>
+              <span>{language === 'mr' ? 'चॅटमध्ये तुमचा आवडता व्यवसाय सांगा' : language === 'hi' ? 'चैट में अपना पसंदीदा व्यवसाय बताएं' : 'Share your preferred business or occupation in Chat'}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-              <span>Mention your district / village and available capital</span>
+              <span>{language === 'mr' ? 'तुमचा जिल्हा/गाव आणि उपलब्ध भांडवल सांगा' : language === 'hi' ? 'अपना जिला/गांव और उपलब्ध पूंजी बताएं' : 'Mention your district / village and available capital'}</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
-              <span>AI will instantly build your Top 3 recommendations and DPR</span>
+              <span>{language === 'mr' ? 'एआय त्वरित शिफारसी व DPR अहवाल तयार करेल' : language === 'hi' ? 'एआई तुरंत सिफारिशें और DPR रिपोर्ट तैयार करेगा' : 'AI will instantly build your Top 3 recommendations and DPR'}</span>
             </div>
           </div>
 
@@ -78,14 +87,14 @@ export default function ReportModal({
               className="flex-1 py-3 px-4 rounded-xl bg-[#075247] hover:bg-[#063f39] text-white font-bold text-sm shadow-md transition flex items-center justify-center gap-2"
             >
               <MessageSquare size={16} />
-              <span>Chat With Aarambh Saathi</span>
+              <span>{t.talkToBotBtn || (language === 'mr' ? 'आरंभ साथीशी बोला' : language === 'hi' ? 'आरंभ साथी से बात करें' : 'Chat With Aarambh Saathi')}</span>
               <ArrowRight size={15} />
             </button>
             <button
               onClick={onClose}
               className="py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm transition"
             >
-              Close
+              {language === 'mr' ? 'बंद करा' : language === 'hi' ? 'बंद करें' : 'Close'}
             </button>
           </div>
         </div>
@@ -122,9 +131,9 @@ export default function ReportModal({
             </div>
             <div>
               <h2 className="text-base font-bold font-display text-white">
-                Aarambh Saathi 90-Day Detailed Project Report (DPR)
+                Aarambh Saathi {t.journey5Sub}
               </h2>
-              <p className="text-xs text-emerald-200">DPR Reference ID: {report_id}</p>
+              <p className="text-xs text-emerald-200">Ref ID: {report_id}</p>
             </div>
           </div>
 
@@ -135,7 +144,7 @@ export default function ReportModal({
               title="Print or Save as PDF"
             >
               <Printer className="w-4 h-4" />
-              <span>Print / Download PDF</span>
+              <span>{language === 'mr' ? 'प्रिंट / पीडीएफ डाउनलोड' : language === 'hi' ? 'प्रिंट / पीडीएफ डाउनलोड' : 'Print / Download PDF'}</span>
             </button>
             <button
               onClick={onClose}

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { IndianRupee, Calculator, ShieldAlert, Sparkles, Sliders, Check, TrendingUp, Calendar, Clock } from 'lucide-react';
 import { getFinancialPlan } from '../services/api';
+import { getTranslation } from '../services/translations';
 
-export default function FinancialSummary({ initialCost, userCapital, onPlanUpdated }) {
+export default function FinancialSummary({ initialCost, userCapital, onPlanUpdated, language = 'en' }) {
+  const t = getTranslation(language);
   const [cost, setCost] = useState(initialCost || 140000);
   const [userContrib, setUserContrib] = useState(userCapital || 15000);
   const [plan, setPlan] = useState(null);
@@ -47,13 +49,13 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
           </div>
           <div>
             <h3 className="text-sm font-bold font-display flex items-center space-x-2">
-              <span>Financial Structuring Engine</span>
+              <span>{t.financeTitle}</span>
               <span className="text-[10px] bg-amber-400 text-slate-950 font-extrabold px-2 py-0.5 rounded shadow-xs">
-                Micro-Enterprise Credit Model
+                {t.financeBadge}
               </span>
             </h3>
             <p className="text-[11px] text-emerald-100">
-              Deterministic credit structuring, EMI & profitability model
+              {t.financeSub}
             </p>
           </div>
         </div>
@@ -67,7 +69,9 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
                 : 'bg-amber-400/20 text-amber-200 border-amber-400/40'
             }`}
           >
-            {isMicroFinance ? '🌿 Micro Finance (≤ ₹1.40L)' : '🏢 Term Loan (> ₹1.40L)'}
+            {isMicroFinance
+              ? (language === 'mr' ? '🌿 सूक्ष्म वित्त (≤ ₹१.४० लाख)' : language === 'hi' ? '🌿 माइक्रो फाइनेंस (≤ ₹1.40 लाख)' : '🌿 Micro Finance (≤ ₹1.40L)')
+              : (language === 'mr' ? '🏢 व्यावसायिक मुदत कर्ज (> ₹१.४० लाख)' : language === 'hi' ? '🏢 टर्म लोन (> ₹1.40 लाख)' : '🏢 Term Loan (> ₹1.40L)')}
           </span>
         </div>
       </div>
@@ -84,15 +88,25 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
           <Sparkles className="w-4 h-4 flex-shrink-0 text-amber-600 mt-0.5" />
           <div className="leading-relaxed">
             <strong className="block font-bold">
-              {isMicroFinance ? 'National Micro Finance Scheme Tier Applied:' : 'Commercial Term Loan Tier Applied:'}
+              {isMicroFinance
+                ? (language === 'mr' ? 'राष्ट्रीय सूक्ष्म वित्त कर्ज योजना लागू:' : language === 'hi' ? 'राष्ट्रीय माइक्रो फाइनेंस योजना लागू:' : 'National Micro Finance Scheme Tier Applied:')
+                : (language === 'mr' ? 'व्यावसायिक मुदत कर्ज योजना लागू:' : language === 'hi' ? 'टर्म लोन योजना लागू:' : 'Commercial Term Loan Tier Applied:')}
             </strong>
             {isMicroFinance ? (
               <span>
-                Project cost $\le$ ₹1.40 Lakh • Max loan ₹1.25 Lakh (up to 90%) • <strong>6.5% p.a. interest</strong> • 3-year repayment • <strong>3-month moratorium</strong>
+                {language === 'mr'
+                  ? 'एकूण खर्च ₹१.४० लाखापर्यंत • कमाल कर्ज ९०% पर्यंत • ६.५% वार्षिक व्याज • ३ वर्षे मुदत'
+                  : language === 'hi'
+                  ? 'कुल लागत ₹1.40 लाख तक • अधिकतम लोन 90% तक • 6.5% वार्षिक ब्याज • 3 वर्ष अवधि'
+                  : 'Project cost ≤ ₹1.40 Lakh • Max loan ₹1.25 Lakh (up to 90%) • 6.5% p.a. interest • 3-year repayment'}
               </span>
             ) : (
               <span>
-                Project cost &gt; ₹1.40 Lakh to ₹50 Lakh • Max loan ₹45 Lakh (up to 90%) • <strong>8.0% p.a. interest</strong> • 7-year repayment • <strong>6-month moratorium</strong>
+                {language === 'mr'
+                  ? 'एकूण खर्च ₹१.४० लाखांपेक्षा जास्त • कमाल कर्ज ९०% पर्यंत • ८.०% वार्षिक व्याज • ७ वर्षे मुदत'
+                  : language === 'hi'
+                  ? 'कुल लागत ₹1.40 लाख से अधिक • अधिकतम लोन 90% तक • 8.0% वार्षिक ब्याज • 7 वर्ष अवधि'
+                  : 'Project cost > ₹1.40 Lakh to ₹50 Lakh • Max loan ₹45 Lakh (up to 90%) • 8.0% p.a. interest • 7-year repayment'}
               </span>
             )}
           </div>
@@ -102,7 +116,7 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs">
           <div>
             <div className="flex justify-between items-center mb-1 font-semibold text-slate-700">
-              <label>Total Project Cost (₹)</label>
+              <label>{t.totalProjCost} (₹)</label>
               <span className="text-gv-primary font-bold">₹{Number(cost).toLocaleString('en-IN')}</span>
             </div>
             <input
@@ -114,16 +128,11 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
               onChange={(e) => setCost(Number(e.target.value))}
               className="w-full accent-gv-primary cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 mt-0.5">
-              <span>₹20k (Micro)</span>
-              <span>₹1.40L (Tier Threshold)</span>
-              <span>₹5.00L</span>
-            </div>
           </div>
 
           <div>
             <div className="flex justify-between items-center mb-1 font-semibold text-slate-700">
-              <label>Your Own Contribution (Margin Money)</label>
+              <label>{t.ownCapitalContrib}</label>
               <span className="text-emerald-700 font-bold">₹{Number(userContrib).toLocaleString('en-IN')}</span>
             </div>
             <input
@@ -135,11 +144,6 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
               onChange={(e) => setUserContrib(Number(e.target.value))}
               className="w-full accent-emerald-600 cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 mt-0.5">
-              <span>₹0</span>
-              <span>Min 10% Required</span>
-              <span>₹{Number(cost).toLocaleString('en-IN')}</span>
-            </div>
           </div>
         </div>
 
@@ -149,7 +153,7 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
             {/* Top Stat Cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
-                <span className="text-[10px] text-slate-500 font-medium block">Own Contribution</span>
+                <span className="text-[10px] text-slate-500 font-medium block">{t.ownCapitalContrib}</span>
                 <p className="text-sm font-bold text-slate-800 mt-0.5">
                   ₹{Number(plan.own_contribution).toLocaleString('en-IN')}
                 </p>
@@ -157,7 +161,7 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
               </div>
 
               <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
-                <span className="text-[10px] text-slate-500 font-medium block">Estimated Bank Loan</span>
+                <span className="text-[10px] text-slate-500 font-medium block">{t.bankLoanSubsidy}</span>
                 <p className="text-sm font-bold text-gv-primary mt-0.5">
                   ₹{Number(plan.required_loan).toLocaleString('en-IN')}
                 </p>
@@ -165,7 +169,9 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
               </div>
 
               <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-2xs">
-                <span className="text-[10px] text-slate-500 font-medium block">Monthly EMI</span>
+                <span className="text-[10px] text-slate-500 font-medium block">
+                  {language === 'mr' ? 'मासिक हप्ता (EMI)' : language === 'hi' ? 'मासिक ईएमआई (EMI)' : 'Monthly EMI'}
+                </span>
                 <p className="text-sm font-bold text-amber-700 mt-0.5">
                   ₹{Number(plan.monthly_emi).toLocaleString('en-IN')}/mo
                 </p>
@@ -173,11 +179,11 @@ export default function FinancialSummary({ initialCost, userCapital, onPlanUpdat
               </div>
 
               <div className="bg-emerald-50/70 p-3 rounded-xl border border-emerald-200 shadow-2xs">
-                <span className="text-[10px] text-emerald-800 font-medium block">Est. Net Monthly Profit</span>
+                <span className="text-[10px] text-emerald-800 font-medium block">{t.monthlyNetProfit}</span>
                 <p className="text-sm font-extrabold text-emerald-900 mt-0.5">
                   ₹{Number(plan.monthly_profit).toLocaleString('en-IN')}
                 </p>
-                <span className="text-[10px] text-emerald-700 font-semibold">After EMI & Expenses</span>
+                <span className="text-[10px] text-emerald-700 font-semibold">After EMI</span>
               </div>
             </div>
 

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Landmark, ExternalLink, FileCheck, HelpCircle, ShieldCheck, ChevronDown, ChevronUp, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { getTranslation } from '../services/translations';
 
-export default function SchemesCard({ schemes }) {
+export default function SchemesCard({ schemes, language = 'en' }) {
+  const t = getTranslation(language);
   const [expandedScheme, setExpandedScheme] = useState(schemes?.[0]?.scheme_id || null);
   const [stats, setStats] = useState(null);
   const [syncing, setSyncing] = useState(false);
@@ -48,13 +50,14 @@ export default function SchemesCard({ schemes }) {
         <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center mx-auto mb-3">
           <Landmark className="w-6 h-6" />
         </div>
-        <h3 className="text-sm font-bold text-slate-800">Government Schemes Matcher</h3>
+        <h3 className="text-sm font-bold text-slate-800">{t.schemesTitle}</h3>
         <p className="text-xs text-slate-500 mt-1">
-          Complete your business profile in the chat to discover targeted central & state credit-linked subsidies.
+          {language === 'mr'
+            ? 'आपले कौशल्य व भांडवल सांगून शासकीय अनुदान योजनांची माहिती मिळवा.'
+            : language === 'hi'
+            ? 'अपनी जानकारी देकर सरकारी सब्सिडी योजनाओं की जानकारी प्राप्त करें।'
+            : 'Complete your business profile in the chat to discover targeted central & state credit-linked subsidies.'}
         </p>
-        <div className="mt-3 inline-flex items-center space-x-1 text-[11px] text-amber-700 font-medium bg-amber-50 px-2.5 py-1 rounded-full">
-          <span>Trained on {stats?.total_schemes || '60+'} verified schemes from myScheme.gov.in</span>
-        </div>
       </div>
     );
   }
@@ -69,16 +72,13 @@ export default function SchemesCard({ schemes }) {
           </div>
           <div>
             <h3 className="text-sm font-bold text-slate-900 font-display flex items-center space-x-1.5">
-              <span>Potentially Relevant Government Schemes</span>
+              <span>{t.schemesTitle}</span>
               <span className="text-[10px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full font-semibold">
-                {schemes.length} Matched
+                {t.schemesBadge}
               </span>
             </h3>
             <p className="text-[11px] text-slate-500 flex items-center space-x-1.5">
-              <span>Cross-referenced with myScheme.gov.in</span>
-              {stats?.total_schemes && (
-                <span className="text-emerald-700 font-medium">({stats.total_schemes} in database)</span>
-              )}
+              <span>{t.schemesSub}</span>
             </p>
           </div>
         </div>

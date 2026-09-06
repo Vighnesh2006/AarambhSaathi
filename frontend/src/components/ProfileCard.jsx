@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { UserCheck, MapPin, Briefcase, Wrench, IndianRupee, Layers, Target, Edit3, Check, X, AlertCircle } from 'lucide-react';
+import { getTranslation } from '../services/translations';
 
-export default function ProfileCard({ profile, onUpdateProfile }) {
+export default function ProfileCard({ profile, onUpdateProfile, language = 'en' }) {
+  const t = getTranslation(language);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({ ...profile });
 
@@ -66,16 +68,16 @@ export default function ProfileCard({ profile, onUpdateProfile }) {
           </div>
           <div>
             <h3 className="text-xs font-bold text-gv-dark uppercase tracking-wider font-display">
-              Entrepreneur Profile
+              {t.userProfile}
             </h3>
-            <p className="text-[10px] text-slate-500 font-medium">Live progressive entity extraction</p>
+            <p className="text-[10px] text-slate-500 font-medium">Aarambh Saathi Profile</p>
           </div>
         </div>
 
         <div className="flex items-center space-x-2">
           <div className="text-right">
             <span className="text-[11px] font-bold text-gv-primary">{progressPercent}%</span>
-            <span className="text-[10px] text-slate-400 block -mt-1">Complete</span>
+            <span className="text-[10px] text-slate-400 block -mt-1">{t.completed}</span>
           </div>
           {!isEditing ? (
             <button
@@ -84,7 +86,9 @@ export default function ProfileCard({ profile, onUpdateProfile }) {
               title="Edit Profile"
             >
               <Edit3 className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline text-[11px]">Edit</span>
+              <span className="hidden sm:inline text-[11px]">
+                {language === 'mr' ? 'बदला' : language === 'hi' ? 'संपादित करें' : 'Edit'}
+              </span>
             </button>
           ) : (
             <button

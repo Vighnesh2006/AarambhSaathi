@@ -8,12 +8,18 @@ import {
   Sparkles,
   ArrowRight,
   Sprout,
-  Bot
+  Bot,
+  AlertCircle,
+  Zap,
+  Play,
+  Power
 } from 'lucide-react';
 import { getTranslation } from '../services/translations';
+import { createSpeechRecognizer, speakText, stopSpeaking, playActivationChime } from '../services/voice';
 import robotAvatarImg from '../assets/robot_avatar_1788638099080.jpg';
 
 export default function VoiceChatMode({
+  messages = [],
   onSendMessage,
   onSwitchToText,
   language = 'en',
@@ -21,9 +27,54 @@ export default function VoiceChatMode({
 }) {
   const t = getTranslation(language);
   const [isListening, setIsListening] = useState(false);
+  const [isBotActivated, setIsBotActivated] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [transcript, setTranscript] = useState('');
   const [audioLevel, setAudioLevel] = useState([40, 70, 30, 90, 60, 45, 80, 55, 65, 35]);
   const recognitionRef = useRef(null);
+
+  // Latest assistant message
+  const lastBotMessage = messages.slice().reverse().find(m => m.role === 'assistant');
+
+  useEffect(() => {
+    return () => {
+      stopSpeaking();
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {}
+      }
+    };
+  }, []);
+
+  const handleActivateBot = () => {
+    try {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.resume();
+      }
+    } catch (e) {}
+    playActivationChime();
+    setIsBotActivated(true);
+    setErrorMessage('');
+    if (lastBotMessage && lastBotMessage.content && !isMuted) {
+      speakText(lastBotMessage.content, language);
+    }
+    setTimeout(() => {
+      startListening();
+    }, 1000);
+  };
+
+  const handleDeactivateBot = () => {
+    stopSpeaking();
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {}
+    }
+    setIsListening(false);
+    setIsBotActivated(false);
+  };
 
   // Animated wave visualizer effect when listening
   useEffect(() => {
@@ -49,26 +100,27 @@ export default function VoiceChatMode({
     return () => clearInterval(interval);
   }, [isListening]);
 
+  const toggleMute = () => {
+    if (!isMuted) {
+      stopSpeaking();
+      setIsMuted(true);
+    } else {
+      setIsMuted(false);
+      if (lastBotMessage?.content) {
+        speakText(lastBotMessage.content, language);
+      }
+    }
+  };
+
   // Speech Recognition Handling
   const startListening = () => {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      alert('Speech recognition is not supported in this browser. Please switch to Text mode.');
-      return;
-    }
-
-    try {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const rec = new SpeechRecognition();
-      rec.continuous = false;
-      rec.interimResults = true;
-      rec.lang = language === 'mr' ? 'mr-IN' : language === 'hi' ? 'hi-IN' : 'en-IN';
-
-      rec.onstart = () => {
+    setErrorMessage('');
+    const rec = createSpeechRecognizer(language, {
+      onStart: () => {
         setIsListening(true);
         setTranscript('');
-      };
-
-      rec.onresult = (event) => {
+      },
+      onResult: (event) => {
         let currentText = '';
         for (let i = event.resultIndex; i < event.results.length; i++) {
           currentText += event.results[i][0].transcript;
@@ -81,17 +133,27 @@ export default function VoiceChatMode({
             onSendMessage(currentText.trim());
           }
         }
-      };
-
-      rec.onerror = (e) => {
+      },
+      onError: (e) => {
         console.error('Speech recognition error:', e);
         setIsListening(false);
-      };
-
-      rec.onend = () => {
+        if (e.error === 'not-allowed' || e.error === 'permission-denied') {
+          setErrorMessage('Microphone access denied. Please click the camera/mic icon in your browser address bar to allow microphone access.');
+        } else {
+          setErrorMessage('Could not hear audio clearly. Please tap the mic to speak again or switch to Text mode.');
+        }
+      },
+      onEnd: () => {
         setIsListening(false);
-      };
+      }
+    });
 
+    if (!rec) {
+      setErrorMessage('Speech recognition is not supported in this browser. Please switch to Text mode.');
+      return;
+    }
+
+    try {
       recognitionRef.current = rec;
       rec.start();
     } catch (err) {
@@ -102,7 +164,9 @@ export default function VoiceChatMode({
 
   const stopListening = () => {
     if (recognitionRef.current) {
-      recognitionRef.current.stop();
+      try {
+        recognitionRef.current.stop();
+      } catch (e) {}
     }
     setIsListening(false);
     if (transcript.trim()) {
@@ -136,33 +200,166 @@ export default function VoiceChatMode({
     }
   ];
 
+  // ================= VIEW 1: DORMANT / BOT NOT ACTIVATED YET =================
+  if (!isBotActivated) {
+    return (
+      <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-between min-h-[560px] p-6 sm:p-10 bg-gradient-to-b from-[#eaf5ee] via-[#f7fbf8] to-[#f0f7f2] rounded-3xl border border-[#d6e5da] shadow-card text-center relative overflow-hidden">
+        
+        {/* Top Header Tagline */}
+        <div className="w-full flex items-center justify-between pb-4 border-b border-emerald-100">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+              🌱
+            </div>
+            <div className="text-left">
+              <h4 className="text-sm font-extrabold text-[#072a24] font-display">
+                {t.voiceTitle}
+              </h4>
+              <p className="text-[11px] text-[#527068]">
+                {t.tagline}
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={onSwitchToText}
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-[#075247] hover:bg-emerald-50 shadow-2xs transition"
+          >
+            <Keyboard size={15} />
+            <span>{t.voiceSwitchToText}</span>
+          </button>
+        </div>
+
+        {/* Center Activation Card */}
+        <div className="flex flex-col items-center my-auto py-8 space-y-6 max-w-lg">
+          
+          {/* Avatar with Animated Pulse Ring & Status Badge */}
+          <div className="relative">
+            <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full p-2 bg-gradient-to-tr from-emerald-500 via-teal-400 to-amber-300 shadow-2xl animate-pulse">
+              <img
+                src={robotAvatarImg}
+                alt="Aarambh Saathi Bot"
+                className="w-full h-full object-cover rounded-full bg-emerald-950 border-4 border-white shadow-inner"
+              />
+            </div>
+            <span className="absolute bottom-2 right-2 px-3 py-1 bg-amber-400 text-slate-950 text-xs font-black rounded-full shadow-md border-2 border-white flex items-center gap-1">
+              <Zap size={14} className="fill-slate-950" />
+              <span>READY</span>
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            <h3 className="text-xl sm:text-2xl font-black text-[#072a24] font-display">
+              {t.botActivateTitle}
+            </h3>
+            <p className="text-xs sm:text-sm text-[#527068] leading-relaxed">
+              {t.botActivateDesc}
+            </p>
+          </div>
+
+          {/* Prominent START BOT / ACTIVATE MACHINE Button */}
+          <button
+            onClick={handleActivateBot}
+            className="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-[#075247] via-[#15803d] to-emerald-600 hover:from-[#063f39] hover:to-emerald-700 text-white font-black text-base shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 border-2 border-amber-300/40 active:scale-95 group cursor-pointer"
+          >
+            <Play size={24} className="fill-white text-white group-hover:translate-x-0.5 transition" />
+            <div className="flex flex-col items-start text-left">
+              <span className="font-display tracking-wide">{t.botActivateBtn}</span>
+              <span className="text-[11px] font-normal text-emerald-100">{t.botActivateSub}</span>
+            </div>
+          </button>
+
+        </div>
+
+        {/* Quick Starters at Bottom */}
+        <div className="w-full pt-4 border-t border-emerald-100">
+          <div className="flex items-center justify-between text-xs text-[#527068]">
+            <span className="flex items-center gap-2">
+              <Sparkles size={14} className="text-amber-500" />
+              <span>{t.voiceLangSupport}</span>
+            </span>
+            <button
+              onClick={onSwitchToText}
+              className="font-bold text-[#075247] hover:underline flex items-center gap-1"
+            >
+              <span>{t.voiceFooterSwitchBtn}</span>
+              <ArrowRight size={13} />
+            </button>
+          </div>
+        </div>
+
+      </div>
+    );
+  }
+
+  // ================= VIEW 2: BOT ACTIVATED & LISTENING =================
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-between min-h-[580px] p-4 sm:p-8 bg-gradient-to-b from-[#eaf5ee] via-[#f7fbf8] to-[#f0f7f2] rounded-3xl border border-[#d6e5da] shadow-card">
       
-      {/* Top Banner Tagline */}
+      {/* Top Banner Tagline & Active Controls */}
       <div className="w-full flex items-center justify-between pb-4 border-b border-emerald-100">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-            🌱
+          <div className="relative">
+            <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+              🌱
+            </div>
+            <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white animate-ping" />
           </div>
           <div>
-            <h4 className="text-sm font-extrabold text-[#072a24] font-display">
-              {t.voiceTitle}
-            </h4>
+            <div className="flex items-center gap-2">
+              <h4 className="text-sm font-extrabold text-[#072a24] font-display">
+                {t.voiceTitle}
+              </h4>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-2xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
+                Active
+              </span>
+            </div>
             <p className="text-[11px] text-[#527068]">
               {t.tagline}
             </p>
           </div>
         </div>
 
-        <button
-          onClick={onSwitchToText}
-          className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-[#075247] hover:bg-emerald-50 shadow-2xs transition"
-        >
-          <Keyboard size={15} />
-          <span>{t.voiceSwitchToText}</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleMute}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition ${
+              isMuted
+                ? 'bg-rose-50 text-rose-700 border-rose-200'
+                : 'bg-emerald-50 text-[#075247] border-emerald-200 hover:bg-emerald-100'
+            }`}
+            title={isMuted ? 'Unmute Assistant Voice' : 'Mute Assistant Voice'}
+          >
+            {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+            <span>{isMuted ? 'Voice Muted' : 'Voice Active'}</span>
+          </button>
+
+          <button
+            onClick={handleDeactivateBot}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-300 text-xs font-bold text-amber-900 hover:bg-amber-100 transition shadow-2xs"
+            title="Stop / Deactivate Bot"
+          >
+            <Power size={14} className="text-amber-700" />
+            <span>Deactivate</span>
+          </button>
+
+          <button
+            onClick={onSwitchToText}
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-[#075247] hover:bg-emerald-50 shadow-2xs transition"
+          >
+            <Keyboard size={15} />
+            <span>{t.voiceSwitchToText}</span>
+          </button>
+        </div>
       </div>
+
+      {errorMessage && (
+        <div className="w-full max-w-md my-2 p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2 shadow-xs">
+          <AlertCircle size={18} className="shrink-0 text-rose-600" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
 
       {/* Center AI Bot Mascot + Animated Waves */}
       <div className="flex flex-col items-center text-center my-6 space-y-4">
@@ -241,7 +438,7 @@ export default function VoiceChatMode({
               <button
                 key={idx}
                 onClick={() => handleQuickStarter(chip.query)}
-                className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#dce8e0] text-left hover:border-emerald-400 hover:shadow-md transition group"
+                className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#dce8e0] text-left hover:border-emerald-400 hover:shadow-md transition group cursor-pointer"
               >
                 <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-800 font-bold flex items-center justify-center shrink-0 border border-emerald-100 group-hover:bg-[#075247] group-hover:text-white transition">
                   {typeof Icon === 'string' ? Icon : <Icon size={20} />}
@@ -262,7 +459,7 @@ export default function VoiceChatMode({
         {/* Footer switch prompt */}
         <div className="flex items-center justify-between px-4 py-2.5 rounded-xl bg-white/70 border border-emerald-100 text-xs text-[#527068]">
           <span className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-400" />
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             <span>{t.voiceFooterPrompt}</span>
           </span>
           <button

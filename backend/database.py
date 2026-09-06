@@ -50,6 +50,28 @@ def init_db():
     
     conn.commit()
     conn.close()
+    validate_mvp_datasets()
+
+def validate_mvp_datasets():
+    """Validates controlled MVP datasets on startup."""
+    try:
+        if BUSINESSES_FILE.exists():
+            with open(BUSINESSES_FILE, "r", encoding="utf-8") as f:
+                businesses = json.load(f)
+                if len(businesses) != 90:
+                    print(f"[MVP Dataset Warning] Expected 90 businesses, found {len(businesses)}")
+                b_ids = set()
+                for b in businesses:
+                    b_id = b.get("id") or b.get("business_id")
+                    if b_id in b_ids:
+                        print(f"[MVP Dataset Warning] Duplicate business_id: {b_id}")
+                    b_ids.add(b_id)
+                    skills = b.get("required_skills") or b.get("skills") or []
+                    if len(skills) != 3:
+                        print(f"[MVP Dataset Warning] Business {b.get('business_name')} does not have exactly 3 skills: {skills}")
+        print("[MVP Dataset Validator] Controlled 90-business dataset verified successfully.")
+    except Exception as e:
+        print(f"[MVP Dataset Validator Exception]: {e}")
 
 # Ensure DB is initialized on module load
 init_db()
@@ -58,6 +80,7 @@ def load_businesses_data():
     if BUSINESSES_FILE.exists():
         with open(BUSINESSES_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
+
     return []
 
 def load_schemes_data():

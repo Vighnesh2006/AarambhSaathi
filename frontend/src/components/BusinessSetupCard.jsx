@@ -18,14 +18,17 @@ import {
   Building2
 } from 'lucide-react';
 import { fetchEquipment, searchSuppliers } from '../services/api';
+import { getTranslation } from '../services/translations';
 
 export default function BusinessSetupCard({ 
   businessName, 
   businessScale = 'small', 
   userLocation, 
   userBudget, 
-  onFeedEquipmentCostToFinance 
+  onFeedEquipmentCostToFinance,
+  language = 'en'
 }) {
+  const t = getTranslation(language);
   const [showSetup, setShowSetup] = useState(false);
   const [equipmentList, setEquipmentList] = useState([]);
   const [isLoadingEquipment, setIsLoadingEquipment] = useState(false);
@@ -121,13 +124,17 @@ export default function BusinessSetupCard({
           </div>
           <div>
             <h4 className="text-sm font-bold text-slate-900 font-display flex items-center space-x-1.5">
-              <span>Business Setup & Machinery Planner</span>
+              <span>{t.machineryTitle}</span>
               <span className="text-[10px] bg-amber-100 text-amber-800 font-semibold px-2 py-0.5 rounded-full">
-                New Module
+                {language === 'mr' ? 'नवीन प्लॅनर' : language === 'hi' ? 'नया प्लानर' : 'New Module'}
               </span>
             </h4>
             <p className="text-xs text-slate-600 mt-0.5">
-              Would you like to see the machines and equipment required to start <strong>{businessName}</strong>?
+              {language === 'mr'
+                ? `तुम्हाला ${businessName} व्यवसायासाठी आवश्यक यंत्रसामग्री पाहायची आहे का?`
+                : language === 'hi'
+                ? `क्या आप ${businessName} व्यवसाय के लिए आवश्यक मशीनरी देखना चाहते हैं?`
+                : `Would you like to see the machines and equipment required to start ${businessName}?`}
             </p>
           </div>
         </div>
@@ -137,7 +144,7 @@ export default function BusinessSetupCard({
             onClick={() => setShowSetup(true)}
             className="flex-1 sm:flex-none px-4 py-2 bg-gv-primary hover:bg-gv-secondary text-white text-xs font-bold rounded-xl shadow-xs transition flex items-center justify-center space-x-1"
           >
-            <span>Yes, Show Equipment</span>
+            <span>{language === 'mr' ? 'होय, उपकरणे दाखवा' : language === 'hi' ? 'हाँ, उपकरण दिखाएं' : 'Yes, Show Equipment'}</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
@@ -155,13 +162,10 @@ export default function BusinessSetupCard({
           </div>
           <div>
             <h3 className="text-sm font-bold font-display flex items-center space-x-2">
-              <span>🏭 Business Setup & Machinery Planner</span>
-              <span className="text-[10px] bg-amber-400 text-slate-950 font-extrabold px-2 py-0.5 rounded">
-                Machinery Search & Ranking
-              </span>
+              <span>🏭 {t.machineryTitle}</span>
             </h3>
             <p className="text-[11px] text-slate-300">
-              Required machinery, indicative capital outlays & ranked potential suppliers
+              {t.machinerySub}
             </p>
           </div>
         </div>
@@ -170,7 +174,7 @@ export default function BusinessSetupCard({
           onClick={() => setShowSetup(false)}
           className="text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded-lg border border-slate-700 bg-slate-800/60"
         >
-          Hide Setup
+          {language === 'mr' ? 'माहिती लपवा' : language === 'hi' ? 'छुपाएं' : 'Hide Setup'}
         </button>
       </div>
 
@@ -178,11 +182,12 @@ export default function BusinessSetupCard({
       {totalEssentialMin > 0 && (
         <div className="bg-emerald-50/70 border-b border-emerald-100 px-5 py-3 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div>
-            <span className="text-slate-600 font-medium">Estimated Essential Machinery Investment: </span>
+            <span className="text-slate-600 font-medium">
+              {language === 'mr' ? 'अंदाजे आवश्यक यंत्रसामग्री खर्च: ' : language === 'hi' ? 'अनुमानित आवश्यक मशीनरी लागत: ' : 'Estimated Essential Machinery Investment: '}
+            </span>
             <strong className="text-emerald-900 font-bold">
               ₹{totalEssentialMin.toLocaleString('en-IN')} – ₹{totalEssentialMax.toLocaleString('en-IN')}
             </strong>
-            <span className="text-[11px] text-slate-500 ml-1.5">(Indicative bounds)</span>
           </div>
 
           {onFeedEquipmentCostToFinance && (
@@ -191,7 +196,7 @@ export default function BusinessSetupCard({
               className="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg shadow-2xs transition flex items-center space-x-1"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              <span>Use Equipment Cost in Financial Plan</span>
+              <span>{language === 'mr' ? 'हा खर्च आर्थिक योजनेत जोडा' : language === 'hi' ? 'इस लागत को वित्तीय योजना में जोड़ें' : 'Use Equipment Cost in Financial Plan'}</span>
             </button>
           )}
         </div>

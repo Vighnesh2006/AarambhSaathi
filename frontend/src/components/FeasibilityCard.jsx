@@ -1,7 +1,10 @@
 import React from 'react';
 import { MapPin, CheckCircle2, AlertTriangle, Info, Compass, Users, PackageCheck, AlertCircle } from 'lucide-react';
+import { getTranslation } from '../services/translations';
 
-export default function FeasibilityCard({ feasibility, selectedBusinessName }) {
+export default function FeasibilityCard({ feasibility, selectedBusinessName, language = 'en' }) {
+  const t = getTranslation(language);
+
   if (!feasibility) {
     return null;
   }
@@ -18,13 +21,14 @@ export default function FeasibilityCard({ feasibility, selectedBusinessName }) {
           </div>
           <div>
             <h3 className="text-sm font-bold text-slate-900 font-display flex items-center space-x-1.5">
-              <span>Hyper-Local Feasibility Analysis</span>
+              <span>{t.feasibilityTitle}</span>
               <span className="text-[10px] bg-teal-100 text-teal-800 px-2 py-0.5 rounded-full font-semibold">
-                Local Baseline
+                {t.feasibilityBadge}
               </span>
             </h3>
             <p className="text-[11px] text-slate-500">
-              Evaluating: <strong className="text-slate-700">{selectedBusinessName || feasibility.business_name}</strong>
+              {language === 'mr' ? 'विश्लेषण व्यवसाय: ' : language === 'hi' ? 'विश्लेषण व्यवसाय: ' : 'Evaluating: '}
+              <strong className="text-slate-700">{selectedBusinessName || feasibility.business_name}</strong>
             </p>
           </div>
         </div>
@@ -36,7 +40,7 @@ export default function FeasibilityCard({ feasibility, selectedBusinessName }) {
             <span className="text-xs text-slate-200 font-normal">/100</span>
           </div>
           <span className="block text-[9px] text-teal-900 font-bold uppercase tracking-wider mt-0.5">
-            Feasibility Score
+            {t.feasibilityScoreLabel}
           </span>
         </div>
       </div>
@@ -46,28 +50,28 @@ export default function FeasibilityCard({ feasibility, selectedBusinessName }) {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-4">
           <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
             <span className="text-[10px] text-slate-500 font-medium block flex items-center">
-              <Compass className="w-3 h-3 mr-1 text-emerald-600" /> Market Demand
+              <Compass className="w-3 h-3 mr-1 text-emerald-600" /> {t.marketDemand}
             </span>
             <p className="text-xs font-bold text-slate-800 mt-1">{feasibility.market_opportunity}</p>
           </div>
 
           <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
             <span className="text-[10px] text-slate-500 font-medium block flex items-center">
-              <Users className="w-3 h-3 mr-1 text-blue-600" /> Local Competition
+              <Users className="w-3 h-3 mr-1 text-blue-600" /> {t.localComp}
             </span>
             <p className="text-xs font-bold text-slate-800 mt-1">{feasibility.competition_level}</p>
           </div>
 
           <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
             <span className="text-[10px] text-slate-500 font-medium block flex items-center">
-              <PackageCheck className="w-3 h-3 mr-1 text-teal-600" /> Raw Resources
+              <PackageCheck className="w-3 h-3 mr-1 text-teal-600" /> {t.rawMat}
             </span>
             <p className="text-xs font-bold text-slate-800 mt-1">{feasibility.resource_availability}</p>
           </div>
 
           <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80">
             <span className="text-[10px] text-slate-500 font-medium block flex items-center">
-              <AlertTriangle className="w-3 h-3 mr-1 text-amber-600" /> Risk Exposure
+              <AlertTriangle className="w-3 h-3 mr-1 text-amber-600" /> {t.riskFactor}
             </span>
             <p className="text-xs font-bold text-slate-800 mt-1">{feasibility.risk_level}</p>
           </div>
@@ -79,7 +83,7 @@ export default function FeasibilityCard({ feasibility, selectedBusinessName }) {
           <div className="bg-emerald-50/50 rounded-xl p-3 border border-emerald-200/70 space-y-1.5">
             <span className="font-bold text-emerald-900 text-xs flex items-center space-x-1 mb-1">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-              <span>Key Feasibility Strengths</span>
+              <span>{language === 'mr' ? 'मुख्य सुसंगतता बलस्थाने' : language === 'hi' ? 'मुख्य व्यवहार्यता की ताकत' : 'Key Feasibility Strengths'}</span>
             </span>
             {feasibility.positive_factors?.map((pos, i) => (
               <div key={i} className="flex items-start space-x-1.5 text-[11px] text-emerald-950">
@@ -93,7 +97,7 @@ export default function FeasibilityCard({ feasibility, selectedBusinessName }) {
           <div className="bg-amber-50/50 rounded-xl p-3 border border-amber-200/70 space-y-1.5">
             <span className="font-bold text-amber-900 text-xs flex items-center space-x-1 mb-1">
               <AlertCircle className="w-3.5 h-3.5 text-amber-600" />
-              <span>Local Risks & Cautions</span>
+              <span>{language === 'mr' ? 'स्थानिक जोखीम व काळजी' : language === 'hi' ? 'स्थानीय जोखिम और सावधानियां' : 'Local Risks & Cautions'}</span>
             </span>
             {feasibility.caution_factors?.map((caut, i) => (
               <div key={i} className="flex items-start space-x-1.5 text-[11px] text-amber-950">
@@ -108,10 +112,11 @@ export default function FeasibilityCard({ feasibility, selectedBusinessName }) {
         <div className="mt-3.5 flex items-start space-x-2 bg-slate-100/80 p-2 rounded-lg border border-slate-200 text-[10px] text-slate-500">
           <Info className="w-3.5 h-3.5 text-slate-400 flex-shrink-0 mt-0.5" />
           <span>
-            <strong>Transparency Notice:</strong> Local feasibility utilizes baseline rural demographic and trade benchmarks for demonstration. Architecture supports connecting live district APMC & GIS APIs for sanctioning.
+            <strong>{language === 'mr' ? 'माहिती सूचना:' : language === 'hi' ? 'सूचना:' : 'Transparency Notice:'}</strong> {language === 'mr' ? 'आरंभ साथी द्वारे स्थानिक सुसंगतता व बाजार मागणी विश्लेषण सादर केले जात आहे.' : language === 'hi' ? 'आरंभ साथी द्वारा स्थानीय व्यवहार्यता और बाजार मांग का विश्लेषण प्रदान किया जा रहा है।' : 'Local feasibility utilizes baseline rural demographic and trade benchmarks for demonstration.'}
           </span>
         </div>
       </div>
     </div>
   );
 }
+

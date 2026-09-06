@@ -15,7 +15,8 @@ import {
   HelpCircle,
   Clock,
   RotateCcw,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Globe
 } from 'lucide-react';
 import { getTranslation } from '../services/translations';
 import robotAvatarImg from '../assets/robot_avatar_1788638099080.jpg';
@@ -28,6 +29,7 @@ export default function TextChatMode({
   suggestedReplies,
   onClearChat,
   language = 'en',
+  onLanguageChange,
   onSwitchToVoice,
   journeyStep = 1,
   onJourneyStepClick,
@@ -128,10 +130,10 @@ export default function TextChatMode({
   ];
 
   return (
-    <div className="w-full max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div className="w-full max-w-5xl mx-auto flex flex-col gap-8">
       
-      {/* ================= LEFT / MAIN CHAT CONTAINER (8 Cols) ================= */}
-      <div className="lg:col-span-8 flex flex-col h-[calc(100vh-140px)] min-h-[580px] bg-white rounded-3xl border border-[#d6e5da] shadow-card overflow-hidden">
+      {/* ================= MAIN CHAT CONTAINER (Full Width) ================= */}
+      <div className="w-full flex flex-col h-[calc(100vh-140px)] min-h-[580px] bg-white rounded-3xl border border-[#d6e5da] shadow-card overflow-hidden">
         
         {/* Chat Header */}
         <div className="bg-gradient-to-r from-[#075247] to-[#15803d] px-5 py-3.5 text-white flex items-center justify-between shadow-xs">
@@ -163,6 +165,47 @@ export default function TextChatMode({
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Multilingual Choice Option Selector */}
+            <div className="flex items-center gap-1 bg-black/25 p-1 rounded-xl border border-white/20 shadow-inner">
+              <Globe size={13} className="text-amber-300 ml-1 shrink-0" />
+              <button
+                type="button"
+                onClick={() => onLanguageChange && onLanguageChange('en')}
+                className={`px-2 py-0.5 rounded-lg text-[11px] font-black transition ${
+                  language === 'en'
+                    ? 'bg-amber-400 text-slate-950 shadow-2xs'
+                    : 'text-emerald-100 hover:text-white'
+                }`}
+                title="Switch to English"
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                onClick={() => onLanguageChange && onLanguageChange('hi')}
+                className={`px-2 py-0.5 rounded-lg text-[11px] font-black transition ${
+                  language === 'hi'
+                    ? 'bg-amber-400 text-slate-950 shadow-2xs'
+                    : 'text-emerald-100 hover:text-white'
+                }`}
+                title="हिन्दी में बदलें"
+              >
+                हिंदी
+              </button>
+              <button
+                type="button"
+                onClick={() => onLanguageChange && onLanguageChange('mr')}
+                className={`px-2 py-0.5 rounded-lg text-[11px] font-black transition ${
+                  language === 'mr'
+                    ? 'bg-amber-400 text-slate-950 shadow-2xs'
+                    : 'text-emerald-100 hover:text-white'
+                }`}
+                title="मराठीत बदला"
+              >
+                मराठी
+              </button>
+            </div>
+
             <button
               onClick={onSwitchToVoice}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-xs font-bold text-white border border-white/20 transition shadow-2xs"
@@ -220,31 +263,7 @@ export default function TextChatMode({
                     </span>
                   </div>
 
-                  {/* Starter Occupation Tile Grid in First Message */}
-                  {isBot && index === 0 && messages.length <= 2 && (
-                    <div className="pt-2 space-y-2">
-                      <p className="text-xs font-bold text-[#0d3f35]">
-                        {t.chatStarterTitle}
-                      </p>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {starterOptions.map((opt, oIdx) => (
-                          <button
-                            key={oIdx}
-                            onClick={() => handleQuickOptionClick(opt.query)}
-                            disabled={isLoading}
-                            className="flex flex-col items-center justify-center p-3 rounded-xl bg-white border border-[#dce8e0] hover:border-emerald-400 hover:bg-emerald-50/50 hover:shadow-md transition text-center group"
-                          >
-                            <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">
-                              {opt.emoji}
-                            </span>
-                            <span className="text-xs font-bold text-[#072a24] leading-tight">
-                              {opt.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+
                 </div>
 
                 {/* User Avatar */}
@@ -317,7 +336,7 @@ export default function TextChatMode({
             </button>
           </form>
 
-          {/* 3 Starter Fast Actions */}
+          {/* 4 Starter Fast Actions */}
           <div className="mt-2.5 flex flex-wrap items-center gap-2">
             <button
               onClick={() => onJourneyStepClick(2)}
@@ -325,6 +344,13 @@ export default function TextChatMode({
             >
               <span>🌾</span>
               <span>{t.actFindBiz}</span>
+            </button>
+            <button
+              onClick={() => onSendMessage(language === 'mr' ? 'माझ्या व्यवसायासाठी सप्लायर आणि मशिनरी यादी दाखवा' : language === 'hi' ? 'मेरे व्यवसाय के लिए सप्लायर और मशीनरी सूची दिखाएं' : 'Show me machinery and verified supplier details')}
+              className="px-3 py-1 rounded-lg text-xs font-semibold text-[#075247] bg-[#edf7ee] hover:bg-[#e0f2e2] transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+            >
+              <span>⚙️</span>
+              <span>{language === 'mr' ? 'सप्लायर व मशिनरी पहा' : language === 'hi' ? 'सप्लायर एवं मशीनरी देखें' : 'View Machinery & Suppliers'}</span>
             </button>
             <button
               onClick={() => onJourneyStepClick(3)}
@@ -345,124 +371,7 @@ export default function TextChatMode({
 
       </div>
 
-      {/* ================= RIGHT / YOUR JOURNEY PANEL (4 Cols) ================= */}
-      <div className="lg:col-span-4 space-y-5">
-        
-        {/* Journey Progress Card */}
-        <div className="bg-white rounded-3xl border border-[#d6e5da] p-5 sm:p-6 shadow-card">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-emerald-100 text-[#075247] flex items-center justify-center font-bold">
-                <Sprout size={16} />
-              </div>
-              <h4 className="font-extrabold text-base text-[#072a24] font-display">
-                {t.journeyTitle}
-              </h4>
-            </div>
-            <span className="text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200">
-              {t.journeyStepsCount}
-            </span>
-          </div>
 
-          <div className="space-y-3">
-            {journeySteps.map((item, idx) => {
-              const Icon = item.icon;
-              const isCurrent = journeyStep === item.step;
-              const isPassed = item.isDone || journeyStep > item.step || (item.step === 1 && isProfileReady);
-              const isUnlocked = isProfileReady || journeyStep >= item.step;
-
-              return (
-                <button
-                  key={idx}
-                  onClick={() => onJourneyStepClick(item.step)}
-                  className={`w-full flex items-center justify-between p-3 rounded-2xl border text-left transition-all cursor-pointer ${
-                    isCurrent
-                      ? 'bg-emerald-50 border-emerald-500 shadow-sm ring-2 ring-emerald-300'
-                      : isPassed
-                      ? 'bg-[#f4f9f5] border-[#d0e5d5] hover:bg-emerald-50/80 hover:border-emerald-300'
-                      : isUnlocked
-                      ? 'bg-white border-[#dce8e0] hover:bg-emerald-50/40 hover:border-emerald-300'
-                      : 'bg-white border-slate-100 opacity-80 hover:opacity-100'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-8 h-8 rounded-xl flex items-center justify-center font-black text-xs transition-colors ${
-                        isPassed
-                          ? 'bg-emerald-600 text-white'
-                          : isCurrent
-                          ? 'bg-[#075247] text-white animate-pulse'
-                          : 'bg-slate-100 text-slate-600'
-                      }`}
-                    >
-                      {isPassed ? <CheckCircle2 size={16} /> : item.step}
-                    </div>
-
-                    <div>
-                      <h5 className="text-xs sm:text-sm font-extrabold text-[#072a24] flex items-center gap-1.5">
-                        <span>{item.label}</span>
-                        {isPassed && (
-                          <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.2 rounded">
-                            Active
-                          </span>
-                        )}
-                      </h5>
-                      <p className="text-[11px] text-[#527068]">
-                        {item.sub}
-                      </p>
-                    </div>
-                  </div>
-
-                  <ArrowRight size={14} className={isCurrent ? 'text-emerald-700' : 'text-slate-400'} />
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Generate DPR Plan Button */}
-          <div className="mt-5 pt-4 border-t border-slate-100">
-            <button
-              onClick={onOpenReport}
-              className={`w-full py-3 rounded-xl font-extrabold text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 transition cursor-pointer ${
-                isProfileReady
-                  ? 'bg-gradient-to-r from-amber-500 to-[#15803d] text-slate-950 hover:brightness-105 animate-soft-pulse'
-                  : 'bg-gradient-to-r from-emerald-700 to-[#075247] text-white hover:brightness-110'
-              }`}
-            >
-              <FileText size={16} className={isProfileReady ? 'text-slate-950' : 'text-emerald-200'} />
-              <span>{t.journeyGenReportBtn}</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Motivational Landscape Banner */}
-        <div className="relative rounded-3xl overflow-hidden shadow-card border border-[#d6e5da] bg-white group">
-          <div className="h-48 relative overflow-hidden bg-emerald-950">
-            <img
-              src={landscapeImg}
-              alt="Rural Sprout"
-              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-90"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-            
-            <div className="absolute top-4 left-4 right-4 bg-white/90 backdrop-blur-xs p-3 rounded-xl border border-white/60">
-              <p className="text-xs font-bold italic text-[#064e3b] leading-tight">
-                {t.journeyCardQuote}
-              </p>
-            </div>
-
-            <div className="absolute bottom-4 left-4 right-4 text-white">
-              <h4 className="text-lg font-black font-display text-amber-300 drop-shadow-sm">
-                {t.journeyCardBanner}
-              </h4>
-              <p className="text-xs text-emerald-100">
-                {t.appName} • {t.tagline}
-              </p>
-            </div>
-          </div>
-        </div>
-
-      </div>
 
     </div>
   );

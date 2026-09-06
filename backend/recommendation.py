@@ -7,28 +7,40 @@ SECTOR_KEYWORD_MAP = {
     "DAIRY": ["dairy", "cow", "milk", "cattle", "buffalo", "chilling", "dugdha"],
     "GOAT_SHEEP": ["goat", "sheep", "bakri", "sheli"],
     "POULTRY": ["poultry", "chicken", "hen", "egg", "broiler", "murgi", "kukut"],
-    "FISHERIES": ["fish", "fishery", "aquaculture", "pisciculture", "machli", "masale"],
+    "LIVESTOCK": ["livestock", "animal", "cattle", "pashu", "goat", "sheep", "cow"],
+    "FISHERIES": ["fish", "fishery", "aquaculture", "pisciculture", "machli"],
     "BEEKEEPING": ["bee", "honey", "beekeeping", "apiculture", "madh", "madhumakhi"],
     "AGRICULTURE": ["mushroom", "organic", "vermicompost", "nursery", "crop", "farm", "khet", "shet"],
     "TEXTILES": ["tailor", "garment", "sewing", "cloth", "boutique", "stitching", "shilai"],
-    "FOOD_PROCESSING": ["flour", "atta", "chakki", "spice", "masala", "oil", "jaggery", "papad", "pickle", "processing"],
+    "FOOD_PROCESSING": ["flour", "atta", "chakki", "spice", "masala", "jaggery", "papad", "pickle"],
     "MANUFACTURING": ["brick", "block", "plastic", "moulding", "concrete", "paper plate", "fly ash", "paving"]
 }
 
 def detect_user_target_sector(profile: UserProfile) -> Optional[str]:
     """Detects primary sector preference from user interest, skills, resources, and occupation."""
-    combined_text = " ".join([
+    # Priority 1: Stated business interest or explicit skills
+    skills_and_interest = " ".join([
         profile.business_interest or "",
+        " ".join(profile.skills or [])
+    ]).lower()
+
+    for sector, keywords in SECTOR_KEYWORD_MAP.items():
+        if any(kw in skills_and_interest for kw in keywords):
+            return sector
+
+    # Priority 2: General occupation and resources
+    combined_text = " ".join([
         profile.occupation or "",
         profile.experience or "",
-        " ".join(profile.skills or []),
         " ".join(profile.resources or [])
     ]).lower()
 
     for sector, keywords in SECTOR_KEYWORD_MAP.items():
         if any(kw in combined_text for kw in keywords):
             return sector
+
     return None
+
 
 def detect_business_sector(b: dict) -> str:
     """Categorizes a business into a standard sector based on category, name, and description."""
@@ -69,139 +81,119 @@ def score_business(b: dict, profile: UserProfile) -> BusinessRecommendation:
     req_resources = [r.lower() for r in b.get("required_resources", [])]
     
     why_matches = []
-    
     GENERIC_WORDS = {"farming", "agriculture", "manufacturing", "processing", "production", "unit", "mill", "business", "small", "mini", "rural", "and", "&", "the", "of", "for", "in", "making", "shop", "services", "center", "centre", "trade"}
     
-    # Detect sectors for hard compatibility check
     user_sector = detect_user_target_sector(profile)
     business_sector = detect_business_sector(b)
     
-    # 1. SKILL & INTEREST MATCH (Weight: 25%)
-    skill_score = 10.0  # Base score
-    skill_matched_items = []
+    # 1. SKILL MATCH SCORE (Weight: 70%)
+    # Checks overlap between user skills/background and the business's 3 primary skills
+    skill_matched_count = 0
+    matched_skill_names = []
     
-    if user_interest:
-        if user_interest == b_name_lower or b_name_lower in user_interest:
-            skill_score += 14.0
-            why_matches.append(f"Directly matches your stated preference for {b_name}.")
-        elif user_interest in b_name_lower:
-            skill_score += 13.0
-            why_matches.append(f"Matches your primary interest in {profile.business_interest}.")
-        elif b_category and (b_category.lower() in user_interest or user_interest in b_category.lower()):
-            skill_score += 10.0
-            why_matches.append(f"Belongs to your preferred {b_category} industry domain.")
-        else:
-            interest_words = [w for w in user_interest.replace(",", " ").split() if len(w) > 2 and w not in GENERIC_WORDS]
-            name_words = [w for w in b_name_lower.replace(",", " ").split() if len(w) > 2 and w not in GENERIC_WORDS]
-            overlap = set(interest_words).intersection(set(name_words))
-            if overlap:
-                skill_score += 11.0
-                why_matches.append(f"Strongly aligns with your interest in {', '.join(overlap)}.")
+    LIVESTOCK_SECTORS = {"DAIRY", "LIVESTOCK", "GOAT_SHEEP", "POULTRY"}
+    
+    if req_skills:
+        for req in req_skills:
+            # Check user skills
+            matched = False
+            for u_sk in user_skills:
+                if u_sk in req or req in u_sk or any(w in req for w in u_sk.split() if len(w) > 2 and w not in GENERIC_WORDS):
+                    matched = True
+                    break
+                # Sector keyword cross-match (e.g. "livestock management" skill matching "animal care" requirement)
+                for sec, kws in SECTOR_KEYWORD_MAP.items():
+                    if any(kw in u_sk for kw in kws) and any(kw in req for kw in kws):
+                        matched = True
+                        break
+                if matched:
+                    break
 
-    for req in req_skills:
-        for u_sk in user_skills:
-            if u_sk in req or req in u_sk:
-                skill_matched_items.append(req)
-        if user_exp and any(w in req for w in user_exp.split() if len(w) > 2 and w not in GENERIC_WORDS):
-            skill_matched_items.append(req)
-        if user_occ and any(w in req for w in user_occ.split() if len(w) > 2 and w not in GENERIC_WORDS):
-            skill_matched_items.append(req)
+            # Check user interest
+            if not matched and user_interest:
+                if any(w in req for w in user_interest.split() if len(w) > 2 and w not in GENERIC_WORDS):
+                    matched = True
+                else:
+                    for sec, kws in SECTOR_KEYWORD_MAP.items():
+                        if any(kw in user_interest for kw in kws) and any(kw in req for kw in kws):
+                            matched = True
+                            break
+            # Check user occupation
+            if not matched and user_occ:
+                if any(w in req for w in user_occ.split() if len(w) > 2 and w not in GENERIC_WORDS):
+                    matched = True
+            
+            if matched:
+                skill_matched_count += 1
+                matched_skill_names.append(req.title())
 
-    unique_skill_matches = list(set(skill_matched_items))
-    if unique_skill_matches:
-        added_skill_points = min(8.0, len(unique_skill_matches) * 3.0)
-        skill_score += added_skill_points
-        why_matches.append(f"Your background matches key technical requirements: {', '.join(unique_skill_matches[:3])}.")
-    
-    skill_score = min(25.0, max(5.0, skill_score))
-    
-    # 2. CAPITAL MATCH (Weight: 25%)
-    capital_score = 15.0
+    # Direct business name match boost
+    name_bonus = 0.0
+    if user_interest and (user_interest == b_name_lower or user_interest in b_name_lower or b_name_lower in user_interest):
+        name_bonus = 20.0
+        why_matches.append(f"Directly matches your stated interest in {b_name}.")
+
+    # Sector Group Alignment Boost
+    sector_boost = 0.0
+    if user_sector and business_sector:
+        if user_sector == business_sector:
+            sector_boost = 25.0
+            why_matches.append(f"Directly matches your background in {business_sector.replace('_', ' ').title()}.")
+        elif user_sector in LIVESTOCK_SECTORS and business_sector in LIVESTOCK_SECTORS:
+            sector_boost = 20.0
+            why_matches.append("Strongly aligns with your livestock and animal care expertise.")
+        elif user_sector == "AGRICULTURE" and business_sector in {"AGRICULTURE", "BEEKEEPING"}:
+            sector_boost = 15.0
+
+    skill_score = min(70.0, (skill_matched_count / 3.0 * 35.0) + 15.0 + name_bonus + sector_boost)
+    if matched_skill_names:
+        why_matches.append(f"Matches your primary skills: {', '.join(matched_skill_names[:3])}.")
+
+    # 2. EXPERIENCE MATCH SCORE (Weight: 15%)
+    exp_score = 10.0
+    if "5" in user_exp or "3" in user_exp or "more" in user_exp or "experienced" in user_exp:
+        exp_score = 15.0
+        why_matches.append("Your extensive prior experience reduces operational risk.")
+    elif "1" in user_exp or "some" in user_exp or "basic" in user_exp:
+        exp_score = 12.5
+    else:
+        exp_score = 10.0
+
+    # 3. CAPITAL & RESOURCE MATCH SCORE (Weight: 15%)
+    cap_res_score = 10.0
     if profile.capital is not None:
         if user_capital >= rec_inv:
-            capital_score = 25.0
-            why_matches.append(f"Your available capital of ₹{user_capital:,.0f} comfortably covers the recommended investment of ₹{rec_inv:,.0f}.")
+            cap_res_score = 15.0
+            why_matches.append(f"Available capital ₹{user_capital:,.0f} comfortably covers recommended investment.")
         elif user_capital >= min_inv:
-            capital_score = 22.5
-            why_matches.append(f"Available capital ₹{user_capital:,.0f} exceeds the minimum barrier (₹{min_inv:,.0f}) with room for working capital.")
+            cap_res_score = 13.0
+            why_matches.append(f"Capital ₹{user_capital:,.0f} meets minimum investment requirement.")
         elif user_capital >= (min_inv * 0.10):
-            capital_score = 19.5
-            why_matches.append(f"Your capital (₹{user_capital:,.0f}) provides the required 10% own margin money for loan eligibility.")
-        else:
-            capital_score = 11.0
+            cap_res_score = 11.5
+            why_matches.append("Capital provides required margin money for bank credit eligibility.")
     else:
-        capital_score = 18.0
-    
-    capital_score = min(25.0, max(5.0, capital_score))
-    
-    # 3. RESOURCE MATCH (Weight: 20%)
-    resource_score = 12.0
-    res_matches = []
-    for req_r in req_resources:
-        for u_r in user_resources:
-            if u_r in req_r or req_r in u_r:
-                res_matches.append(req_r)
-        if any(w in user_resources for w in ["land", "shed", "yard", "room", "space"]):
-            if any(w in req_r for w in ["land", "shed", "yard", "room", "space"]):
-                res_matches.append("space/land")
-        if "water" in user_resources and "water" in req_r:
-            res_matches.append("water supply")
-        if "electricity" in user_resources and "electricity" in req_r:
-            res_matches.append("power")
+        cap_res_score = 12.0
 
-    unique_res = list(set(res_matches))
-    if unique_res:
-        resource_score += min(8.0, len(unique_res) * 3.0)
-        why_matches.append(f"You have essential infrastructure available: {', '.join(unique_res[:3])}.")
-    else:
-        resource_score += 2.0
-    
-    resource_score = min(20.0, max(5.0, resource_score))
-    
-    # 4. MARKET POTENTIAL (Weight: 20%)
-    market_factors = b.get("market_factors", {})
-    demand = str(market_factors.get("demand_level", "High")).lower()
-    if "high" in demand:
-        market_score = 18.5
-    elif "medium" in demand or "moderate" in demand:
-        market_score = 16.0
-    else:
-        market_score = 13.5
-        
-    if profile.district or profile.location:
-        market_score = min(20.0, market_score + 1.5)
-        why_matches.append(f"Strong continuous local consumer demand in {profile.district or profile.location or 'rural clusters'}.")
-    else:
-        why_matches.append(f"High local demand reported across regional village and town clusters.")
+    total_score = round(skill_score + exp_score + cap_res_score, 1)
 
-    # 5. RISK SCORE (Weight: 10%)
-    risk_level = str(b.get("risk_level", "Medium")).lower()
-    if "low" in risk_level:
-        risk_score = 9.2
-    elif "medium" in risk_level:
-        risk_score = 8.0
-    else:
-        risk_score = 6.8
-
-    total_score = round(skill_score + capital_score + resource_score + market_score + risk_score, 1)
-
-    # 6. SECTOR COMPATIBILITY HARD PENALTY
+    # HARD CATEGORY FILTER AGAINST UNRELATED MANUFACTURING FOR LIVESTOCK / AGRI SKILLS
     if user_sector and user_sector in ["DAIRY", "LIVESTOCK", "GOAT_SHEEP", "POULTRY", "FISHERIES", "BEEKEEPING", "AGRICULTURE", "TEXTILES"]:
-        # If user explicitly operates in agri/livestock/textiles, penalize unrelated manufacturing (e.g. concrete block, fly ash brick, plastic moulding)
-        if business_sector == "MANUFACTURING":
-            total_score = max(10.0, total_score - 45.0)
+        if business_sector in ["MANUFACTURING", "FOOD_PROCESSING"] and user_sector not in ["FOOD_PROCESSING", "MANUFACTURING"]:
+            if not any(kw in b_name_lower for kw in ["dairy", "milk", "goat", "poultry", "feed", "fertilizer", "crop", "grain"]):
+                total_score = max(10.0, total_score - 50.0)
 
     if len(why_matches) < 3:
-        why_matches.append(f"Suitable for scalable expansion into allied value-added products.")
+        why_matches.append("Strong local market opportunity in rural and semi-urban clusters.")
 
     breakdown = RecommendationScoreBreakdown(
         skill_match_score=round(skill_score, 1),
-        capital_match_score=round(capital_score, 1),
-        resource_match_score=round(resource_score, 1),
-        market_potential_score=round(market_score, 1),
-        risk_score=round(risk_score, 1),
+        capital_match_score=round(cap_res_score, 1),
+        resource_match_score=round(cap_res_score, 1),
+        market_potential_score=round(exp_score, 1),
+        risk_score=8.0,
         total_score=total_score
     )
+
 
     main_opp = b.get("market_factors", {}).get("market_reach", "Steady daily local demand and town market supply.")
     risks_list = b.get("risks", ["General market price fluctuations"])

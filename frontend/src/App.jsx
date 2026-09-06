@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { speakText, stopSpeaking } from './services/voice';
 import Header from './components/Header';
 import HomeView from './components/HomeView';
 import AboutView from './components/AboutView';
@@ -247,10 +248,17 @@ export default function App() {
       setMessages([...updatedHistory, aiMsg]);
       setSuggestedReplies(res.suggested_quick_replies || []);
       setIsProfileReady(res.is_profile_ready);
+      
+      // Only speak aloud if user is in voice mode
+      if (chatMode === 'voice') {
+        speakText(res.reply, language);
+      }
 
       if (res.updated_profile) {
         setProfile(res.updated_profile);
-        await runAnalysisPipeline(res.updated_profile);
+        if (res.is_profile_ready && (!recommendations || recommendations.length === 0)) {
+          await runAnalysisPipeline(res.updated_profile);
+        }
       }
     } catch (err) {
       console.error('Chat error:', err);
@@ -479,8 +487,12 @@ export default function App() {
             {/* Voice Mode */}
             {chatMode === 'voice' && (
               <VoiceChatMode
+                messages={messages}
                 onSendMessage={handleSendMessage}
-                onSwitchToText={() => setChatMode('text')}
+                onSwitchToText={() => {
+                  stopSpeaking();
+                  setChatMode('text');
+                }}
                 language={language}
                 isLoading={isLoading}
               />
@@ -495,7 +507,11 @@ export default function App() {
                 suggestedReplies={suggestedReplies}
                 onClearChat={handleReset}
                 language={language}
-                onSwitchToVoice={() => setChatMode('voice')}
+                onLanguageChange={handleLanguageChange}
+                onSwitchToVoice={() => {
+                  stopSpeaking();
+                  setChatMode('voice');
+                }}
                 journeyStep={journeyStep}
                 onJourneyStepClick={handleJourneyStepClick}
                 isProfileReady={isProfileReady || recommendations.length > 0}
@@ -520,6 +536,7 @@ export default function App() {
                       recommendations={recommendations}
                       selectedBusinessId={selectedBusinessId}
                       onSelectBusiness={handleSelectBusiness}
+                      language={language}
                     />
                   </div>
 
@@ -531,6 +548,7 @@ export default function App() {
                         businessScale={profile.scale || 'small'}
                         userLocation={`${profile.district || profile.location || ''} ${profile.state || ''}`.trim()}
                         userBudget={profile.capital || undefined}
+                        language={language}
                       />
                     )}
                   </div>
@@ -541,6 +559,7 @@ export default function App() {
                       <FeasibilityCard
                         feasibility={feasibility}
                         selectedBusinessName={activeBusiness?.business_name}
+                        language={language}
                       />
                     </div>
                   )}
@@ -551,12 +570,13 @@ export default function App() {
                       initialCost={activeBusiness?.required_investment || 140000}
                       userCapital={profile.capital || 15000}
                       onPlanUpdated={setFinancialPlan}
+                      language={language}
                     />
                   </div>
 
                   {/* Matched Schemes */}
                   <div className="lg:col-span-12 scroll-mt-20" id="schemes-section">
-                    <SchemesCard schemes={schemes} />
+                    <SchemesCard schemes={schemes} language={language} />
                   </div>
                 </div>
               </div>
@@ -635,7 +655,7 @@ export default function App() {
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <div className="lg:col-span-8">
-                  <SchemesCard schemes={schemes} />
+                  <SchemesCard schemes={schemes} language={language} />
                 </div>
                 <div className="lg:col-span-4 space-y-4">
                   <div className="p-6 bg-white rounded-3xl border border-[#d6e5da] shadow-card">
@@ -701,6 +721,7 @@ export default function App() {
                 setProfile(updated);
                 runAnalysisPipeline(updated);
               }}
+              language={language}
             />
           </div>
         </div>
@@ -713,6 +734,7 @@ export default function App() {
         onClose={() => setIsReportOpen(false)}
         isProfileReady={isProfileReady || recommendations.length > 0}
         onStartChat={() => setActiveTab('chat')}
+        language={language}
       />
 
       {/* ================= CATALOGUE MODAL ================= */}
