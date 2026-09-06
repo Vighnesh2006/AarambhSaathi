@@ -154,7 +154,14 @@ def extract_entities_locally(user_msg: str, current_state: str) -> Dict[str, Any
     text_lower = user_msg.lower().strip()
     
     negative_words = ["i don't know", "dont know", "not sure", "pata nahi", "mahit nahi", "nahi", "no", "yes", "none", "hello", "hi", "namaskar", "namaste"]
-    invalid_words = {"not", "sure", "planning", "looking", "here", "just", "trying", "working", "going", "ready"}
+    invalid_words = {
+        "not", "sure", "planning", "looking", "here", "just", "trying", "working", "going", "ready",
+        "tailoring", "tailor", "dairy", "farming", "farm", "poultry", "spice", "bakery", "flour", "mill",
+        "goat", "mushroom", "fish", "beekeeping", "honey", "pickle", "papad", "vermicompost", "supplier",
+        "suppliers", "machine", "machinery", "equipment", "financial", "finance", "scheme", "schemes",
+        "dpr", "report", "show", "list", "give", "details", "price", "cost", "budget", "loan", "subsidy",
+        "pmegp", "mudra", "nabard", "sewing", "garment", "stitching", "masala", "chakki", "atta"
+    }
 
     # 1. Capital
     cap = extract_capital_from_text(user_msg)
@@ -678,9 +685,56 @@ def process_chat(request: ChatRequest) -> ChatResponse:
     session["language"] = session_lang
     current_profile.language = session_lang
 
-    # 1. Handle State Transitions Triggered by Buttons/Commands
+    # 1. Global Interceptor for Business Ideas & Supplier Queries Across All States
     msg_lower = user_msg.lower()
-    if current_state == "PROFILE_CONFIRMATION":
+    
+    # Check for direct business selection or supplier/machinery query across ALL states
+    KEYWORD_MAP = {
+        "tailor": "Rural Tailoring & Garment Unit",
+        "tailoring": "Rural Tailoring & Garment Unit",
+        "sewing": "Rural Tailoring & Garment Unit",
+        "garment": "Rural Tailoring & Garment Unit",
+        "stitching": "Rural Tailoring & Garment Unit",
+        "dairy": "Dairy Farming",
+        "milking": "Dairy Farming",
+        "milk": "Dairy Farming",
+        "gotha": "Dairy Farming",
+        "spice": "Spice Processing & Packaging",
+        "masala": "Spice Processing & Packaging",
+        "flour": "Mini Flour Mill (Atta Chakki)",
+        "chakki": "Mini Flour Mill (Atta Chakki)",
+        "atta": "Mini Flour Mill (Atta Chakki)",
+        "bakery": "Bakery & Snack Production Unit",
+        "bread": "Bakery & Snack Production Unit",
+        "poultry": "Poultry Farming",
+        "hatchery": "Poultry Farming",
+        "egg": "Poultry Farming",
+        "goat": "Goat Rearing & Breeding",
+        "bakri": "Goat Rearing & Breeding",
+        "mushroom": "Mushroom Farming",
+        "fish": "Fish Farming / Aquaculture",
+        "honey": "Beekeeping & Honey Production",
+        "beekeep": "Beekeeping & Honey Production",
+        "pickle": "Pickle & Papad Production",
+        "papad": "Pickle & Papad Production"
+    }
+
+    matched_biz = None
+    for kw, b_name in KEYWORD_MAP.items():
+        if kw in msg_lower:
+            matched_biz = b_name
+            break
+
+    asking_suppliers = any(k in msg_lower for k in ["supplier", "suppliers", "machinery", "machine", "equipment", "vendor", "vendors"])
+
+    if matched_biz or asking_suppliers:
+        if matched_biz:
+            current_profile.business_interest = matched_biz
+        elif not current_profile.business_interest:
+            current_profile.business_interest = "Dairy Farming"
+        current_state = "EQUIPMENT_SUPPLIER"
+
+    elif current_state == "PROFILE_CONFIRMATION":
         if any(k in msg_lower for k in ["yes", "continue", "confirm", "होय", "सही", "पुढे"]):
             current_state = "RECOMMENDATION"
         elif any(k in msg_lower for k in ["edit", "change", "बदल"]):
@@ -726,7 +780,6 @@ def process_chat(request: ChatRequest) -> ChatResponse:
                 for b in businesses:
                     b_words = {w for w in b["business_name"].lower().split() if len(w) > 4 and w not in GENERIC}
                     overlap = len(msg_words & b_words)
-                    # Require at least 1 meaningful word AND it must be majority of the business name words
                     if overlap > 0 and overlap >= len(b_words) * 0.6 and overlap > best_overlap:
                         best_overlap = overlap
                         best_match = b["business_name"]
@@ -743,23 +796,18 @@ def process_chat(request: ChatRequest) -> ChatResponse:
             current_state = "EQUIPMENT_SUPPLIER"
 
     elif current_state == "EQUIPMENT_SUPPLIER":
-        # After showing supplier list, go to SUPPLIER_DONE to ask if they want finance
         current_state = "SUPPLIER_DONE"
 
     elif current_state == "SUPPLIER_DONE":
-        # Route to FINANCIAL if asking about finance/budget/loan/plan
-        if any(k in msg_lower for k in ["finance", "financial", "loan", "budget", "cost",
-                                         "plan"]):
+        # Route to FINANCIAL ONLY if user asks about finance/budget/loan/profit/plan
+        if any(k in msg_lower for k in ["finance", "financial", "loan", "budget", "cost", "profit", "आर्थिक", "नफा"]):
             current_state = "FINANCIAL"
         # Route to SCHEME_OPT_IN if asking about government schemes
-        elif any(k in msg_lower for k in ["scheme", "government", "subsidy", "pmegp", "mudra",
-                                           "nabard"]):
+        elif any(k in msg_lower for k in ["scheme", "government", "subsidy", "pmegp", "mudra", "nabard", "योजना"]):
             current_state = "SCHEME_OPT_IN"
         # Route to COMPLETE if asking for DPR report
-        elif any(k in msg_lower for k in ["dpr", "report", "download"]):
+        elif any(k in msg_lower for k in ["dpr", "report", "download", "अहवाल"]):
             current_state = "COMPLETE"
-        elif any(k in msg_lower for k in ["yes"]):
-            current_state = "FINANCIAL"
         elif any(k in msg_lower for k in ["no", "skip"]):
             current_state = "SCHEME_OPT_IN"
         else:
@@ -773,12 +821,9 @@ def process_chat(request: ChatRequest) -> ChatResponse:
             current_state = "SCHEME_OPT_IN"
 
     elif current_state == "SCHEME_OPT_IN":
-        # Also handle if user directly asks for DPR from SUPPLIER_DONE
         if any(k in msg_lower for k in ["dpr", "report", "plan", "अहवाल", "रिपोर्ट"]):
             current_state = "COMPLETE"
-        elif any(k in msg_lower for k in ["yes", "check", "scheme", "होय", "हाँ", "हां",
-                                           "योजना", "सरकारी", "government", "subsidy",
-                                           "pmegp", "mudra", "nabard"]):
+        elif any(k in msg_lower for k in ["yes", "check", "scheme", "होय", "हाँ", "हां", "योजना", "सरकारी", "government", "subsidy", "pmegp", "mudra", "nabard"]):
             current_state = "SCHEME_PROFILE"
         elif any(k in msg_lower for k in ["no", "skip", "continue", "नाही", "नहीं"]):
             current_state = "COMPLETE"
@@ -798,13 +843,18 @@ def process_chat(request: ChatRequest) -> ChatResponse:
     updated_profile = merge_profile_entities(current_profile, extracted_data)
     session["profile"] = updated_profile
 
-    # 4. Advance State Machine if in profile collection phase
-    if current_state in ["PERSONAL_NAME", "PERSONAL_PLACE", "PERSONAL_OCCUPATION", "BUSINESS_SKILLS", "BUSINESS_RESOURCES", "BUSINESS_CAPITAL", "BUSINESS_INTEREST"]:
+    # 4. Advance State Machine: If a business idea or supplier request was intercepted, stay in EQUIPMENT_SUPPLIER/SUPPLIER_DONE
+    if matched_biz or asking_suppliers:
+        next_state = current_state
+    elif current_state in ["PERSONAL_NAME", "PERSONAL_PLACE", "PERSONAL_OCCUPATION", "BUSINESS_SKILLS", "BUSINESS_RESOURCES", "BUSINESS_CAPITAL", "BUSINESS_INTEREST"]:
         next_state = determine_current_state(updated_profile, current_state)
     else:
         next_state = current_state
 
-    session["current_state"] = next_state
+    if next_state == "EQUIPMENT_SUPPLIER":
+        session["current_state"] = "SUPPLIER_DONE"
+    else:
+        session["current_state"] = next_state
 
     # 5. Build Response
     reply_text, quick_replies = build_state_response(
