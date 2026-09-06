@@ -31,15 +31,45 @@ WORKFLOW_STATES = [
     "RECOMMENDATION",
     "BUSINESS_SELECTION",
     "FEASIBILITY",
+    "EQUIPMENT_SUPPLIER",
+    "SUPPLIER_DONE",       # After showing supplier list, ask if user wants finance
     "FINANCIAL",
     "SCHEME_OPT_IN",
     "SCHEME_PROFILE",
     "SCHEME_MATCHING",
-    "EQUIPMENT",
-    "SUPPLIER",
     "DPR",
     "COMPLETE"
 ]
+
+# Maps business sector keywords to machine category names in the local database
+BIZ_SECTOR_TO_MACHINE_CATEGORIES = {
+    "dairy": ["dairy", "milk", "chilling", "milking"],
+    "milk": ["dairy", "milk", "pasteurization"],
+    "goat": ["livestock", "goat", "animal"],
+    "poultry": ["poultry", "egg", "broiler"],
+    "mushroom": ["mushroom", "spawn", "cultivation"],
+    "flour": ["flour", "atta", "chakki", "milling"],
+    "spice": ["spice", "masala", "grinding"],
+    "oil": ["oil", "expeller", "cold press"],
+    "pickle": ["food processing", "packaging"],
+    "jaggery": ["jaggery", "sugar", "crushing"],
+    "vermicompost": ["compost", "vermi"],
+    "beekeeping": ["honey", "bee", "extraction"],
+    "honey": ["honey", "extraction", "bottling"],
+    "tailor": ["sewing", "stitching", "garment"],
+    "garment": ["sewing", "stitching", "garment"],
+    "paper": ["paper", "bag", "packaging"],
+    "candle": ["candle", "wax", "mould"],
+    "soap": ["soap", "detergent", "fmcg"],
+    "welding": ["welding", "fabrication", "engineering"],
+    "fish": ["fishery", "aquaculture", "fish"],
+    "bamboo": ["bamboo", "coir", "natural fibre"],
+    "brick": ["brick", "block", "fly ash"],
+    "biogas": ["biogas", "biomass", "renewable"],
+    "solar": ["solar", "renewable energy"],
+    "cold storage": ["cold storage", "refrigeration"],
+    "nursery": ["nursery", "seedling", "horticulture"],
+}
 
 def extract_capital_from_text(text: str) -> Optional[float]:
     """Helper regex to parse Indian capital formats in English, Hindi, Marathi."""
@@ -445,14 +475,31 @@ def build_state_response(
         all_machines = source.load_all_machines()
         all_suppliers = source.load_all_suppliers()
         
-        # Match machines by business interest keywords or category
+        # ── Better machine matching using sector keyword map ──
+        biz_lower = biz_name.lower()
+        target_cats = []
+        for key, cats in BIZ_SECTOR_TO_MACHINE_CATEGORIES.items():
+            if key in biz_lower:
+                target_cats.extend(cats)
+        
         matched_m = []
-        biz_words = [w.lower() for w in biz_name.split() if len(w) > 3]
-        for m in all_machines:
-            m_cats = [c.lower() for c in m.get("business_categories", [])]
-            m_name = m.get("machine_name", "").lower()
-            if any(w in m_name for w in biz_words) or any(any(w in cat for w in biz_words) for cat in m_cats):
-                matched_m.append(m)
+        if target_cats:
+            for m in all_machines:
+                m_cats = [c.lower() for c in m.get("business_categories", [])]
+                m_name = m.get("machine_name", "").lower()
+                m_all = m_name + " " + " ".join(m_cats)
+                if any(cat in m_all for cat in target_cats):
+                    matched_m.append(m)
+        
+        # Fallback: match by individual meaningful biz name words against machine name only
+        if not matched_m:
+            SKIP = {"farm", "farming", "unit", "mini", "small", "rural", "value",
+                    "processing", "manufacturing", "production", "centre", "center"}
+            biz_words = [w for w in biz_lower.split() if len(w) > 4 and w not in SKIP]
+            for m in all_machines:
+                m_name = m.get("machine_name", "").lower()
+                if biz_words and any(w in m_name for w in biz_words):
+                    matched_m.append(m)
         
         if not matched_m:
             matched_m = all_machines[:3]
@@ -463,9 +510,7 @@ def build_state_response(
             matched_suppliers = all_suppliers[:2]
 
         # Format Machines for Chatbox
-        m_items_en = []
-        m_items_hi = []
-        m_items_mr = []
+        m_items_en, m_items_hi, m_items_mr = [], [], []
         for idx, m in enumerate(matched_m[:3], 1):
             m_name = m.get('machine_name', 'Machinery')
             p_min = m.get('estimated_price_min', 25000)
@@ -474,45 +519,70 @@ def build_state_response(
             price_mr = f"₹{p_min:,.0f} ते ₹{p_max:,.0f}"
             cap = m.get('capacity', 'Standard')
             purp = m.get('purpose', 'Production & Processing')
-            
             m_items_en.append(f"{idx}. **{m_name}**\n   • **Function:** {purp}\n   • **Capacity:** {cap} | **Est. Price:** {price_en}")
             m_items_hi.append(f"{idx}. **{m_name}**\n   • **उद्देश्य:** {purp}\n   • **क्षमता:** {cap} | **अनुमानित मूल्य:** {price_en}")
             m_items_mr.append(f"{idx}. **{m_name}**\n   • **उद्दिष्ट:** {purp}\n   • **क्षमता:** {cap} | **अंदाजे किंमत:** {price_mr}")
 
         # Format Suppliers for Chatbox
-        s_items_en = []
-        s_items_hi = []
-        s_items_mr = []
+        s_items_en, s_items_hi, s_items_mr = [], [], []
         for idx, s in enumerate(matched_suppliers[:2], 1):
             s_name = s.get('supplier_name', 'Verified Supplier')
-            loc = f"{s.get('location', s.get('city', 'Pune'))}, {s.get('district', 'Pune')}, {s.get('state', 'Maharashtra')}"
+            s_loc = f"{s.get('location', s.get('city', 'Pune'))}, {s.get('district', 'Pune')}, {s.get('state', 'Maharashtra')}"
             phone = s.get('contact', '+91 98220 12345')
             if isinstance(phone, dict):
                 phone = phone.get('phone', '+91 98220 12345')
             p_range = s.get('price_range', 'Competitive MSME Rates')
             src = s.get('source', 'DIC / MSME Empanelled Directory')
-
-            s_items_en.append(f"{idx}. 🏢 **{s_name}**\n   • 📍 **Location:** {loc}\n   • 📞 **Contact Phone:** `{phone}`\n   • 🏷️ **Price Range:** {p_range}\n   • ⚙️ **Services:** Free Installation, Warranty & Demo Support (`{src}`)")
-            s_items_hi.append(f"{idx}. 🏢 **{s_name}**\n   • 📍 **स्थान:** {loc}\n   • 📞 **संपर्क नंबर:** `{phone}`\n   • 🏷️ **मूल्य सीमा:** {p_range}\n   • ⚙️ **सेवाएं:** निःशुल्क इंस्टॉलेशन, वारंटी एवं प्रशिक्षण (`{src}`)")
-            s_items_mr.append(f"{idx}. 🏢 **{s_name}**\n   • 📍 **ठिकाण:** {loc}\n   • 📞 **संपर्क क्रमांक:** `{phone}`\n   • 🏷️ **किंमत श्रेणी:** {p_range}\n   • ⚙️ **सुविधा:** मोफत इन्स्टॉलेशन, वॉरंटी व प्रशिक्षण (`{src}`)")
+            s_items_en.append(f"{idx}. 🏢 **{s_name}**\n   • 📍 **Location:** {s_loc}\n   • 📞 **Contact:** `{phone}`\n   • 🏷️ **Price Range:** {p_range}\n   • ⚙️ **Services:** Installation, Warranty & Demo (`{src}`)")
+            s_items_hi.append(f"{idx}. 🏢 **{s_name}**\n   • 📍 **स्थान:** {s_loc}\n   • 📞 **संपर्क:** `{phone}`\n   • 🏷️ **मूल्य सीमा:** {p_range}\n   • ⚙️ **सेवाएं:** इंस्टॉलेशन, वारंटी एवं प्रशिक्षण (`{src}`)")
+            s_items_mr.append(f"{idx}. 🏢 **{s_name}**\n   • 📍 **ठिकाण:** {s_loc}\n   • 📞 **संपर्क:** `{phone}`\n   • 🏷️ **किंमत:** {p_range}\n   • ⚙️ **सुविधा:** इन्स्टॉलेशन, वॉरंटी व प्रशिक्षण (`{src}`)")
 
         machines_text_en = "\n\n".join(m_items_en)
         machines_text_hi = "\n\n".join(m_items_hi)
         machines_text_mr = "\n\n".join(m_items_mr)
-
         suppliers_text_en = "\n\n".join(s_items_en)
         suppliers_text_hi = "\n\n".join(s_items_hi)
         suppliers_text_mr = "\n\n".join(s_items_mr)
 
         if lang == "mr":
-            reply = f"⚙️ **'{biz_name}' साठी आवश्यक यंत्रसामग्री आणि सप्लायरची विस्तृत यादी:**\n\n🛠️ **आवश्यक यंत्रसामग्री व तांत्रिक तपशील:**\n{machines_text_mr}\n\n🏪 **प्रमाणित स्थानिक सप्लायर्स (विक्रेते):**\n{suppliers_text_mr}\n\n💰 **भांडवल गुंतवणूक विचारणा:**\nया यंत्रसामग्री व सेटअपसाठी तुम्ही स्वतःचे किती **भांडवल (पैसे)** गुंतवू शकता? (उदा. ₹५० हजार, ₹१ लाख, ₹२ लाख)"
-            quick_replies = ["₹५०,०००", "₹१ लाख (₹१,००,०००)", "₹२ लाख (₹२,००,०००)", "₹५ लाख"]
+            reply = (f"⚙️ **'{biz_name}' साठी आवश्यक यंत्रसामग्री आणि सप्लायरची विस्तृत यादी:**\n\n"
+                     f"🛠️ **आवश्यक यंत्रसामग्री व तांत्रिक तपशील:**\n{machines_text_mr}\n\n"
+                     f"🏪 **प्रमाणित स्थानिक सप्लायर्स (विक्रेते):**\n{suppliers_text_mr}")
+            quick_replies = ["आर्थिक नियोजन पहा", "सरकारी योजना तपासा", "DPR अहवाल पहा"]
         elif lang == "hi":
-            reply = f"⚙️ **'{biz_name}' के लिए आवश्यक मशीनरी एवं सत्यापित सप्लायर सूची:**\n\n🛠️ **अनुशंसित मशीनरी व उपकरण विवरण:**\n{machines_text_hi}\n\n🏪 **सत्यापित स्थानीय सप्लायर (विक्रेता):**\n{suppliers_text_hi}\n\n💰 **निवेश पूंजी पूछताछ:**\nइस मशीनरी सेटअप के लिए आप अपनी बचत से कितना **निवेश** कर सकते हैं? (जैसे ₹50 हजार, ₹1 लाख, ₹2 लाख)"
-            quick_replies = ["₹50,000", "₹1 लाख (₹1,00,000)", "₹2 लाख (₹2,00,000)", "₹5 लाख"]
+            reply = (f"⚙️ **'{biz_name}' के लिए आवश्यक मशीनरी एवं सत्यापित सप्लायर सूची:**\n\n"
+                     f"🛠️ **अनुशंसित मशीनरी व उपकरण:**\n{machines_text_hi}\n\n"
+                     f"🏪 **सत्यापित स्थानीय सप्लायर:**\n{suppliers_text_hi}")
+            quick_replies = ["वित्तीय योजना देखें", "सरकारी योजनाएं देखें", "DPR रिपोर्ट देखें"]
         else:
-            reply = f"⚙️ **Machinery & Verified Local Supplier Directory for '{biz_name}':**\n\n🛠️ **Required Equipment & Specifications:**\n{machines_text_en}\n\n🏪 **Verified District & Regional Suppliers:**\n{suppliers_text_en}\n\n💰 **Investment Capital Inquiry:**\nBased on this equipment list, how much money can you invest as your **own capital contribution**? (e.g., ₹50,000, ₹1 Lakh, ₹2 Lakhs)"
-            quick_replies = ["₹50,000", "₹1 Lakh (₹1,00,000)", "₹2 Lakhs (₹2,00,000)", "₹5 Lakhs"]
+            reply = (f"⚙️ **Machinery & Verified Supplier Directory for '{biz_name}':**\n\n"
+                     f"🛠️ **Required Equipment:**\n{machines_text_en}\n\n"
+                     f"🏪 **Verified Local Suppliers:**\n{suppliers_text_en}")
+            quick_replies = ["View Financial Plan", "Check Government Schemes", "View DPR Report"]
+
+    elif state == "SUPPLIER_DONE":
+        # Ask if user wants the financial plan after viewing suppliers
+        if lang == "mr":
+            reply = ("✅ **यंत्रसामग्री व सप्लायर माहिती तयार आहे!**\n\n"
+                     "पुढे तुम्हाला काय पाहायचे आहे?\n\n"
+                     "• **आर्थिक नियोजन** — प्रकल्प खर्च, कर्ज, मासिक नफा\n"
+                     "• **सरकारी योजना** — PMEGP, MUDRA, NABARD अनुदान\n"
+                     "• **DPR अहवाल** — संपूर्ण व्यवसाय आराखडा")
+            quick_replies = ["आर्थिक नियोजन पहा", "सरकारी योजना तपासा", "DPR अहवाल पहा"]
+        elif lang == "hi":
+            reply = ("✅ **मशीनरी व सप्लायर जानकारी तैयार है!**\n\n"
+                     "अगला कदम — आप क्या देखना चाहते हैं?\n\n"
+                     "• **वित्तीय योजना** — परियोजना लागत, ऋण, मासिक लाभ\n"
+                     "• **सरकारी योजनाएं** — PMEGP, MUDRA, NABARD सब्सिडी\n"
+                     "• **DPR रिपोर्ट** — पूरा बिजनेस प्लान")
+            quick_replies = ["वित्तीय योजना देखें", "सरकारी योजनाएं देखें", "DPR रिपोर्ट देखें"]
+        else:
+            reply = ("✅ **Machinery & Supplier list is ready!**\n\n"
+                     "What would you like to explore next?\n\n"
+                     "• **Financial Plan** — Project cost, loan needed, monthly profit\n"
+                     "• **Government Schemes** — PMEGP, MUDRA, NABARD subsidies\n"
+                     "• **DPR Report** — Complete 90-day Business Plan")
+            quick_replies = ["View Financial Plan", "Check Government Schemes", "View DPR Report"]
 
     elif state == "FINANCIAL":
         biz_name = profile.business_interest or "Selected Business"
@@ -623,12 +693,46 @@ def process_chat(request: ChatRequest) -> ChatResponse:
         
         selected_name = None
         businesses = load_businesses_data()
+        
+        # PRIORITY 1: Exact full name match
         for b in businesses:
-            b_name = b["business_name"].lower()
-            if b_name in msg_lower or any(w in msg_lower for w in b_name.split() if len(w) > 3):
+            if b["business_name"].lower() == msg_lower.strip():
                 selected_name = b["business_name"]
                 break
         
+        # PRIORITY 2: Full business name is contained in the user message
+        if not selected_name:
+            for b in businesses:
+                if b["business_name"].lower() in msg_lower:
+                    selected_name = b["business_name"]
+                    break
+        
+        # PRIORITY 3: User message contains the business name
+        if not selected_name:
+            for b in businesses:
+                if msg_lower in b["business_name"].lower():
+                    selected_name = b["business_name"]
+                    break
+        
+        # PRIORITY 4: Match ONLY meaningful unique words (4+ chars, not generic terms)
+        GENERIC = {"farm", "farming", "unit", "mini", "small", "rural", "production",
+                   "manufacturing", "processing", "making", "centre", "center",
+                   "services", "service", "business", "value", "added", "local"}
+        if not selected_name:
+            msg_words = {w for w in msg_lower.split() if len(w) > 4 and w not in GENERIC}
+            if msg_words:
+                best_match = None
+                best_overlap = 0
+                for b in businesses:
+                    b_words = {w for w in b["business_name"].lower().split() if len(w) > 4 and w not in GENERIC}
+                    overlap = len(msg_words & b_words)
+                    # Require at least 1 meaningful word AND it must be majority of the business name words
+                    if overlap > 0 and overlap >= len(b_words) * 0.6 and overlap > best_overlap:
+                        best_overlap = overlap
+                        best_match = b["business_name"]
+                selected_name = best_match
+        
+        # PRIORITY 5: fallback only if none matched — use top recommendation
         if not selected_name:
             rec_res = get_recommendations(current_profile, top_n=3)
             if rec_res.recommendations:
@@ -639,19 +743,42 @@ def process_chat(request: ChatRequest) -> ChatResponse:
             current_state = "EQUIPMENT_SUPPLIER"
 
     elif current_state == "EQUIPMENT_SUPPLIER":
-        cap = extract_capital_from_text(user_msg)
-        if cap is not None:
-            current_profile.capital = cap
-        current_state = "FINANCIAL"
+        # After showing supplier list, go to SUPPLIER_DONE to ask if they want finance
+        current_state = "SUPPLIER_DONE"
+
+    elif current_state == "SUPPLIER_DONE":
+        # Route to FINANCIAL if asking about finance/budget/loan/plan
+        if any(k in msg_lower for k in ["finance", "financial", "loan", "budget", "cost",
+                                         "plan"]):
+            current_state = "FINANCIAL"
+        # Route to SCHEME_OPT_IN if asking about government schemes
+        elif any(k in msg_lower for k in ["scheme", "government", "subsidy", "pmegp", "mudra",
+                                           "nabard"]):
+            current_state = "SCHEME_OPT_IN"
+        # Route to COMPLETE if asking for DPR report
+        elif any(k in msg_lower for k in ["dpr", "report", "download"]):
+            current_state = "COMPLETE"
+        elif any(k in msg_lower for k in ["yes"]):
+            current_state = "FINANCIAL"
+        elif any(k in msg_lower for k in ["no", "skip"]):
+            current_state = "SCHEME_OPT_IN"
+        else:
+            current_state = "SUPPLIER_DONE"
 
     elif current_state == "FINANCIAL":
-        if any(k in msg_lower for k in ["no", "skip", "नाही", "नहीं"]):
+        # After financial plan shown, ask about schemes
+        if any(k in msg_lower for k in ["no", "skip", "नाही", "नहीं", "छोड़", "सोडा"]):
             current_state = "COMPLETE"
         else:
             current_state = "SCHEME_OPT_IN"
 
     elif current_state == "SCHEME_OPT_IN":
-        if any(k in msg_lower for k in ["yes", "check", "scheme", "होय", "हाँ"]):
+        # Also handle if user directly asks for DPR from SUPPLIER_DONE
+        if any(k in msg_lower for k in ["dpr", "report", "plan", "अहवाल", "रिपोर्ट"]):
+            current_state = "COMPLETE"
+        elif any(k in msg_lower for k in ["yes", "check", "scheme", "होय", "हाँ", "हां",
+                                           "योजना", "सरकारी", "government", "subsidy",
+                                           "pmegp", "mudra", "nabard"]):
             current_state = "SCHEME_PROFILE"
         elif any(k in msg_lower for k in ["no", "skip", "continue", "नाही", "नहीं"]):
             current_state = "COMPLETE"
