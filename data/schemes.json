@@ -1,0 +1,2052 @@
+[
+  {
+    "id": "pmegp",
+    "scheme_name": "Prime Minister's Employment Generation Programme (PMEGP)",
+    "myscheme_slug": "pmegp",
+    "category": "Business & Entrepreneurship",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Credit-linked subsidy programme to generate self-employment opportunities through establishment of micro-enterprises in non-farm sectors.",
+    "target_beneficiary": "Rural micro-entrepreneurs, unemployed youth, SHGs, traditional artisans, SC/ST, Women, OBC, Minorities",
+    "eligible_businesses": [
+      "Manufacturing & Processing",
+      "Food Processing",
+      "Services & Textiles",
+      "Automobile & Mechanical",
+      "Handicrafts & Cottage Industry",
+      "Electronics & Digital Services",
+      "Retail & Commerce"
+    ],
+    "eligible_ids": [
+      "MFG-",
+      "SVC-",
+      "AGR-",
+      "RET-"
+    ],
+    "eligibility": "Any individual above 18 years. For projects above ₹10 lakh in manufacturing and ₹5 lakh in service sector, minimum 8th class pass required. Self Help Groups (SHGs) also eligible.",
+    "financial_support": "Subsidy: Up to 35% of project cost for rural general/special categories (25% for urban). Max project cost ₹50 lakh for manufacturing and ₹20 lakh for services. Beneficiary contribution is only 5-10%.",
+    "benefits": "Up to 35% capital subsidy, bank-financed composite loan, 3-year lock-in period for subsidy adjustment.",
+    "documents": [
+      "Aadhaar Card & PAN Card",
+      "Project Report / Detailed Business Plan (DPR)",
+      "Special Category Certificate (if SC/ST/OBC/Women)",
+      "Educational qualification certificate (for >₹10L)",
+      "Bank Account details & Rural Area Certificate"
+    ],
+    "application_process": "Apply online through the KVIC PMEGP e-Portal (kviconline.gov.in). Track application via DIC / KVIB.",
+    "official_source": "https://www.kviconline.gov.in/pmegpeportal/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pmegp",
+    "notes": "Administered by KVIC at national level and DIC/KVIB at state/district levels. Disbursed via nationalized banks."
+  },
+  {
+    "id": "pm_mudra_yojana",
+    "scheme_name": "Pradhan Mantri MUDRA Yojana (PMMY)",
+    "myscheme_slug": "pmmy",
+    "category": "Financial Inclusion & Banking",
+    "ministry": "Ministry of Finance",
+    "level": "Central",
+    "purpose": "Provide collateral-free institutional credit to non-corporate, non-farm small/micro enterprises.",
+    "target_beneficiary": "Small manufacturers, shopkeepers, fruit/vegetable vendors, artisans, rural service providers",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Retail & Commerce",
+      "Services & Textiles",
+      "Food Processing",
+      "Automobile & Mechanical",
+      "Electronics & Digital Services",
+      "Transport & Logistics"
+    ],
+    "eligible_ids": [
+      "MFG-",
+      "SVC-",
+      "AGR-",
+      "RET-"
+    ],
+    "eligibility": "Any Indian citizen with a viable business plan for a non-farm income-generating activity or allied agricultural enterprise.",
+    "financial_support": "Three categories: Shishu (loans up to ₹50,000), Kishore (loans ₹50,000 to ₹5 lakh), Tarun (loans ₹5 lakh to ₹10 lakh / ₹20 lakh under expanded guidelines). Zero processing fee for Shishu.",
+    "benefits": "100% collateral-free credit, nominal interest rates, overdraft facility with MUDRA RuPay debit card.",
+    "documents": [
+      "Proof of Identity (Voter ID/Aadhaar/PAN)",
+      "Proof of Residence",
+      "Applicant's recent photos",
+      "Quotation of machinery/items to be purchased",
+      "Business address and identity proof"
+    ],
+    "application_process": "Apply through any commercial bank, RRB, cooperative bank, or online via UdyamiMitra portal.",
+    "official_source": "https://www.mudra.org.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pmmy",
+    "notes": "Available at all commercial banks, RRBs, Small Finance Banks, and MFIs without any collateral requirement."
+  },
+  {
+    "id": "pmfme",
+    "scheme_name": "PM Formalisation of Micro food processing Enterprises (PMFME)",
+    "myscheme_slug": "pmfme",
+    "category": "Food Processing & Agriculture",
+    "ministry": "Ministry of Food Processing Industries",
+    "level": "Central",
+    "purpose": "Enhance competitiveness of existing individual micro-enterprises in unorganized segments of the food processing industry and promote formalization.",
+    "target_beneficiary": "Individual food micro-processors, Farmer Producer Organizations (FPOs), Self Help Groups (SHGs) and Producer Cooperatives",
+    "eligible_businesses": [
+      "Food Processing",
+      "Manufacturing & Processing",
+      "Agriculture & Allied"
+    ],
+    "eligible_ids": [
+      "AGR-FP-",
+      "MFG-"
+    ],
+    "eligibility": "Existing or new micro food processing units with ownership of enterprise, age above 18, one family member per unit.",
+    "financial_support": "Credit-linked capital subsidy @ 35% of eligible project cost with a maximum ceiling of ₹10 lakh per unit. Seed capital of ₹40,000 per SHG member for working capital.",
+    "benefits": "35% capital subsidy up to ₹10 lakh, ODOP branding, quality control certification support.",
+    "documents": [
+      "Aadhaar card & Address proof",
+      "Bank statement of last 6 months",
+      "Food business details / FSSAI registration if existing",
+      "Project cost estimation and machinery quotes"
+    ],
+    "application_process": "Apply online at pmfme.mofpi.gov.in with DPR and bank branch preference.",
+    "official_source": "https://pmfme.mofpi.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pmfme",
+    "notes": "Operates under the 'One District One Product' (ODOP) framework providing common infrastructure and branding support."
+  },
+  {
+    "id": "stand_up_india",
+    "scheme_name": "Stand-Up India Scheme",
+    "myscheme_slug": "stand-up-india",
+    "category": "Business & Entrepreneurship",
+    "ministry": "Ministry of Finance",
+    "level": "Central",
+    "purpose": "Facilitate bank loans between ₹10 lakh and ₹1 crore to at least one SC or ST borrower and at least one woman borrower per bank branch for setting up greenfield enterprises.",
+    "target_beneficiary": "SC/ST and Women entrepreneurs setting up greenfield ventures in manufacturing, services, agri-allied, or trading sectors.",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Manufacturing & Processing",
+      "Services & Textiles",
+      "Retail & Commerce"
+    ],
+    "eligible_ids": [
+      "MFG-",
+      "SVC-",
+      "AGR-",
+      "RET-"
+    ],
+    "eligibility": "SC/ST and/or woman entrepreneur, above 18 years of age. Enterprise must be a greenfield project. In non-individual enterprises, 51% shareholding must be held by SC/ST or woman.",
+    "financial_support": "Composite loan (term loan + working capital) between ₹10 lakh and ₹1 crore covering up to 85% of project cost with margin money of 15%.",
+    "benefits": "Substantial funding for scalable ventures, convergence with state subsidy schemes.",
+    "documents": [
+      "Proof of Identity & Address (Aadhaar/PAN/Voter ID)",
+      "Caste Certificate (for SC/ST applicants)",
+      "Detailed Project Report (DPR)",
+      "Partnership deed or MoA/AoA (if company)",
+      "Balance sheets & projected financials"
+    ],
+    "application_process": "Apply directly through standupmitra.in portal or via designated bank branches.",
+    "official_source": "https://www.standupmitra.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/suis",
+    "notes": "Supported by SIDBI and National Credit Guarantee Trustee Company (NCGTC)."
+  },
+  {
+    "id": "ahidf",
+    "scheme_name": "Animal Husbandry Infrastructure Development Fund (AHIDF)",
+    "myscheme_slug": "ahidf",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Fisheries, Animal Husbandry and Dairying",
+    "level": "Central",
+    "purpose": "Incentivize investments by individual entrepreneurs, private companies, MSMEs, Farmers Producers Organizations (FPOs) and Section 8 companies in dairy, meat processing, animal feed plants.",
+    "target_beneficiary": "Dairy entrepreneurs, livestock farmers, FPOs, MSMEs, Private companies",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Food Processing",
+      "Dairy & Livestock"
+    ],
+    "eligible_ids": [
+      "AGR-DY-",
+      "AGR-LS-",
+      "AGR-PT-"
+    ],
+    "eligibility": "FPOs, MSMEs, Section 8 companies, private companies, and individual entrepreneurs with minimum 10% own equity.",
+    "financial_support": "Interest subvention of 3% for all eligible entities for up to 8 years. Credit guarantee support up to 25% of the credit facility for MSMEs through NABARD/DAHD.",
+    "benefits": "3% interest subvention for 8 years, 25% credit guarantee, loan up to 90% of project cost.",
+    "documents": [
+      "Detailed Project Report (DPR)",
+      "Land ownership / lease documents (minimum 10 years)",
+      "Bank sanction letter",
+      "Entity registration / PAN / Aadhaar"
+    ],
+    "application_process": "Online application via ahidf.udyamimitra.in with uploaded DPR.",
+    "official_source": "https://ahidf.udyamimitra.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/ahidf",
+    "notes": "Covers dairy processing, meat processing, animal feed plants, breed improvement technology."
+  },
+  {
+    "id": "pmmsy",
+    "scheme_name": "Pradhan Mantri Matsya Sampada Yojana (PMMSY)",
+    "myscheme_slug": "pmmsy",
+    "category": "Fisheries & Aquaculture",
+    "ministry": "Ministry of Fisheries, Animal Husbandry and Dairying",
+    "level": "Central",
+    "purpose": "Bring about ecologically healthy, economically viable, and socially inclusive development of the fisheries sector through sustainable and responsible fish farming.",
+    "target_beneficiary": "Fishers, fish farmers, fish workers, SHGs, Joint Liability Groups, Fisheries Cooperatives, Entrepreneurs",
+    "eligible_businesses": [
+      "Fisheries & Aquaculture",
+      "Agriculture & Allied",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "AGR-AQ-",
+      "AGR-FS-"
+    ],
+    "eligibility": "Individuals or groups involved in inland/marine aquaculture, biofloc, RAS, ornamental fish, fish seed hatcheries, or fish feed mills.",
+    "financial_support": "Government financial assistance: 40% of project cost for General Category; 60% for SC/ST and Women beneficiaries.",
+    "benefits": "40% to 60% capital subsidy on ponds, biofloc tanks, RAS units, cold chain vans.",
+    "documents": [
+      "Aadhaar card & Residence certificate",
+      "Land/Pond ownership records (7/12 extract or registered lease)",
+      "Detailed Project Report (DPR)",
+      "Bank passbook copy"
+    ],
+    "application_process": "Apply via District Fisheries Office or online via pmmsy.dof.gov.in portal.",
+    "official_source": "https://pmmsy.dof.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pmmsy",
+    "notes": "State fisheries department acts as the primary implementation agency."
+  },
+  {
+    "id": "nbhm",
+    "scheme_name": "National Beekeeping & Honey Mission (NBHM)",
+    "myscheme_slug": "nbhm",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Promote scientific beekeeping and sweet revolution for income generation among rural communities and farmers.",
+    "target_beneficiary": "Small & marginal farmers, landless rural youth, SHGs, beekeepers",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Beekeeping & Honey",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "AGR-BK-",
+      "AGR-"
+    ],
+    "eligibility": "Individuals, groups, and SHGs trained or willing to undergo training in scientific beekeeping from KVKs or National Bee Board.",
+    "financial_support": "Up to 50% subsidy on bee colonies, beehives, honey extraction equipment, and custom hiring centers.",
+    "benefits": "50% capital subsidy on colonies and hives, free training at KVKs, guaranteed buyback links.",
+    "documents": [
+      "Aadhaar Card",
+      "Farmer / Land details (if any, landless also eligible)",
+      "Bank Account details",
+      "Training Certificate from KVK/NBB (if completed)"
+    ],
+    "application_process": "Apply through Madhukranti portal (madhukranti.in) or District Horticulture Officer.",
+    "official_source": "https://nbb.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/nbhm",
+    "notes": "Administered under National Bee Board (NBB) and Mission for Integrated Development of Horticulture (MIDH)."
+  },
+  {
+    "id": "aif",
+    "scheme_name": "Agriculture Infrastructure Fund (AIF)",
+    "myscheme_slug": "aif",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Mobilize medium to long term debt financing facility for investment in viable projects for post-harvest management infrastructure and community farming assets.",
+    "target_beneficiary": "Primary Agricultural Credit Societies (PACS), Marketing Cooperative Societies, FPOs, SHGs, Farmers, Agri-entrepreneurs, Startups",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Food Processing",
+      "Storage & Warehousing",
+      "Cold Chain & Logistics"
+    ],
+    "eligible_ids": [
+      "AGR-CS-",
+      "AGR-WH-",
+      "AGR-FP-"
+    ],
+    "eligibility": "Agri-entrepreneurs, FPOs, cooperatives, startups establishing warehouses, silos, packhouses, cold stores, or sorting/grading units.",
+    "financial_support": "Loans up to ₹2 Crore with 3% interest subvention per annum for up to 7 years. Credit guarantee coverage under CGTMSE for loans up to ₹2 Crore.",
+    "benefits": "3% interest subvention for 7 years, CGTMSE credit guarantee fee paid by government.",
+    "documents": [
+      "DPR / Feasibility Report",
+      "Land ownership / lease records",
+      "KYC documents (Aadhaar, PAN)",
+      "Bank application form"
+    ],
+    "application_process": "Register and apply online at agriinfra.dac.gov.in; bank sanctions directly.",
+    "official_source": "https://agriinfra.dac.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/aif",
+    "notes": "Can be converged with other central/state schemes like PMFME, MIDH, and Sub-Mission on Agricultural Mechanization."
+  },
+  {
+    "id": "midh",
+    "scheme_name": "Mission for Integrated Development of Horticulture (MIDH)",
+    "myscheme_slug": "midh",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Promote holistic growth of the horticulture sector including fruits, vegetables, root and tuber crops, mushrooms, spices, flowers, and aromatic plants.",
+    "target_beneficiary": "Horticulture farmers, polyhouse/greenhouse growers, mushroom growers, nursery operators",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Horticulture & Nursery",
+      "Mushroom Cultivation",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "AGR-MS-",
+      "AGR-NR-",
+      "AGR-GH-"
+    ],
+    "eligibility": "Farmers and entrepreneurs setting up polyhouses, shade nets, mushroom spawn units, tissue culture labs, or high-density orchards.",
+    "financial_support": "Capital subsidy ranging from 35% to 50% of project cost depending on terrain and component. Mushroom spawn production gets up to ₹15 Lakh subsidy.",
+    "benefits": "Up to 50% subsidy on protected cultivation, mushroom growing units, and pack houses.",
+    "documents": [
+      "Land revenue records (7/12, RoR)",
+      "Project proposal with cost estimates",
+      "Aadhaar card and bank details",
+      "Soil and water testing report"
+    ],
+    "application_process": "Apply via State Horticulture Mission (SHM) portal or District Horticulture Officer (DHO).",
+    "official_source": "https://midh.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/midh",
+    "notes": "Covers National Horticulture Mission (NHM) and Horticulture Mission for North East & Himalayan States (HMNEH)."
+  },
+  {
+    "id": "pmksy_pdmc",
+    "scheme_name": "Pradhan Mantri Krishi Sinchayee Yojana - Per Drop More Crop (PDMC)",
+    "myscheme_slug": "pmksy-pdmc",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Enhance water use efficiency at farm level through micro-irrigation systems (drip and sprinkler) and precision water management.",
+    "target_beneficiary": "All categories of farmers, with priority to small, marginal, and women farmers",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Horticulture & Nursery",
+      "Commercial Farming"
+    ],
+    "eligible_ids": [
+      "AGR-"
+    ],
+    "eligibility": "Cultivators owning cultivable land or on verified long-term lease with an assured water source.",
+    "financial_support": "55% subsidy for Small & Marginal farmers; 45% for other farmers on installation cost of drip and sprinkler irrigation systems.",
+    "benefits": "Up to 55% direct subsidy on drip/sprinkler kits, saves 40-50% water, increases yields by 20-40%.",
+    "documents": [
+      "Land ownership document (Khatauni / Patta / 7-12 extract)",
+      "Aadhaar card & Bank passbook",
+      "Quotation from empanelled micro-irrigation vendor",
+      "Electricity connection / pump proof"
+    ],
+    "application_process": "Register on State DBT agriculture portal or consult local Agriculture/Horticulture extension officer.",
+    "official_source": "https://pmksy.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pmksy-pdmc",
+    "notes": "Direct Benefit Transfer goes directly to beneficiary account or empanelled vendor after physical inspection."
+  },
+  {
+    "id": "smam",
+    "scheme_name": "Sub-Mission on Agricultural Mechanization (SMAM)",
+    "myscheme_slug": "smam",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Promote Custom Hiring Centres (CHCs) and hi-tech machinery hubs to offset high machinery costs for small and marginal farmers.",
+    "target_beneficiary": "Rural youth, agri-entrepreneurs, FPOs, SHGs, cooperative societies",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Custom Hiring Centre",
+      "Agri-Equipment Services"
+    ],
+    "eligible_ids": [
+      "AGR-EQ-",
+      "SVC-EQ-"
+    ],
+    "eligibility": "Rural youth, farmers, FPOs setting up Custom Hiring Centres with minimum 4-5 implements/tractors.",
+    "financial_support": "40% to 50% subsidy for individual machinery purchase. Up to 40% (max ₹10 Lakh) for setting up Custom Hiring Centres (up to 80% for FPOs/SHGs in special areas).",
+    "benefits": "Up to 40% subsidy on Custom Hiring Centres, 40-50% subsidy on individual tractors, rotavators, power tillers.",
+    "documents": [
+      "Aadhaar and PAN Card",
+      "Land records or village residency certificate",
+      "Bank account statement",
+      "Quotation of approved agricultural implements"
+    ],
+    "application_process": "Apply online at agrimachinery.nic.in portal and select authorized equipment manufacturers.",
+    "official_source": "https://agrimachinery.nic.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/smam",
+    "notes": "Significant business model for rural youth to operate Custom Hiring Centres renting farm machinery to local farmers."
+  },
+  {
+    "id": "pkvy",
+    "scheme_name": "Paramparagat Krishi Vikas Yojana (PKVY)",
+    "myscheme_slug": "pkvy",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Promote organic farming through adoption of organic village by cluster approach and PGS (Participatory Guarantee System) certification.",
+    "target_beneficiary": "Farmers adopting organic farming, vermicomposting producers, bio-fertilizer enterprises",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Organic Farming",
+      "Vermicompost & Bio-fertilizer"
+    ],
+    "eligible_ids": [
+      "AGR-OF-",
+      "AGR-VC-"
+    ],
+    "eligibility": "Farmers forming clusters of 50 or more farmers having 50 acres of land. Individual vermicompost and bio-input producers can supply to clusters.",
+    "financial_support": "Financial assistance of ₹50,000 per hectare for 3 years, of which ₹31,000 is given directly for organic inputs (bio-fertilizers, vermicompost, botanical extracts).",
+    "benefits": "Direct input assistance, free PGS-India organic certification, market branding support on Jaivik Kheti portal.",
+    "documents": [
+      "Aadhaar card",
+      "Land revenue records",
+      "Cluster membership declaration",
+      "Bank passbook"
+    ],
+    "application_process": "Form a local cluster with KVK or Agriculture Department; register on Jaivikkheti.in portal.",
+    "official_source": "https://pgsindia-ncof.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pkvy",
+    "notes": "Ideal for vermicomposting, bio-pesticide production, and organic jaggery/flour micro-units."
+  },
+  {
+    "id": "nlm",
+    "scheme_name": "National Livestock Mission (NLM)",
+    "myscheme_slug": "nlm",
+    "category": "Dairy & Livestock",
+    "ministry": "Ministry of Fisheries, Animal Husbandry and Dairying",
+    "level": "Central",
+    "purpose": "Sustainable development of livestock sector focusing on poultry, sheep, goat, piggery entrepreneurship and feed/fodder development.",
+    "target_beneficiary": "Rural youth, farmers, SHGs, FPOs, Section 8 companies, private entrepreneurs",
+    "eligible_businesses": [
+      "Dairy & Livestock",
+      "Poultry Farming",
+      "Goat & Sheep Rearing",
+      "Animal Feed & Fodder"
+    ],
+    "eligible_ids": [
+      "AGR-PT-",
+      "AGR-GT-",
+      "AGR-FD-",
+      "AGR-LS-"
+    ],
+    "eligibility": "Individuals or groups with experience or training in livestock farming and possessing adequate land (owned or leased).",
+    "financial_support": "50% capital subsidy (up to ₹25 Lakh for sheep/goat breeding farms, up to ₹25 Lakh for rural poultry parent farms, up to ₹50 Lakh for fodder block plants).",
+    "benefits": "Direct 50% capital subsidy back-ended into loan account, loan through commercial/regional rural banks.",
+    "documents": [
+      "Detailed Project Report (DPR)",
+      "Proof of land ownership / 10-year registered lease",
+      "Livestock training certificate",
+      "Aadhaar, PAN, bank statement"
+    ],
+    "application_process": "Submit application online on the NLM portal (nlm.udyamimitra.in) along with DPR and banker's consent.",
+    "official_source": "https://nlm.udyamimitra.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/nlm",
+    "notes": "State animal husbandry department screens proposals before central sanction."
+  },
+  {
+    "id": "didf",
+    "scheme_name": "Dairy Processing and Infrastructure Development Fund (DIDF)",
+    "myscheme_slug": "didf",
+    "category": "Dairy & Livestock",
+    "ministry": "Ministry of Fisheries, Animal Husbandry and Dairying",
+    "level": "Central",
+    "purpose": "Modernize milk processing plants and machinery, create additional milk processing capacity, and bring more producer-owned institutions into the organized dairy network.",
+    "target_beneficiary": "Milk unions, dairy cooperatives, FPOs, multi-state dairy cooperatives, SHG milk federations",
+    "eligible_businesses": [
+      "Dairy & Livestock",
+      "Food Processing",
+      "Cold Chain & Logistics"
+    ],
+    "eligible_ids": [
+      "AGR-DY-",
+      "AGR-FP-"
+    ],
+    "eligibility": "Registered milk producer unions, dairy cooperatives, producer companies with viable business plans for bulk milk coolers, chilling units, or packaging.",
+    "financial_support": "Concessional loans funded by NABARD with an interest subvention of 2.5% per annum. Up to 80% project funding.",
+    "benefits": "Concessional interest rate loan, modern cold chain infrastructure, bulk milk cooler financing.",
+    "documents": [
+      "DPR with audited financial records for last 3 years",
+      "Registration certificate of cooperative/company",
+      "Board resolution for loan borrowing",
+      "Environmental clearance (if applicable)"
+    ],
+    "application_process": "Submit proposal via NDDB / NCDC to NABARD.",
+    "official_source": "https://www.nddb.coop/didf",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/didf",
+    "notes": "Ideal for village milk societies looking to set up automated milk collection and chilling centers."
+  },
+  {
+    "id": "pm_kisan_cc",
+    "scheme_name": "Kisan Credit Card (KCC) for Animal Husbandry and Fisheries",
+    "myscheme_slug": "kcc-ahf",
+    "category": "Financial Inclusion & Banking",
+    "ministry": "Ministry of Fisheries, Animal Husbandry and Dairying",
+    "level": "Central",
+    "purpose": "Provide short-term working capital credit to livestock farmers, dairy keepers, poultry owners, and fishers to meet their recurring operational costs.",
+    "target_beneficiary": "Dairy farmers, poultry owners, sheep/goat rearers, fishers, pond cultivators",
+    "eligible_businesses": [
+      "Dairy & Livestock",
+      "Fisheries & Aquaculture",
+      "Poultry Farming",
+      "Agriculture & Allied"
+    ],
+    "eligible_ids": [
+      "AGR-DY-",
+      "AGR-PT-",
+      "AGR-GT-",
+      "AGR-AQ-"
+    ],
+    "eligibility": "Individual farmers, tenant farmers, SHGs, JLGs owning or rearing dairy animals, poultry, sheep, goats, or fish ponds.",
+    "financial_support": "Collateral-free working capital loan up to ₹1.60 Lakh (or up to ₹2 Lakh without collateral with dairy tie-up). Total KCC limit up to ₹3 Lakh at concessional 4% interest rate (with prompt repayment subvention).",
+    "benefits": "Effective 4% annual interest rate, revolving cash credit, zero processing fees up to ₹1.60 Lakh.",
+    "documents": [
+      "Aadhaar card & Land/Animal holding record",
+      "Veterinary certificate or local animal verification",
+      "Bank account details and passport photos"
+    ],
+    "application_process": "Fill single-page KCC application form at nearest bank branch, PACS, or Common Service Centre (CSC).",
+    "official_source": "https://dahd.nic.in/kcc",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/kcc-ahf",
+    "notes": "Critical liquidity support for feed, vaccines, medicine, and recurring livestock operational expenses."
+  },
+  {
+    "id": "day_nrlm",
+    "scheme_name": "Deendayal Antyodaya Yojana - National Rural Livelihoods Mission (DAY-NRLM)",
+    "myscheme_slug": "day-nrlm",
+    "category": "Women & Rural Livelihoods",
+    "ministry": "Ministry of Rural Development",
+    "level": "Central",
+    "purpose": "Reduce rural poverty by enabling poor households to access gainful self-employment and skilled wage employment opportunities through SHGs.",
+    "target_beneficiary": "Rural women, SHG members, vulnerable families, village artisans",
+    "eligible_businesses": [
+      "Women & Rural Livelihoods",
+      "Food Processing",
+      "Handicrafts & Cottage Industry",
+      "Retail & Commerce",
+      "Dairy & Livestock"
+    ],
+    "eligible_ids": [
+      "SHG-",
+      "W-",
+      "RET-",
+      "MFG-"
+    ],
+    "eligibility": "Rural women organized into Self Help Groups (SHGs) under village-level Federations.",
+    "financial_support": "Revolving Fund (₹20,000 - ₹30,000 per SHG), Community Investment Support Fund (CIF up to ₹1.5 Lakh), and subsidized bank credit up to ₹10 Lakh per SHG with interest subvention down to 7% (effective 4% in designated districts).",
+    "benefits": "Interest subvention to 7% (or 4%), collateral-free bank linkage, capacity building and marketing linkages.",
+    "documents": [
+      "SHG resolution book and bank account",
+      "Aadhaar of members",
+      "Micro-Credit Plan (MCP) approved by Village Organization"
+    ],
+    "application_process": "Through Gram Panchayat Community Resource Person (CRP) and block livelihood mission manager.",
+    "official_source": "https://nrlm.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/day-nrlm",
+    "notes": "Powers Lakhpati Didi initiative targeting 3 crore rural women to earn ₹1 Lakh+ annually."
+  },
+  {
+    "id": "lakhpati_didi",
+    "scheme_name": "Lakhpati Didi Initiative",
+    "myscheme_slug": "lakhpati-didi",
+    "category": "Women & Rural Livelihoods",
+    "ministry": "Ministry of Rural Development",
+    "level": "Central",
+    "purpose": "Enable rural women SHG members to earn a sustainable income of at least ₹1 Lakh per year through multi-livelihood interventions, financial literacy, and market integration.",
+    "target_beneficiary": "Women members of DAY-NRLM Self Help Groups",
+    "eligible_businesses": [
+      "Women & Rural Livelihoods",
+      "Agriculture & Allied",
+      "Dairy & Livestock",
+      "Food Processing",
+      "Services & Digital"
+    ],
+    "eligible_ids": [
+      "W-",
+      "SHG-",
+      "AGR-",
+      "SVC-"
+    ],
+    "eligibility": "Active member of a functional SHG under NRLM with willingness to adopt 2 or more livelihood activities.",
+    "financial_support": "Dedicated loan linkages via banks, revolving fund, Drone Didi subsidies, business development service grants, digital financial tools.",
+    "benefits": "Targeted mentorship, multi-livelihood training, drone training, direct market linkage through Saras Melas and GeM portal.",
+    "documents": [
+      "Aadhaar card",
+      "SHG membership passbook",
+      "Individual Business Livelihood Plan (IBLP)",
+      "Bank account linked with Aadhaar"
+    ],
+    "application_process": "Enroll through Village Organization (VO) or Cluster Level Federation (CLF) under State Rural Livelihoods Mission.",
+    "official_source": "https://nrlm.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/lakhpati-didi",
+    "notes": "Covers high-value interventions like mushroom cultivation, goat rearing, drone piloting, and food value addition."
+  },
+  {
+    "id": "namo_drone_didi",
+    "scheme_name": "Namo Drone Didi Scheme",
+    "myscheme_slug": "namo-drone-didi",
+    "category": "Women & Rural Livelihoods",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Provide agricultural drones to 15,000 selected Women Self Help Groups to offer drone rental services for fertilizer and pesticide spraying.",
+    "target_beneficiary": "Women SHGs in rural areas, Lead Women Drone Pilots",
+    "eligible_businesses": [
+      "Women & Rural Livelihoods",
+      "Agri-Tech & Drone Services",
+      "Services & Equipment"
+    ],
+    "eligible_ids": [
+      "SVC-DR-",
+      "W-"
+    ],
+    "eligibility": "Members of well-functioning Women SHGs identified by Lead Fertilizer Companies (LFCs) and State Rural Livelihood Missions.",
+    "financial_support": "Central Financial Assistance of 80% of the cost of drone and accessories (up to ₹8 Lakh per drone package). Remaining 20% financed via AIF loan at concessional 3% interest.",
+    "benefits": "80% direct subsidy up to ₹8 Lakh, free DGCA pilot certification, 15-day certified training, guaranteed spraying income from local farmers.",
+    "documents": [
+      "SHG registration certificate and bank records",
+      "Aadhaar of selected pilot member",
+      "Educational qualification (minimum 10th class pass for drone pilot)",
+      "Recommendation from Block Mission Management Unit"
+    ],
+    "application_process": "Nomination through District Agriculture Officer and Lead Fertilizer Company coordinator.",
+    "official_source": "https://agricoop.nic.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/drone-didi",
+    "notes": "Enables rural women to earn ₹50,000 - ₹1,00,000 per spraying season providing hi-tech precision agri-services."
+  },
+  {
+    "id": "tread",
+    "scheme_name": "Trade Related Entrepreneurship Assistance and Development (TREAD) for Women",
+    "myscheme_slug": "tread-women",
+    "category": "Women & Rural Livelihoods",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Empower women entrepreneurs through grant assistance for capacity building, counseling, and training alongside credit from financial institutions.",
+    "target_beneficiary": "Poor and marginalized rural and urban women entrepreneurs",
+    "eligible_businesses": [
+      "Women & Rural Livelihoods",
+      "Handicrafts & Cottage Industry",
+      "Food Processing",
+      "Services & Textiles"
+    ],
+    "eligible_ids": [
+      "W-",
+      "MFG-TX-",
+      "SVC-"
+    ],
+    "eligibility": "Women micro-entrepreneurs organized under NGOs, institutions, or self-help federations.",
+    "financial_support": "Government grant up to 30% of total project cost as appraised by lending institutions. Lending bank provides remaining 70% as loan.",
+    "benefits": "30% non-refundable capital grant, skill training assistance up to ₹1 Lakh per batch.",
+    "documents": [
+      "NGO / Promoting institution registration",
+      "Beneficiary list with KYC",
+      "Bank loan sanction letter",
+      "Project feasibility report"
+    ],
+    "application_process": "Channelized through registered NGOs/institutions to MSME-Development Institutes.",
+    "official_source": "https://msme.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/tread",
+    "notes": "Especially impactful for non-farm rural women micro-enterprises like tailoring, food preservation, and paper products."
+  },
+  {
+    "id": "pm_vishwakarma",
+    "scheme_name": "PM Vishwakarma Scheme",
+    "myscheme_slug": "pm-vishwakarma",
+    "category": "Artisans & Traditional Crafts",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Provide holistic end-to-end support to traditional artisans and craftspeople working with hands and tools across 18 traditional trades.",
+    "target_beneficiary": "Carpenters, Blacksmiths, Potters, Cobblers, Tailors, Basket weavers, Barbers, Washermen, Garland makers",
+    "eligible_businesses": [
+      "Artisans & Traditional Crafts",
+      "Services & Textiles",
+      "Manufacturing & Processing"
+    ],
+    "eligible_ids": [
+      "ART-",
+      "SVC-TL-",
+      "MFG-WP-"
+    ],
+    "eligibility": "Practitioners of 18 traditional family-based trades aged 18+, not availed loans under PMEGP/MUDRA/PM SVANidhi in last 5 years.",
+    "financial_support": "Collateral-free enterprise credit: ₹1 Lakh (Tranche 1, 18-month tenure) and ₹2 Lakh (Tranche 2, 30-month tenure) at concessional 5% interest rate. ₹15,000 modern tool-kit incentive. ₹500/day stipend during basic skill training.",
+    "benefits": "PM Vishwakarma Certificate & ID, ₹15,000 e-voucher for toolkit, loan up to ₹3 Lakh @ 5%, digital transaction incentive.",
+    "documents": [
+      "Aadhaar card",
+      "Mobile number linked with Aadhaar",
+      "Ration card (for family trade verification)",
+      "Bank passbook copy"
+    ],
+    "application_process": "Free biometric registration at nearest Common Service Centre (CSC) followed by 3-stage verification.",
+    "official_source": "https://pmvishwakarma.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pm-vishwakarma",
+    "notes": "Covers trades: Barbers, Tailors (Darzi), Potters (Kumhaar), Blacksmiths (Lohar), Carpenters (Suthar), Masons (Rajmistri), etc."
+  },
+  {
+    "id": "sfurti",
+    "scheme_name": "Scheme of Fund for Regeneration of Traditional Industries (SFURTI)",
+    "myscheme_slug": "sfurti",
+    "category": "Artisans & Traditional Crafts",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Organize traditional artisans and rural craftspersons into clusters to make them competitive and provide support for long-term sustainability.",
+    "target_beneficiary": "Artisans, rural clusters, SHGs, cooperative societies, NGOs, Panchayati Raj Institutions",
+    "eligible_businesses": [
+      "Artisans & Traditional Crafts",
+      "Handicrafts & Cottage Industry",
+      "Food Processing",
+      "Textiles & Apparel"
+    ],
+    "eligible_ids": [
+      "ART-",
+      "MFG-HC-",
+      "MFG-TX-"
+    ],
+    "eligibility": "Clusters of at least 500 artisans (Regular Clusters) or up to 2500 artisans (Major Clusters) in Khadi, coir, bamboo, pottery, or agro-processing.",
+    "financial_support": "Grant assistance up to ₹2.5 Crore for Regular Clusters and up to ₹5 Crore for Major Clusters. Covers 90-95% of Common Facility Centre (CFC) and machinery costs.",
+    "benefits": "State-of-the-art Common Facility Centre, design support, brand development, zero artisan debt burden.",
+    "documents": [
+      "Cluster Diagnostic Study Report (DSR)",
+      "Detailed Project Report (DPR)",
+      "Implementing Agency registration and track record",
+      "Artisan database with Aadhaar"
+    ],
+    "application_process": "Implementing Agency submits proposal to KVIC/Coir Board/NIMSME, approved by Scheme Steering Committee.",
+    "official_source": "https://sfurti.msme.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/sfurti",
+    "notes": "High impact for collective rural industries like bamboo crafts, pottery, spices, honey processing, and handloom weaving."
+  },
+  {
+    "id": "cgtmse",
+    "scheme_name": "Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE)",
+    "myscheme_slug": "cgtmse",
+    "category": "Financial Inclusion & Banking",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Make available collateral-free credit to new and existing micro and small enterprises by guaranteeing bank credit facilities.",
+    "target_beneficiary": "New and existing Micro and Small Enterprises (MSEs)",
+    "eligible_businesses": [
+      "Manufacturing & Processing",
+      "Services & Digital",
+      "Retail & Commerce",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "MFG-",
+      "SVC-",
+      "RET-"
+    ],
+    "eligibility": "Registered MSEs seeking bank loans for capital expenditure or working capital without third-party guarantee or collateral.",
+    "financial_support": "Credit guarantee coverage up to 85% for loans up to ₹5 Lakh (and for women/SC/ST entrepreneurs up to ₹5 Crore). Annual guarantee fee subsidized down to 0.37%.",
+    "benefits": "Enables entrepreneurs without ancestral land or property to secure bank term loans up to ₹5 Crore.",
+    "documents": [
+      "Udyam Registration Certificate",
+      "Project Report / Business Plan",
+      "KYC of promoters",
+      "Bank loan appraisal"
+    ],
+    "application_process": "Borrower applies directly to bank for collateral-free loan under CGTMSE; bank claims guarantee online.",
+    "official_source": "https://www.cgtmse.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/cgtmse",
+    "notes": "Over 75 lending institutions including all public sector banks, private banks, and RRBs are member lending institutions."
+  },
+  {
+    "id": "aspiire",
+    "scheme_name": "ASPIRE (Scheme for Promotion of Innovation, Rural Industry and Entrepreneurship)",
+    "myscheme_slug": "aspire",
+    "category": "Business & Entrepreneurship",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Set up a network of Livelihood Business Incubators (LBIs) and Technology Business Incubators (TBIs) to promote rural entrepreneurship and agro-rural industries.",
+    "target_beneficiary": "Rural youth, agri-innovators, technical entrepreneurs",
+    "eligible_businesses": [
+      "Agri-Tech & Drone Services",
+      "Food Processing",
+      "Clean Energy & Biomass",
+      "Manufacturing & Processing"
+    ],
+    "eligible_ids": [
+      "TBI-",
+      "LBI-",
+      "AGR-AT-"
+    ],
+    "eligibility": "Agencies, universities, polytechnics, KVKs, and individual incubatees developing rural business models.",
+    "financial_support": "One-time grant of 100% of plant and machinery cost up to ₹1 Crore for government LBIs (up to ₹50 Lakh for private LBIs). Incubation seed fund support.",
+    "benefits": "Hands-on machine training, prototype fabrication, seed capital access, rural startup incubation.",
+    "documents": [
+      "Business proposal",
+      "Educational / technical background",
+      "Incubator admission form"
+    ],
+    "application_process": "Apply to nearest MSME Livelihood Business Incubator (LBI) or through MSME Champion portal.",
+    "official_source": "https://champions.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/aspire",
+    "notes": "Great for rural innovators wanting to test commercial machinery before investing capital."
+  },
+  {
+    "id": "msme_champions",
+    "scheme_name": "MSME Champions Scheme (ZED Certification & MSME Competitive)",
+    "myscheme_slug": "msme-zed",
+    "category": "Manufacturing & MSME",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Incentivize MSMEs for Zero Defect and Zero Effect (ZED) manufacturing practices, quality certification, energy audits, and clean technology adoption.",
+    "target_beneficiary": "Micro, Small, and Medium manufacturing enterprises",
+    "eligible_businesses": [
+      "Manufacturing & Processing",
+      "Food Processing",
+      "Clean Energy & Biomass",
+      "Textiles & Apparel"
+    ],
+    "eligible_ids": [
+      "MFG-",
+      "AGR-FP-"
+    ],
+    "eligibility": "Micro enterprises holding a valid Udyam Registration Certificate.",
+    "financial_support": "80% subsidy on ZED Bronze, Silver, and Gold certification cost for Micro enterprises (additional 10% for Women/SC/ST entrepreneurs = 90% total subsidy). Up to ₹5 Lakh grant for testing and ₹50,000 reward for Bronze.",
+    "benefits": "Up to 90% certification subsidy, preferential lending interest rate (up to 0.50% concession) from partner banks.",
+    "documents": [
+      "Udyam Registration",
+      "Factory / workshop photos",
+      "Pollution / safety adherence checklist"
+    ],
+    "application_process": "Register on zed.msme.gov.in and complete self-assessment.",
+    "official_source": "https://zed.msme.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/zed",
+    "notes": "Bronze level is quick and unlocks lower interest rates from major banks."
+  },
+  {
+    "id": "krishi_udan",
+    "scheme_name": "Krishi UDAN 2.0 Scheme",
+    "myscheme_slug": "krishi-udan",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Civil Aviation",
+    "level": "Central",
+    "purpose": "Facilitate seamless air transportation of perishable agri-produce and fisheries from rural, hilly, and tribal regions to urban national and international markets.",
+    "target_beneficiary": "FPOs, agri-exporters, perishable crop farmers, rural micro-processors",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Food Processing",
+      "Cold Chain & Logistics"
+    ],
+    "eligible_ids": [
+      "AGR-FP-",
+      "AGR-EX-"
+    ],
+    "eligibility": "Farmers, FPOs, and aggregators shipping high-value perishable agri-horticulture produce from designated 53+ airports.",
+    "financial_support": "Full waiver of landing, parking, TNLC, and route navigation charges for Indian freighters and passenger-to-cargo flights carrying agricultural cargo.",
+    "benefits": "Reduced freight rates for perishable crops (mushrooms, flowers, exotic fruits, organic vegetables).",
+    "documents": [
+      "FPO registration / Trader license",
+      "Cargo manifest",
+      "APEDA / FSSAI certification (if export)"
+    ],
+    "application_process": "Through e-KUSHAL portal and cargo terminals at designated regional airports.",
+    "official_source": "https://www.civilaviation.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/krishi-udan",
+    "notes": "Highly beneficial for Northeast, tribal, and remote rural horticultural producers."
+  },
+  {
+    "id": "pm_kusum_c",
+    "scheme_name": "PM KUSUM Scheme (Component-C: Solar Agriculture Pumps)",
+    "myscheme_slug": "pm-kusum",
+    "category": "Clean Energy & Renewable",
+    "ministry": "Ministry of New and Renewable Energy",
+    "level": "Central",
+    "purpose": "Solarize grid-connected agriculture pumps and empower farmers to generate solar energy to run pumps and sell surplus power to DISCOMs.",
+    "target_beneficiary": "Individual farmers, water user associations, rural micro-entrepreneurs running irrigation services",
+    "eligible_businesses": [
+      "Clean Energy & Renewable",
+      "Agriculture & Allied",
+      "Irrigation & Farm Services"
+    ],
+    "eligible_ids": [
+      "ENG-SL-",
+      "SVC-IR-"
+    ],
+    "eligibility": "Farmers with existing electric grid pump connections or setting up standalone solar water pump up to 7.5 HP.",
+    "financial_support": "30% Central Financial Assistance + 30% State Subsidy + 30% Bank Loan. Beneficiary farmer pays only 10% of solar pump capital cost.",
+    "benefits": "60% to 70% direct capital subsidy, zero daylight electricity bill, additional income by selling surplus power.",
+    "documents": [
+      "Aadhaar card",
+      "Land ownership document (7/12 extract / Khasra)",
+      "Electricity pump connection consumer number (for solarization)",
+      "Bank account details"
+    ],
+    "application_process": "Apply via State Renewable Energy Development Agency (e.g., MEDA, UPNEDA, RREC) online portal.",
+    "official_source": "https://pmkusum.mnre.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pm-kusum",
+    "notes": "Component-A also allows farmers to set up 500 kW to 2 MW solar plants on barren land and sell power to DISCOM."
+  },
+  {
+    "id": "satat",
+    "scheme_name": "SATAT (Sustainable Alternative Towards Affordable Transportation - CBG)",
+    "myscheme_slug": "satat",
+    "category": "Clean Energy & Renewable",
+    "ministry": "Ministry of Petroleum and Natural Gas",
+    "level": "Central",
+    "purpose": "Encourage entrepreneurs to establish Compressed Bio-Gas (CBG) plants and produce biogas from agricultural residue, cattle dung, and organic waste.",
+    "target_beneficiary": "Rural entrepreneurs, dairy cooperatives, sugar mills, bio-energy startups",
+    "eligible_businesses": [
+      "Clean Energy & Renewable",
+      "Dairy & Livestock",
+      "Waste Management & Biomass"
+    ],
+    "eligible_ids": [
+      "ENG-BG-",
+      "AGR-DY-"
+    ],
+    "eligibility": "Entrepreneurs with access to agricultural waste, cow dung (gobar), or press mud, possessing sufficient land.",
+    "financial_support": "Central subsidy under GOBARdhan scheme up to ₹50 Lakh (small scale) to ₹4 Crore (commercial CBG). Guaranteed commercial off-take by Oil Marketing Companies (IOCL, BPCL, HPCL) at fixed procurement price.",
+    "benefits": "Guaranteed long-term buyback of produced bio-gas by PSU oil companies, commercial bio-manure byproduct sales.",
+    "documents": [
+      "Detailed Feasibility Report",
+      "Feedstock supply assurance agreement",
+      "Land title or lease deed",
+      "Pollution NOC"
+    ],
+    "application_process": "Apply against Expressions of Interest (EoI) floated by Oil Marketing Companies on satat.co.in.",
+    "official_source": "https://satat.co.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/satat",
+    "notes": "Dual revenue model: selling CBG to oil companies and organic bio-fertilizer to local farmers."
+  },
+  {
+    "id": "pm_surya_ghar",
+    "scheme_name": "PM Surya Ghar: Muft Bijli Yojana (Rooftop Solar & Vendor Micro-Enterprises)",
+    "myscheme_slug": "pm-surya-ghar",
+    "category": "Clean Energy & Renewable",
+    "ministry": "Ministry of New and Renewable Energy",
+    "level": "Central",
+    "purpose": "Provide free electricity to 1 crore households through rooftop solar installations and create over 3 lakh local vendor, installer, and maintenance micro-enterprises.",
+    "target_beneficiary": "Rural/urban households, electricians, solar installation technicians, local vendor enterprises",
+    "eligible_businesses": [
+      "Clean Energy & Renewable",
+      "Electronics & Digital Services",
+      "Electrical & Mechanical Services"
+    ],
+    "eligible_ids": [
+      "SVC-SL-",
+      "ENG-SL-",
+      "SVC-EL-"
+    ],
+    "eligibility": "Households with suitable roof. For enterprise: Registered solar vendors, electricians, and diploma holders registered on national portal.",
+    "financial_support": "Direct subsidy of ₹30,000 for 1 kW, ₹60,000 for 2 kW, and ₹78,000 for 3 kW+ systems. Collateral-free loans at concessional 7% interest for households.",
+    "benefits": "High market demand for local certified solar installation and maintenance agencies across semi-urban and rural areas.",
+    "documents": [
+      "Electricity connection bill",
+      "Aadhaar card",
+      "Vendor registration / ITI or electrical diploma for installer"
+    ],
+    "application_process": "Register online at pmsuryaghar.gov.in as a consumer or certified empanelled vendor.",
+    "official_source": "https://pmsuryaghar.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pm-surya-ghar",
+    "notes": "Massive opportunity for rural ITI graduates to build solar EPC and maintenance micro-businesses."
+  },
+  {
+    "id": "nsfdc_term_loan",
+    "scheme_name": "NSFDC Term Loan & Micro Credit Finance Scheme",
+    "myscheme_slug": "nsfdc-term-loan",
+    "category": "SC/ST Entrepreneurship",
+    "ministry": "Ministry of Social Justice and Empowerment",
+    "level": "Central",
+    "purpose": "Provide concessional loans to Scheduled Caste persons living below double the poverty line for income-generating self-employment ventures.",
+    "target_beneficiary": "Scheduled Caste (SC) micro-entrepreneurs, small farmers, artisans",
+    "eligible_businesses": [
+      "Manufacturing & Processing",
+      "Agriculture & Allied",
+      "Services & Textiles",
+      "Retail & Commerce"
+    ],
+    "eligible_ids": [
+      "SC-",
+      "MFG-",
+      "SVC-",
+      "RET-"
+    ],
+    "eligibility": "Applicant must belong to Scheduled Caste community with annual family income up to ₹3,00,000 in both rural and urban areas.",
+    "financial_support": "Term loans up to ₹50 Lakh (up to 90% project cost) at 4% to 8% per annum interest rate. Micro Credit Finance up to ₹1,40,000 per beneficiary at 5% per annum.",
+    "benefits": "Ultra-low interest rate (4% - 5% per annum), flexible repayment up to 5-10 years, moratorium up to 6-12 months.",
+    "documents": [
+      "Caste Certificate issued by competent authority",
+      "Income Certificate",
+      "Aadhaar and Voter Card",
+      "Business Plan / Machinery Quotation",
+      "Bank Account details"
+    ],
+    "application_process": "Apply through State Channelizing Agencies (SCAs) like State SC Development Corporation or empanelled RRBs.",
+    "official_source": "https://nsfdc.nic.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/nsfdc-term-loan",
+    "notes": "Channelized through State SC Development Corporations (e.g., MPBCDC, Mahapreet)."
+  },
+  {
+    "id": "nstfdc_aadheenam",
+    "scheme_name": "NSTFDC Adivasi Mahila Sashaktikaran Yojana (AMSY) & Term Loan",
+    "myscheme_slug": "nstfdc-amsy",
+    "category": "SC/ST Entrepreneurship",
+    "ministry": "Ministry of Tribal Affairs",
+    "level": "Central",
+    "purpose": "Concessional credit scheme exclusively for the economic development and self-employment of Scheduled Tribe women and entrepreneurs.",
+    "target_beneficiary": "Scheduled Tribe (ST) women and tribal micro-entrepreneurs",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Forest Produce & MFP",
+      "Handicrafts & Cottage Industry",
+      "Dairy & Livestock"
+    ],
+    "eligible_ids": [
+      "ST-",
+      "W-",
+      "AGR-",
+      "ART-"
+    ],
+    "eligibility": "Applicant must belong to Scheduled Tribe community with family income below ₹3 Lakh per annum.",
+    "financial_support": "Under AMSY: Loans up to ₹2 Lakh at highly subsidized interest rate of 4% per annum. Term loans up to ₹50 Lakh at 6% per annum.",
+    "benefits": "4% annual interest rate, 90% project cost financed by NSTFDC, long repayment period up to 5-10 years.",
+    "documents": [
+      "ST Caste Certificate",
+      "Income Certificate",
+      "Aadhaar card",
+      "Simple project proposal"
+    ],
+    "application_process": "Apply through State Scheduled Tribes Finance and Development Corporations (STFDCs) or TRIFED.",
+    "official_source": "https://nstfdc.tribal.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/nstfdc-amsy",
+    "notes": "Covers Minor Forest Produce (MFP) collection and processing, tribal handicrafts, poultry, and goat rearing."
+  },
+  {
+    "id": "nbcfdc_new_swarnima",
+    "scheme_name": "NBCFDC New Swarnima Scheme for OBC Women",
+    "myscheme_slug": "nbcfdc-new-swarnima",
+    "category": "SC/ST/OBC Entrepreneurship",
+    "ministry": "Ministry of Social Justice and Empowerment",
+    "level": "Central",
+    "purpose": "Provide concessional term loans to backward class women entrepreneurs to inculcate the spirit of self-reliance and entrepreneurship.",
+    "target_beneficiary": "Women belonging to Other Backward Classes (OBC)",
+    "eligible_businesses": [
+      "Women & Rural Livelihoods",
+      "Retail & Commerce",
+      "Services & Textiles",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "OBC-",
+      "W-",
+      "RET-",
+      "SVC-"
+    ],
+    "eligibility": "Female applicant belonging to OBC category with annual family income less than ₹3,00,000.",
+    "financial_support": "Loan up to ₹2 Lakh at an ultra-low interest rate of 5% per annum. No collateral required.",
+    "benefits": "5% simple interest rate, 95% funding by NBCFDC, 5-year repayment with 6-month moratorium.",
+    "documents": [
+      "OBC Caste Certificate",
+      "Income Certificate",
+      "Aadhaar & Residence proof",
+      "Bank passbook"
+    ],
+    "application_process": "Submit application to State Backward Classes Finance & Development Corporation.",
+    "official_source": "https://nbcfdc.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/nbcfdc-swarnima",
+    "notes": "Ideal for grocery shops, tailoring units, beauty parlors, and rural food stalls."
+  },
+  {
+    "id": "pm_svanidhi",
+    "scheme_name": "PM Street Vendor's AtmaNirbhar Nidhi (PM SVANidhi)",
+    "myscheme_slug": "pm-svanidhi",
+    "category": "Retail & Street Commerce",
+    "ministry": "Ministry of Housing and Urban Affairs",
+    "level": "Central",
+    "purpose": "Provide affordable working capital loans to street vendors and rural-urban peri-urban roadside micro-sellers affected by economic disruptions.",
+    "target_beneficiary": "Street vendors, peri-urban hawkers, mobile food carts, weekly market sellers",
+    "eligible_businesses": [
+      "Retail & Commerce",
+      "Services & Textiles",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "RET-SV-",
+      "RET-",
+      "SVC-"
+    ],
+    "eligibility": "Street vendors engaged in vending in urban and peri-urban areas holding Certificate of Vending or recommendation letter from ULB/Panchayat.",
+    "financial_support": "Tranche 1: ₹10,000 (1 year); Tranche 2: ₹20,000 (18 months); Tranche 3: ₹50,000 (36 months) with 7% interest subsidy on prompt repayment and up to ₹1,200 annual cash back on digital transactions.",
+    "benefits": "100% collateral-free, 7% interest subvention, automated credit score building, cash back on digital UPI receipts.",
+    "documents": [
+      "Aadhaar card linked with mobile",
+      "Vending Certificate or Letter of Recommendation (LoR)",
+      "Bank account passbook"
+    ],
+    "application_process": "Apply online at pmsvanidhi.mohua.gov.in or at Common Service Centres (CSC).",
+    "official_source": "https://pmsvanidhi.mohua.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pm-svanidhi",
+    "notes": "Disbursed rapidly via Aadhaar authentication with zero processing fee."
+  },
+  {
+    "id": "cmeegp_mh",
+    "scheme_name": "Chief Minister Employment Generation Programme (CMEGP) - Maharashtra",
+    "myscheme_slug": "cmegp-maharashtra",
+    "category": "State Specific - Maharashtra",
+    "ministry": "Industries Department, Government of Maharashtra",
+    "level": "State",
+    "purpose": "Generate self-employment opportunities by establishing micro-enterprises in manufacturing and service sectors across rural and urban Maharashtra.",
+    "target_beneficiary": "Unemployed youth of Maharashtra, rural entrepreneurs, SC/ST, Women, Divyang",
+    "eligible_businesses": [
+      "Manufacturing & Processing",
+      "Services & Textiles",
+      "Food Processing",
+      "Automobile & Mechanical"
+    ],
+    "eligible_ids": [
+      "MH-",
+      "MFG-",
+      "SVC-"
+    ],
+    "eligibility": "Domicile of Maharashtra, age 18 to 45 years (50 for special category), minimum 7th class pass for project above ₹10 Lakh in manufacturing.",
+    "financial_support": "Project cost up to ₹50 Lakh for manufacturing and ₹10 Lakh for service. Capital subsidy: 25% for general category in rural areas; 35% for special categories (SC/ST/Women/OBC) in rural areas.",
+    "benefits": "Up to 35% state capital subsidy, bank-financed, quick processing through single-window DIC portal.",
+    "documents": [
+      "Maharashtra Domicile Certificate",
+      "Aadhaar & PAN Card",
+      "Educational qualification certificate",
+      "Caste certificate (if applicable)",
+      "Detailed Project Report (DPR)"
+    ],
+    "application_process": "Apply online at maha-cmegp.gov.in and select financing bank branch.",
+    "official_source": "https://maha-cmegp.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/cmegp-mh",
+    "notes": "Administered by Directorate of Industries Maharashtra and District Industries Centres (DICs)."
+  },
+  {
+    "id": "odop_up",
+    "scheme_name": "One District One Product (ODOP) Margin Money Scheme - Uttar Pradesh",
+    "myscheme_slug": "odop-up",
+    "category": "State Specific - Uttar Pradesh",
+    "ministry": "Department of MSME and Export Promotion, Uttar Pradesh",
+    "level": "State",
+    "purpose": "Revive traditional district-specific indigenous crafts and agricultural/food products in UP by providing financial assistance.",
+    "target_beneficiary": "Artisans, micro-entrepreneurs producing district-designated ODOP products in Uttar Pradesh",
+    "eligible_businesses": [
+      "Artisans & Traditional Crafts",
+      "Food Processing",
+      "Handicrafts & Cottage Industry",
+      "Manufacturing & Processing"
+    ],
+    "eligible_ids": [
+      "UP-",
+      "ART-",
+      "MFG-"
+    ],
+    "eligibility": "Resident of Uttar Pradesh, age 18+, establishing an enterprise manufacturing the notified ODOP item for that district.",
+    "financial_support": "Margin Money Subsidy: Projects up to ₹25 Lakh get 25% margin money (max ₹6.25 Lakh); ₹25L-₹50L get 20% (max ₹6.25L); ₹50L-₹1.5Cr get 10% (max ₹10L).",
+    "benefits": "Direct margin money credit, tool-kit distribution, design & branding support at national fairs.",
+    "documents": [
+      "UP Domicile Certificate",
+      "Aadhaar card",
+      "Project Report on designated ODOP product",
+      "Bank application form"
+    ],
+    "application_process": "Apply online at diupmsme.upsdc.gov.in through the ODOP portal.",
+    "official_source": "https://diupmsme.upsdc.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/odop-up",
+    "notes": "Covers jaggery in Muzaffarnagar, chikankari in Lucknow, leather in Agra, brassware in Moradabad, etc."
+  },
+  {
+    "id": "needs_tn",
+    "scheme_name": "New Entrepreneur-cum-Enterprise Development Scheme (NEEDS) - Tamil Nadu",
+    "myscheme_slug": "needs-tamil-nadu",
+    "category": "State Specific - Tamil Nadu",
+    "ministry": "MSME Department, Government of Tamil Nadu",
+    "level": "State",
+    "purpose": "Assist educated youth to become first-generation entrepreneurs by setting up manufacturing or service micro-enterprises in Tamil Nadu.",
+    "target_beneficiary": "Educated first-generation entrepreneurs in Tamil Nadu",
+    "eligible_businesses": [
+      "Manufacturing & Processing",
+      "Services & Digital",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "TN-",
+      "MFG-",
+      "SVC-"
+    ],
+    "eligibility": "First-generation entrepreneur, degree/diploma holder, age 21 to 35 years (up to 45 for SC/ST/BC/Women). Project cost ₹10 Lakh to ₹5 Crore.",
+    "financial_support": "25% state capital subsidy on project cost (max ₹75 Lakh) + 3% interest subvention for the entire tenure of the bank loan.",
+    "benefits": "25% capital subsidy up to ₹75 Lakh, 3% interest rebate, mandatory EDP entrepreneurship training by EDI.",
+    "documents": [
+      "Degree / Diploma Certificate",
+      "Community Certificate",
+      "Tamil Nadu Nativity Certificate",
+      "DPR and bank quote"
+    ],
+    "application_process": "Apply online at msmeonline.tn.gov.in/needs portal.",
+    "official_source": "https://msmeonline.tn.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/needs-tn",
+    "notes": "One of the most generous state entrepreneurship schemes in India."
+  },
+  {
+    "id": "anugrahit_rajasthan",
+    "scheme_name": "Mukhyamantri Laghu Udyog Protsahan Yojana (MLUPY) - Rajasthan",
+    "myscheme_slug": "mlupy-rajasthan",
+    "category": "State Specific - Rajasthan",
+    "ministry": "Industries and Commerce Department, Rajasthan",
+    "level": "State",
+    "purpose": "Provide easy loans from financial institutions to establish new micro/small manufacturing, service, or retail enterprises and expand existing units in Rajasthan.",
+    "target_beneficiary": "Individual entrepreneurs, SHGs, partnership firms in Rajasthan",
+    "eligible_businesses": [
+      "Manufacturing & Processing",
+      "Services & Textiles",
+      "Retail & Commerce",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "RJ-",
+      "MFG-",
+      "SVC-",
+      "RET-"
+    ],
+    "eligibility": "Age 18+, setting up enterprise in Rajasthan. Loans available up to ₹10 Crore.",
+    "financial_support": "Interest subvention on bank loan: 8% on loans up to ₹25 Lakh; 6% on loans up to ₹5 Crore; 5% on loans up to ₹10 Crore for 5 years.",
+    "benefits": "Subsidizes 8% interest on micro loans up to ₹25 Lakh, making effective bank loan interest nearly 1-2% per annum.",
+    "documents": [
+      "Jan Aadhaar Card / Aadhaar",
+      "DPR with machinery quotations",
+      "Land/premises document (owned/rented)",
+      "Bank account statement"
+    ],
+    "application_process": "Apply through SSO Rajasthan portal (sso.rajasthan.gov.in) via MLUPY module.",
+    "official_source": "https://industries.rajasthan.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/mlupy-rj",
+    "notes": "Retail trade loans up to ₹10 Lakh are also eligible for 8% interest subsidy."
+  },
+  {
+    "id": "pmegp_karnataka",
+    "scheme_name": "Chief Minister Self Employment Scheme (CMEGP) - Karnataka",
+    "myscheme_slug": "cmegp-karnataka",
+    "category": "State Specific - Karnataka",
+    "ministry": "Department of Industries and Commerce, Karnataka",
+    "level": "State",
+    "purpose": "Provide financial assistance and subsidy to rural educated unemployed youth in Karnataka to set up micro-enterprises.",
+    "target_beneficiary": "Rural youth, women, SC/ST, backward classes in Karnataka",
+    "eligible_businesses": [
+      "Manufacturing & Processing",
+      "Services & Textiles",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "KA-",
+      "MFG-",
+      "SVC-"
+    ],
+    "eligibility": "Domicile of Karnataka, age 21 to 35 (45 for special category), minimum 8th class pass.",
+    "financial_support": "Projects up to ₹20 Lakh. Subsidy of 25% for general category (max ₹5 Lakh) and 35% for SC/ST/Women/Minorities (max ₹7 Lakh).",
+    "benefits": "Up to 35% capital subsidy, loan through Karnataka Vikas Grameena Bank and commercial banks.",
+    "documents": [
+      "Karnataka Domicile Certificate",
+      "Educational certificate",
+      "Caste certificate (if applicable)",
+      "Project report"
+    ],
+    "application_process": "Apply online at cmegp.karnataka.gov.in through Joint Director DIC.",
+    "official_source": "https://cmegp.karnataka.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/cmegp-ka",
+    "notes": "State equivalent of PMEGP with direct integration into Karnataka DIC single window."
+  },
+  {
+    "id": "pmkvy_stt",
+    "scheme_name": "Pradhan Mantri Kaushal Vikas Yojana (PMKVY 4.0) - Short Term Training",
+    "myscheme_slug": "pmkvy",
+    "category": "Skills & Employment",
+    "ministry": "Ministry of Skill Development and Entrepreneurship",
+    "level": "Central",
+    "purpose": "Enable Indian youth to take up industry-relevant skill training for livelihood and micro-entrepreneurship.",
+    "target_beneficiary": "School/college dropouts, unemployed youth, aspiring micro-entrepreneurs",
+    "eligible_businesses": [
+      "Skills & Employment",
+      "Services & Textiles",
+      "Electronics & Digital Services",
+      "Automobile & Mechanical"
+    ],
+    "eligible_ids": [
+      "SKL-",
+      "SVC-",
+      "MFG-"
+    ],
+    "eligibility": "Any Indian national aged 15-45 with Aadhaar card and valid mobile number.",
+    "financial_support": "100% free government-sponsored training and certification. Post-placement stipend and entrepreneurship incubation support.",
+    "benefits": "Recognized NSQF certificate, free toolkits, direct linkage with MUDRA loans on completion.",
+    "documents": [
+      "Aadhaar card",
+      "Educational mark sheet (any level)",
+      "Bank passbook copy"
+    ],
+    "application_process": "Register on Skill India Digital portal (skillindiadigital.gov.in) and enroll at nearest Pradhan Mantri Kaushal Kendra (PMKK).",
+    "official_source": "https://www.pmkvyofficial.org/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pmkvy",
+    "notes": "Includes customized courses in drone assembly, solar PV installation, food processing, and apparel manufacturing."
+  },
+  {
+    "id": "rseti",
+    "scheme_name": "Rural Self Employment Training Institutes (RSETI) EDP & Loan Linkage",
+    "myscheme_slug": "rseti",
+    "category": "Skills & Employment",
+    "ministry": "Ministry of Rural Development",
+    "level": "Central",
+    "purpose": "Provide intensive, short-term residential entrepreneurship development training followed by 2 years of credit linkage and handholding to rural youth.",
+    "target_beneficiary": "Rural youth (aged 18-45), BPL candidates, rural women, artisans",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Dairy & Livestock",
+      "Food Processing",
+      "Services & Textiles",
+      "Retail & Commerce"
+    ],
+    "eligible_ids": [
+      "RSETI-",
+      "MFG-",
+      "SVC-",
+      "AGR-"
+    ],
+    "eligibility": "Rural youth aged 18 to 45 years with ability to read and write.",
+    "financial_support": "Completely free residential training including boarding and lodging. Assured sponsorship to banks for MUDRA or PMEGP loans upon course completion.",
+    "benefits": "Free practical training, 2-year credit linkage escort services, 70%+ bank loan sanction rate for graduates.",
+    "documents": [
+      "Aadhaar card",
+      "Ration card (BPL priority)",
+      "Passport size photographs",
+      "Educational certificate (if any)"
+    ],
+    "application_process": "Walk into the Lead Bank RSETI office located in every district headquarters.",
+    "official_source": "https://nIRDpr.org.in/rseti/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/rseti",
+    "notes": "Available in 590+ districts managed by Lead Banks (SBI, Canara, BoB, PNB)."
+  },
+  {
+    "id": "samarth",
+    "scheme_name": "Samarth Scheme (Scheme for Capacity Building in Textile Sector)",
+    "myscheme_slug": "samarth",
+    "category": "Textiles & Apparel",
+    "ministry": "Ministry of Textiles",
+    "level": "Central",
+    "purpose": "Provide demand-driven, placement-oriented National Skills Qualifications Framework (NSQF) compliant skilling programmes to incentivize and supplement the efforts of the textile industry.",
+    "target_beneficiary": "Rural women, traditional handloom weavers, garment tailors, youth",
+    "eligible_businesses": [
+      "Textiles & Apparel",
+      "Services & Textiles",
+      "Handicrafts & Cottage Industry"
+    ],
+    "eligible_ids": [
+      "MFG-TX-",
+      "SVC-TL-"
+    ],
+    "eligibility": "Indian citizens aged 14+, preference to women, SC/ST, and rural handloom workers.",
+    "financial_support": "Free training with biometric attendance, NSQF certification, toolkit allowance, and post-training self-employment linkage.",
+    "benefits": "Industry certification, wage and self-employment linkage, access to Handloom Weaver Mudra loans.",
+    "documents": [
+      "Aadhaar card",
+      "Bank passbook",
+      "Passport photos"
+    ],
+    "application_process": "Register via samarth-textiles.gov.in portal or through local Weavers' Service Centre.",
+    "official_source": "https://samarth-textiles.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/samarth",
+    "notes": "Direct bridge to setting up boutique tailoring, powerloom, or handloom micro-units."
+  },
+  {
+    "id": "pmksy_cold_chain",
+    "scheme_name": "PM Krishi Sampada Yojana - Integrated Cold Chain & Value Addition Infrastructure",
+    "myscheme_slug": "pmksy-cold-chain",
+    "category": "Food Processing & Cold Chain",
+    "ministry": "Ministry of Food Processing Industries",
+    "level": "Central",
+    "purpose": "Create integrated cold chain and preservation infrastructure facilities without any break from the farm gate to the consumer.",
+    "target_beneficiary": "Agri-entrepreneurs, FPOs, cold storage operators, dairy processors",
+    "eligible_businesses": [
+      "Cold Chain & Logistics",
+      "Food Processing",
+      "Agriculture & Allied",
+      "Dairy & Livestock"
+    ],
+    "eligible_ids": [
+      "AGR-CS-",
+      "AGR-FP-",
+      "LOG-CC-"
+    ],
+    "eligibility": "Entities establishing farm-level infrastructure (packhouses, pre-cooling, cold storage) and refrigerated transport.",
+    "financial_support": "Grant-in-aid: 35% of eligible project cost for general areas and 50% for difficult areas (Himalayan, Northeast, ITDP) up to a maximum of ₹10 Crore per project.",
+    "benefits": "Up to 50% capital grant on cold storage machinery, blast freezers, reefer vans, and packhouses.",
+    "documents": [
+      "Detailed Project Report (DPR)",
+      "Bank appraisal and sanction letter",
+      "Land ownership title or long term registered lease",
+      "Statutory clearances"
+    ],
+    "application_process": "Apply against Expressions of Interest (EoI) on mofpi.gov.in / SAMPADA portal.",
+    "official_source": "https://www.mofpi.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pmksy-cold-chain",
+    "notes": "Vital for fruit/vegetable ripening chambers, potato/onion cold stores, and dairy bulk cooling."
+  },
+  {
+    "id": "venture_capital_sfac",
+    "scheme_name": "SFAC Venture Capital Assistance (VCA) Scheme",
+    "myscheme_slug": "sfac-vca",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Provide interest-free venture capital to qualifying projects to meet the shortfall in the capital requirement for setting up agribusiness units.",
+    "target_beneficiary": "Agri-entrepreneurs, FPOs, self-help groups, agri-graduates setting up agro-processing or marketing projects",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Food Processing",
+      "Agri-Tech & Drone Services"
+    ],
+    "eligible_ids": [
+      "AGR-FP-",
+      "AGR-AG-"
+    ],
+    "eligibility": "Agribusiness projects with term loan sanctioned by banks/FI where promoter contribution is minimum 20%.",
+    "financial_support": "Interest-free venture capital of 26% of promoter's equity (or ₹50 Lakh, whichever is lower). For Northeast/Hilly areas, up to 40% (max ₹50 Lakh).",
+    "benefits": "Interest-free capital support repayable after term loan is paid off; zero interest cost during business stabilization.",
+    "documents": [
+      "Bank Sanction Letter and Appraisal Note",
+      "DPR and financial projections",
+      "Promoter KYC & land documents"
+    ],
+    "application_process": "Apply online at sfacindia.com with bank recommendation.",
+    "official_source": "http://sfacindia.com/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/sfac-vca",
+    "notes": "Bridges the equity gap for rural entrepreneurs unable to arrange 25-30% promoter contribution."
+  },
+  {
+    "id": "acabc",
+    "scheme_name": "Agri-Clinics and Agri-Business Centres (AC&ABC) Scheme",
+    "myscheme_slug": "ac-abc",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Supplement public extension services and provide gainful employment to agriculture graduates, diploma holders, and rural entrepreneurs.",
+    "target_beneficiary": "Agri-graduates, diploma holders in agriculture/allied subjects, rural science graduates",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Agri-Tech & Drone Services",
+      "Retail & Commerce"
+    ],
+    "eligible_ids": [
+      "AGR-AC-",
+      "RET-AG-"
+    ],
+    "eligibility": "Graduates/diploma holders in agriculture, horticulture, dairy, veterinary, poultry, fisheries, or allied biological sciences.",
+    "financial_support": "Bank loan up to ₹20 Lakh for individual project (up to ₹1 Crore for group of 5). Composite back-ended capital subsidy: 36% for General Category; 44% for SC/ST and Women.",
+    "benefits": "45-day free residential training at MANAGE nodal institutes, 36% to 44% direct capital subsidy, priority bank sanction.",
+    "documents": [
+      "Degree / Diploma Certificate in Agriculture or allied field",
+      "Aadhaar card",
+      "Project Report for Agri-Clinic or Custom Hiring Centre",
+      "Bank account statement"
+    ],
+    "application_process": "Apply online at agriclinics.net for 45-day free training, then submit project to NABARD/Bank.",
+    "official_source": "https://www.agriclinics.net/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/acabc",
+    "notes": "Ideal for soil testing labs, bio-fertilizer supply, crop clinic, custom hiring, and seed/fertilizer retail."
+  },
+  {
+    "id": "fpo_formation_10k",
+    "scheme_name": "Central Sector Scheme for Formation and Promotion of 10,000 FPOs",
+    "myscheme_slug": "formation-10000-fpos",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Form and promote 10,000 new Farmer Producer Organizations to provide small and marginal farmers with collective bargaining power, quality inputs, and direct market access.",
+    "target_beneficiary": "Small & marginal farmers, rural farmer groups, agri-enterprises",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Food Processing",
+      "Storage & Warehousing"
+    ],
+    "eligible_ids": [
+      "FPO-",
+      "AGR-FP-",
+      "AGR-WH-"
+    ],
+    "eligibility": "Group of minimum 300 farmers in plains (minimum 100 farmers in North-East and hilly areas) forming a Farmer Producer Company.",
+    "financial_support": "Financial support up to ₹18 Lakh per FPO for 3 years for management costs. Equity grant matching up to ₹2,000 per farmer member (max ₹15 Lakh per FPO). Credit guarantee coverage up to ₹2 Crore per FPO.",
+    "benefits": "Matching equity grant up to ₹15 Lakh, ₹18 Lakh operational support, collateral-free credit guarantee up to ₹2 Crore.",
+    "documents": [
+      "FPO Incorporation Certificate (under Companies Act)",
+      "Farmer member shareholder list with Aadhaar",
+      "Audited financial statements and DPR"
+    ],
+    "application_process": "Through Implementing Agencies like SFAC, NABARD, NCDC or local Cluster-Based Business Organizations (CBBOs).",
+    "official_source": "https://sfacindia.com/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/fpo-10000",
+    "notes": "Catalyzes village-level aggregation for crops, pulses, spices, oilseeds, and organic farming."
+  },
+  {
+    "id": "gramin_bhandaran",
+    "scheme_name": "Gramin Bhandaran Yojana (Agricultural Marketing Infrastructure - AMI)",
+    "myscheme_slug": "ami-gramin-bhandaran",
+    "category": "Storage & Warehousing",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Create scientific storage capacity with allied facilities in rural areas to meet the requirements of farmers for storing farm produce and prevent distress sales.",
+    "target_beneficiary": "Individual farmers, agri-entrepreneurs, rural warehouse owners, cooperatives",
+    "eligible_businesses": [
+      "Storage & Warehousing",
+      "Agriculture & Allied",
+      "Cold Chain & Logistics"
+    ],
+    "eligible_ids": [
+      "AGR-WH-",
+      "LOG-"
+    ],
+    "eligibility": "Individuals, farmers, group of farmers/growers, partnership firms, cooperatives, and corporations building rural godowns/warehouses.",
+    "financial_support": "Capital subsidy on project cost: 25% for general category (max ₹50 Lakh) and 33.33% for SC/ST, Women, and North-Eastern states (max ₹66.66 Lakh).",
+    "benefits": "25% to 33.33% capital subsidy, enables farmers to obtain negotiable warehouse receipts (NWRs) for pledging loans.",
+    "documents": [
+      "Land ownership document (freehold or 15+ years lease)",
+      "Panchayat NOC / building approval",
+      "DPR and engineering estimates",
+      "Bank loan sanction letter"
+    ],
+    "application_process": "Channelized through NABARD or NCDC after commercial bank loan sanction.",
+    "official_source": "https://dmi.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/ami-godown",
+    "notes": "Essential infrastructure for rural grain storage, seed banking, and fertilizer depot business models."
+  },
+  {
+    "id": "operation_greens",
+    "scheme_name": "Operation Greens (Short Term & Long Term Value Chain)",
+    "myscheme_slug": "operation-greens",
+    "category": "Food Processing & Cold Chain",
+    "ministry": "Ministry of Food Processing Industries",
+    "level": "Central",
+    "purpose": "Enhance value realization of TOP (Tomato, Onion, Potato) and other notified 22 perishable crops by targeted value chain interventions.",
+    "target_beneficiary": "FPOs, food processors, logistics operators, agri-exporters",
+    "eligible_businesses": [
+      "Food Processing",
+      "Agriculture & Allied",
+      "Cold Chain & Logistics"
+    ],
+    "eligible_ids": [
+      "AGR-FP-",
+      "LOG-CC-"
+    ],
+    "eligibility": "Agri-processors, cold chain operators, and FPOs establishing processing, grading, sorting, and packaging facilities for notified fruits and vegetables.",
+    "financial_support": "50% capital subsidy on eligible project cost up to ₹15 Crore for integrated value chain projects. 50% subsidy on transportation and storage during price crashes.",
+    "benefits": "50% capital subsidy on processing and sorting units, 50% transport subsidy during harvest gluts.",
+    "documents": [
+      "DPR with audited financial records",
+      "FPO registration or company documents",
+      "Bank appraisal note",
+      "Contract farming / supply agreements"
+    ],
+    "application_process": "Submit proposal on MoFPI SAMPADA online portal.",
+    "official_source": "https://www.mofpi.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/operation-greens",
+    "notes": "Expanded from TOP crops to 22 perishable horticultural commodities."
+  },
+  {
+    "id": "bamboo_mission",
+    "scheme_name": "National Bamboo Mission (NBM)",
+    "myscheme_slug": "national-bamboo-mission",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Promote the growth of the bamboo sector through as an area-based regionally differentiated strategy, from plantation to post-harvest processing.",
+    "target_beneficiary": "Farmers, bamboo artisans, rural processing units, agarbatti/furniture makers",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Handicrafts & Cottage Industry",
+      "Manufacturing & Processing"
+    ],
+    "eligible_ids": [
+      "AGR-BM-",
+      "ART-BM-",
+      "MFG-"
+    ],
+    "eligibility": "Farmers cultivating bamboo on non-forest land, artisans and enterprises manufacturing bamboo furniture, packaging, or agarbatti sticks.",
+    "financial_support": "50% direct subsidy for bamboo plantation (up to ₹1.20 Lakh/ha). 50% capital subsidy on primary processing units, chipping units, and agarbatti stick machines (up to ₹25 Lakh).",
+    "benefits": "50% subsidy on bamboo processing machinery, tool distribution for artisans, zero tree felling transit restrictions on non-forest bamboo.",
+    "documents": [
+      "Land records or artisan registration",
+      "Aadhaar card",
+      "Detailed business plan for processing",
+      "Bank details"
+    ],
+    "application_process": "Apply through State Bamboo Mission directorate or District Forest/Agriculture Office.",
+    "official_source": "https://nbm.nic.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/nbm",
+    "notes": "Excellent for micro-enterprises in bamboo furniture, bio-charcoal, chopsticks, and handicrafts."
+  },
+  {
+    "id": "sub_mission_seeds",
+    "scheme_name": "Sub-Mission on Seeds and Planting Material (SMSP)",
+    "myscheme_slug": "smsp-seeds",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Develop seed infrastructure, certified seed production in villages (Seed Village Programme), and modernize seed processing and testing labs.",
+    "target_beneficiary": "Farmer groups, seed producers, rural youth, agri-startups",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Horticulture & Nursery",
+      "Storage & Warehousing"
+    ],
+    "eligible_ids": [
+      "AGR-SD-",
+      "AGR-NR-"
+    ],
+    "eligibility": "Farmers and entrepreneurs producing certified seeds, operating seed cleaning/grading units, or running commercial nursery centers.",
+    "financial_support": "50% to 60% subsidy on foundation/certified seeds distribution in Seed Villages. Up to ₹10 Lakh subsidy (50%) for setting up private seed processing and packing units.",
+    "benefits": "50% subsidy on seed processing machinery, free technical testing from state seed certification agency.",
+    "documents": [
+      "Land ownership / seed grower license",
+      "Seed certification authority registration",
+      "Bank passbook & Aadhaar"
+    ],
+    "application_process": "Register with District Agriculture Officer and State Seed Certification Agency.",
+    "official_source": "https://seednet.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/smsp",
+    "notes": "High recurring revenue business model supplying certified seeds to neighboring villages."
+  },
+  {
+    "id": "sericulture_silk_samagra",
+    "scheme_name": "Silk Samagra-2 (Central Silk Board Scheme)",
+    "myscheme_slug": "silk-samagra",
+    "category": "Textiles & Sericulture",
+    "ministry": "Ministry of Textiles",
+    "level": "Central",
+    "purpose": "Scale up domestic silk production to substitute raw silk imports, supporting sericulture farmers from mulberry plantation to silk reeling and weaving.",
+    "target_beneficiary": "Sericulture farmers, silk reelers, rural women, weavers",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Textiles & Apparel",
+      "Services & Textiles"
+    ],
+    "eligible_ids": [
+      "AGR-SR-",
+      "MFG-TX-"
+    ],
+    "eligibility": "Farmers taking up mulberry/tasar/muga silk farming, rearing houses, automatic reeling units, or handloom silk weaving.",
+    "financial_support": "Subsidy ranging from 50% to 75% for Mulberry rearing houses (up to ₹1.5 Lakh) and up to 75% for Automatic Reeling Units (ARM) and solar charkhas for women.",
+    "benefits": "Up to 75% subsidy on rearing equipment, free disease-free silkworm layings (DFLs), cocoon market support.",
+    "documents": [
+      "Aadhaar card",
+      "Land records for mulberry plantation",
+      "Sericulture Department passbook"
+    ],
+    "application_process": "Apply through District Sericulture Officer or Central Silk Board regional office.",
+    "official_source": "http://csb.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/silk-samagra",
+    "notes": "Highly lucrative monthly crop cycle with strong presence in Karnataka, Andhra Pradesh, Tamil Nadu, and Jharkhand."
+  },
+  {
+    "id": "pm_egp_rural_retail",
+    "scheme_name": "Gramodyog Vikas Yojana (KVIC Village Industries)",
+    "myscheme_slug": "gramodyog-vikas-yojana",
+    "category": "Khadi & Village Industries",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Promote and develop village industries through common facilities, technology modernization, capacity building, and market design support.",
+    "target_beneficiary": "Rural artisans, pottery workers, agarbatti manufacturers, handmade paper makers, leather workers",
+    "eligible_businesses": [
+      "Artisans & Traditional Crafts",
+      "Handicrafts & Cottage Industry",
+      "Manufacturing & Processing"
+    ],
+    "eligible_ids": [
+      "ART-",
+      "MFG-HC-"
+    ],
+    "eligibility": "Traditional artisans and rural self-employed individuals forming producer groups.",
+    "financial_support": "Free distribution of modernized toolkits (e.g. electric pottery wheels, agarbatti making machines, leather repair toolkits). 75% to 90% subsidy on Common Facility Centres.",
+    "benefits": "Zero financial liability for toolkits, 10-day stipend-backed training, guaranteed sales through KVIC bhavans.",
+    "documents": [
+      "Aadhaar card",
+      "Artisan certificate or Panchayat recommendation",
+      "Bank account details"
+    ],
+    "application_process": "Apply online at kviconline.gov.in or at state KVIC divisional offices.",
+    "official_source": "https://www.kvic.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/gvy",
+    "notes": "Includes Honey Mission, Kumhar Sashaktikaran Yojana, and Agarbatti Cluster projects."
+  },
+  {
+    "id": "dairy_entrepreneurship_nabard",
+    "scheme_name": "NABARD Dairy Infrastructure & Farm Development Refinance",
+    "myscheme_slug": "nabard-dairy",
+    "category": "Dairy & Livestock",
+    "ministry": "Ministry of Finance",
+    "level": "Central",
+    "purpose": "Encourage setting up modern dairy farms, heifer calf rearing, indigenous milk product manufacturing, and cold chain milk transportation.",
+    "target_beneficiary": "Individual farmers, SHGs, JLGs, dairy cooperatives",
+    "eligible_businesses": [
+      "Dairy & Livestock",
+      "Food Processing",
+      "Agriculture & Allied"
+    ],
+    "eligible_ids": [
+      "AGR-DY-",
+      "AGR-FP-"
+    ],
+    "eligibility": "Farmers and entrepreneurs purchasing 2 to 10 crossbred cows or graded murrah buffaloes.",
+    "financial_support": "Back-ended capital subsidy: 25% of outlay for General category (up to ₹1.75 Lakh for 10-cow unit) and 33.33% for SC/ST farmers (up to ₹2.33 Lakh). Financed via commercial and rural banks with NABARD refinance.",
+    "benefits": "25% to 33.33% back-ended capital subsidy, concessional interest rates, 5-7 year loan tenure with 6-month grace period.",
+    "documents": [
+      "DPR for dairy unit",
+      "Land documents for shed construction & fodder cultivation",
+      "Bank loan application",
+      "Aadhaar card"
+    ],
+    "application_process": "Submit project proposal to local Regional Rural Bank (RRB) or commercial bank branch with dairy experience.",
+    "official_source": "https://www.nabard.org/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/nabard-dairy",
+    "notes": "Continuous capital subsidy window operated through NABARD partner banks."
+  },
+  {
+    "id": "pm_egp_agro_food",
+    "scheme_name": "KVIC Honey Mission & Sweet Revolution",
+    "myscheme_slug": "honey-mission",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Distribute bee boxes and colonies to farmers, rural unemployed youth, and tribal forest dwellers to supplement their income.",
+    "target_beneficiary": "Small farmers, landless rural youth, tribal beekeepers, women SHGs",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Beekeeping & Honey",
+      "Food Processing"
+    ],
+    "eligible_ids": [
+      "AGR-BK-",
+      "AGR-"
+    ],
+    "eligibility": "Rural citizens aged 18+, willing to undergo 5-day beekeeping training by KVIC.",
+    "financial_support": "80% subsidized bee boxes and bee colonies (beneficiary pays only 20% token contribution, approx ₹700 per box). Free honey extractor and comb foundation sheets per group.",
+    "benefits": "80% equipment subsidy, free 5-day training, direct buyback by KVIC at benchmark MSP rates.",
+    "documents": [
+      "Aadhaar card",
+      "Panchayat residence certificate",
+      "Bank account passbook"
+    ],
+    "application_process": "Register on KVIC portal (kviconline.gov.in) under Honey Mission tab.",
+    "official_source": "https://www.kviconline.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/honey-mission",
+    "notes": "Generates ₹50,000 to ₹1,50,000 extra annual income without taking up any agricultural land."
+  },
+  {
+    "id": "coir_udyami_yojana",
+    "scheme_name": "Coir Udyami Yojana (CUY) & Coir Vikas Yojana",
+    "myscheme_slug": "coir-udyami-yojana",
+    "category": "Coir & Rural Manufacturing",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Assist setting up coir fiber extraction, coir yarn spinning, coir geotextiles, and coir pith compost micro-manufacturing units in coastal and coconut growing states.",
+    "target_beneficiary": "Coconut farmers, rural youth, women SHGs in coconut-producing states",
+    "eligible_businesses": [
+      "Manufacturing & Processing",
+      "Agriculture & Allied",
+      "Handicrafts & Cottage Industry"
+    ],
+    "eligible_ids": [
+      "MFG-CO-",
+      "AGR-CO-"
+    ],
+    "eligibility": "Any individual above 18 years setting up coir-based manufacturing units with project cost up to ₹10 Lakh.",
+    "financial_support": "40% government subsidy of the project cost. 55% bank loan. Beneficiary contribution is only 5%.",
+    "benefits": "40% direct capital subsidy, low 5% promoter equity, massive export demand for coir pith blocks.",
+    "documents": [
+      "Aadhaar & PAN",
+      "Project feasibility report",
+      "Title/lease of workshed",
+      "Bank sanction letter"
+    ],
+    "application_process": "Apply online at coirboard.gov.in or submit application to nearest Coir Board Sub-Regional Office.",
+    "official_source": "http://coirboard.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/coir-udyami",
+    "notes": "Covers states: Kerala, Tamil Nadu, Karnataka, Andhra Pradesh, Odisha, Maharashtra, West Bengal, Goa."
+  },
+  {
+    "id": "pm_egp_clean_energy",
+    "scheme_name": "Biomass Pellet & Briquetting Manufacturing Subsidy (MNRE)",
+    "myscheme_slug": "biomass-pellet-mnre",
+    "category": "Clean Energy & Biomass",
+    "ministry": "Ministry of New and Renewable Energy",
+    "level": "Central",
+    "purpose": "Incentivize rural entrepreneurs to establish biomass pellet and briquette manufacturing plants to utilize paddy straw, stubble, and agro-waste.",
+    "target_beneficiary": "Agri-entrepreneurs, rural manufacturers, farmer groups in agricultural belts",
+    "eligible_businesses": [
+      "Clean Energy & Biomass",
+      "Manufacturing & Processing",
+      "Agriculture & Allied"
+    ],
+    "eligible_ids": [
+      "ENG-BM-",
+      "MFG-"
+    ],
+    "eligibility": "Enterprises manufacturing non-torrefied/torrefied pellets or briquettes with minimum 1 TPH (Ton Per Hour) capacity.",
+    "financial_support": "Central Financial Assistance (CFA) of ₹9 Lakh per metric ton per hour (TPH) capacity (max ₹45 Lakh per plant). Additional thermal power plant co-firing purchase obligation.",
+    "benefits": "Direct capital subsidy of up to ₹45 Lakh, guaranteed demand from NTPC and private thermal plants mandated to co-fire 5% biomass pellets.",
+    "documents": [
+      "DPR with machinery quotes",
+      "Agri-residue supply agreement with local farmers",
+      "Pollution Consent to Establish (CTE)",
+      "Bank sanction letter"
+    ],
+    "application_process": "Apply through MNRE Bioenergy portal (biourja.mnre.gov.in) with bank appraisal.",
+    "official_source": "https://biourja.mnre.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/biomass-mnre",
+    "notes": "Turns crop stubble (parali) burning issue into a high-profit rural manufacturing enterprise."
+  },
+  {
+    "id": "pm_egp_rural_transport",
+    "scheme_name": "Gramin Parivahan Yojana (Rural E-Vehicle & Commercial Transport)",
+    "myscheme_slug": "gramin-parivahan",
+    "category": "Transport & Logistics",
+    "ministry": "Ministry of Rural Development",
+    "level": "Central",
+    "purpose": "Provide affordable commercial public transport in remote rural areas by financing commercial passenger vehicles and e-rickshaws through SHG members.",
+    "target_beneficiary": "Rural youth, SHG members, small transport operators",
+    "eligible_businesses": [
+      "Transport & Logistics",
+      "Services & Mechanical",
+      "Retail & Commerce"
+    ],
+    "eligible_ids": [
+      "LOG-TR-",
+      "SVC-TR-"
+    ],
+    "eligibility": "Rural youth or SHG members with commercial driving license or willing to operate e-rickshaw/cargo carrier.",
+    "financial_support": "Subsidized bank loan up to ₹2.5 Lakh for e-rickshaw / light commercial cargo vehicle. Up to ₹1 Lakh interest-free loan from Village Community Investment Fund.",
+    "benefits": "Low down payment (₹10,000 - ₹20,000), immediate daily cash earnings, concessional commercial vehicle permits.",
+    "documents": [
+      "Driving License / Learner's permit",
+      "Aadhaar and domicile certificate",
+      "SHG / Panchayat recommendation",
+      "Vehicle quotation"
+    ],
+    "application_process": "Apply via Block Development Office or District Transport Office under State Rural Livelihood Mission.",
+    "official_source": "https://rural.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/gramin-parivahan",
+    "notes": "High demand for rural passenger connectivity and agri-produce transport from farm to local mandi."
+  },
+  {
+    "id": "dairy_kisan_dron",
+    "scheme_name": "Agri-Drone Promotion under Agricultural Mechanization",
+    "myscheme_slug": "agri-drone-chc",
+    "category": "Agri-Tech & Equipment",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Subsidize procurement of Kisan Drones for Custom Hiring Centres, rural agri-graduates, and FPOs to provide precision spraying and crop health monitoring services.",
+    "target_beneficiary": "Agri-entrepreneurs, rural ITI/polytechnic diploma holders, FPOs, CHCs",
+    "eligible_businesses": [
+      "Agri-Tech & Drone Services",
+      "Services & Mechanical",
+      "Agriculture & Allied"
+    ],
+    "eligible_ids": [
+      "SVC-DR-",
+      "AGR-AT-"
+    ],
+    "eligibility": "Rural entrepreneurs or FPO members who have completed DGCA-certified Remote Pilot Training.",
+    "financial_support": "Subsidy: 50% of drone cost up to ₹5 Lakh for individual agricultural graduates/entrepreneurs; up to 75% for FPOs; 100% for ICAR/KVK institutions.",
+    "benefits": "50% direct subsidy up to ₹5 Lakh on DGCA-type certified drones, lucrative service charges (₹350 - ₹500 per acre sprayed).",
+    "documents": [
+      "DGCA Remote Pilot Certificate",
+      "Degree / Diploma in agriculture or engineering",
+      "Aadhaar card & PAN",
+      "Drone purchase proforma invoice"
+    ],
+    "application_process": "Apply on agrimachinery.nic.in portal under Kisan Drone component.",
+    "official_source": "https://agrimachinery.nic.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/kisan-drone",
+    "notes": "Can spray 20-25 acres of crops per day, cutting pesticide wastage by 30% and time by 80%."
+  },
+  {
+    "id": "pmegp_flour_spice",
+    "scheme_name": "Village Agro-Processing & Mini Atta/Oil/Spice Mill Scheme",
+    "myscheme_slug": "mini-mill-kvic",
+    "category": "Food Processing & Micro Mills",
+    "ministry": "Ministry of Micro, Small and Medium Enterprises",
+    "level": "Central",
+    "purpose": "Financially assist setting up mini flour mills (atta chakki), cold press oil extraction units (oil kohlu), and spice grinding mills in rural clusters.",
+    "target_beneficiary": "Rural micro-entrepreneurs, village women, local farmers",
+    "eligible_businesses": [
+      "Food Processing",
+      "Manufacturing & Processing",
+      "Retail & Commerce"
+    ],
+    "eligible_ids": [
+      "MFG-ML-",
+      "AGR-FP-",
+      "RET-"
+    ],
+    "eligibility": "Any individual above 18 years residing in village or semi-urban area with adequate space and 3-phase electricity.",
+    "financial_support": "Composite loan up to ₹10 Lakh with 35% rural subsidy under PMEGP. Low 5% own contribution for special categories.",
+    "benefits": "35% back-ended capital subsidy, steady daily household customer base, zero unsold inventory risk.",
+    "documents": [
+      "Aadhaar card",
+      "Gram Panchayat No-Objection Certificate (NOC)",
+      "Electricity connection receipt",
+      "Machinery quotation from verified supplier"
+    ],
+    "application_process": "Apply on kviconline.gov.in choosing 'Agro Based & Food Processing Industry'.",
+    "official_source": "https://www.kviconline.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/village-mills",
+    "notes": "One of the safest, high cash-flow micro-enterprises with steady recurring local patronage."
+  },
+  {
+    "id": "pm_fisheries_shg",
+    "scheme_name": "Fisheries Infrastructure Development Fund (FIDF)",
+    "myscheme_slug": "fidf",
+    "category": "Fisheries & Aquaculture",
+    "ministry": "Ministry of Fisheries, Animal Husbandry and Dairying",
+    "level": "Central",
+    "purpose": "Provide concessional finance to state entities, cooperatives, and individual entrepreneurs for modern fishing harbors, fish landing centres, and inland aquaculture ponds.",
+    "target_beneficiary": "Fishers, fisheries cooperatives, private enterprises, SHGs",
+    "eligible_businesses": [
+      "Fisheries & Aquaculture",
+      "Food Processing",
+      "Cold Chain & Logistics"
+    ],
+    "eligible_ids": [
+      "AGR-AQ-",
+      "AGR-FS-"
+    ],
+    "eligibility": "Registered cooperatives, companies, or individuals with water bodies or leased ponds for intensive aquaculture.",
+    "financial_support": "Interest subvention up to 3% per annum for up to 12 years with a moratorium of 2 years on principal repayment. Loans financed by NABARD / NCDC.",
+    "benefits": "3% interest subvention for 12 years, 2-year principal moratorium, comprehensive coverage of fish processing.",
+    "documents": [
+      "Comprehensive DPR",
+      "Pond lease or water rights documentation",
+      "Environmental clearance (if required)",
+      "Bank loan sanction letter"
+    ],
+    "application_process": "Submit project proposal to Department of Fisheries, Ministry of FAHD.",
+    "official_source": "https://fidf.dof.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/fidf",
+    "notes": "Covers high-capacity hatcheries, fish feed plants, and modern cold storage at fish landing centres."
+  },
+  {
+    "id": "pm_egp_sanitary_shg",
+    "scheme_name": "Rural Sanitary Napkin & Hygiene Micro-Manufacturing Unit Scheme",
+    "myscheme_slug": "rural-hygiene-shg",
+    "category": "Women & Rural Livelihoods",
+    "ministry": "Ministry of Women and Child Development",
+    "level": "Central",
+    "purpose": "Promote menstrual hygiene in rural areas and create sustainable women entrepreneurship by establishing low-cost sanitary pad production units by SHGs.",
+    "target_beneficiary": "Women Self Help Groups, Anganwadi worker collectives, rural female youth",
+    "eligible_businesses": [
+      "Women & Rural Livelihoods",
+      "Manufacturing & Processing",
+      "Health & Hygiene Products"
+    ],
+    "eligible_ids": [
+      "W-",
+      "MFG-HG-",
+      "SHG-"
+    ],
+    "eligibility": "Women SHGs consisting of 5-10 members trained in machine operation and packaging.",
+    "financial_support": "Subsidized project setup cost (approx ₹3 Lakh to ₹5 Lakh) funded via NRLM CIF grant + PMEGP 35% subsidy. Institutional buyback through local schools and health departments.",
+    "benefits": "35% subsidy, assured institutional procurement from schools/Asha workers, social impact combined with livelihood.",
+    "documents": [
+      "SHG bank passbook and resolution",
+      "Aadhaar card of group leaders",
+      "Machinery proforma invoice",
+      "BIS / quality adherence declaration"
+    ],
+    "application_process": "Channelized through District Women & Child Development Officer or State SRLM.",
+    "official_source": "https://wcd.nic.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/sanitary-pad-shg",
+    "notes": "Low raw material cost, rapid packaging cycle, steady demand via primary health centres and rural schools."
+  },
+  {
+    "id": "pm_egp_waste_wealth",
+    "scheme_name": "Waste to Wealth & Bio-compost Micro-Enterprise Programme",
+    "myscheme_slug": "waste-to-wealth",
+    "category": "Agriculture & Environment",
+    "ministry": "Ministry of Jal Shakti / Swachh Bharat Mission (Grameen)",
+    "level": "Central",
+    "purpose": "Convert cattle dung, crop residues, and biodegradable village waste into vermicompost, bio-slurry, and organic soil conditioners.",
+    "target_beneficiary": "Gram Panchayats, village entrepreneurs, SHGs, progressive farmers",
+    "eligible_businesses": [
+      "Agriculture & Allied",
+      "Waste Management & Biomass",
+      "Clean Energy & Renewable"
+    ],
+    "eligible_ids": [
+      "AGR-VC-",
+      "AGR-OF-",
+      "ENG-"
+    ],
+    "eligibility": "Individuals or groups possessing at least 5,000 sq ft land near village habitation or dairy farms.",
+    "financial_support": "Financial assistance up to ₹5 Lakh for community solid waste management units under Swachh Bharat Mission (Grameen) Phase II. Converged with PMEGP/PKVY for individual entrepreneurs.",
+    "benefits": "Up to ₹5 Lakh direct grant for community units, high local demand from organic farmers, low capital expenditure.",
+    "documents": [
+      "Land ownership or Panchayat permission letter",
+      "Aadhaar card and bank account",
+      "Simple DPR for composting beds and sieve machines"
+    ],
+    "application_process": "Apply through Block Development Officer (BDO) or Swachh Bharat Mission (Grameen) cell.",
+    "official_source": "https://swachhbharatmission.ddws.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/waste-wealth-sbm",
+    "notes": "Complements PKVY and natural farming missions with high demand for enriched cow dung compost."
+  },
+  {
+    "id": "seed_capital_shg_pmfme",
+    "scheme_name": "PMFME Seed Capital for SHG Members",
+    "myscheme_slug": "pmfme-seed-capital",
+    "category": "Women & Rural Livelihoods",
+    "ministry": "Ministry of Food Processing Industries",
+    "level": "Central",
+    "purpose": "Provide upfront seed capital to each individual SHG member engaged in micro food processing for working capital and purchase of small tools.",
+    "target_beneficiary": "Women SHG members processing papad, pickles, spices, snacks, flour, juices",
+    "eligible_businesses": [
+      "Food Processing",
+      "Women & Rural Livelihoods",
+      "Retail & Commerce"
+    ],
+    "eligible_ids": [
+      "W-",
+      "SHG-",
+      "AGR-FP-"
+    ],
+    "eligibility": "Existing SHG member actively involved in food processing enterprise, recommended by State Rural Livelihood Mission (SRLM).",
+    "financial_support": "Direct seed grant of ₹40,000 per SHG member as interest-free working capital through the SHG federation.",
+    "benefits": "100% upfront interest-free grant/working capital loan, zero collateral, instant liquidity for raw materials.",
+    "documents": [
+      "Aadhaar card",
+      "SHG membership passbook",
+      "Food activity proof (photos of products/packaging)",
+      "Bank account details"
+    ],
+    "application_process": "Nomination submitted by Cluster Level Federation (CLF) to District Resource Person (DRP) on PMFME portal.",
+    "official_source": "https://pmfme.mofpi.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/pmfme-seed",
+    "notes": "Over 2 lakh SHG women have received ₹40,000 seed funds across India to purchase utensils, sealers, and raw spices."
+  },
+  {
+    "id": "pm_egp_cold_pressed_oil",
+    "scheme_name": "National Mission on Edible Oils - Oil Palm & Oilseeds (NMEO)",
+    "myscheme_slug": "nmeo-oilseeds",
+    "category": "Agriculture & Allied",
+    "ministry": "Ministry of Agriculture and Farmers Welfare",
+    "level": "Central",
+    "purpose": "Achieve self-sufficiency in edible oils by promoting domestic oilseed cultivation and village-level wooden cold press (Kachi Ghani) extraction units.",
+    "target_beneficiary": "Oilseed farmers (mustard, groundnut, sesame, sunflower), village oil millers, rural youth",
+    "eligible_businesses": [
+      "Food Processing",
+      "Manufacturing & Processing",
+      "Agriculture & Allied"
+    ],
+    "eligible_ids": [
+      "AGR-FP-",
+      "MFG-ML-"
+    ],
+    "eligibility": "Farmers and rural entrepreneurs setting up mini cold press oil extraction units in oilseed growing clusters.",
+    "financial_support": "Up to 40% capital subsidy on cold press oil extraction machinery under Sub-Mission on Oilseeds and AIF 3% interest subvention.",
+    "benefits": "40% capital subsidy, premium price realized for pure wood-pressed cold extracted edible oil in urban retail markets.",
+    "documents": [
+      "Aadhaar card & FSSAI basic registration",
+      "Machinery proforma invoice for wooden cold press machine",
+      "Electricity connection receipt",
+      "Bank account statement"
+    ],
+    "application_process": "Apply via State Agriculture Department or converge with PMEGP at DIC.",
+    "official_source": "https://nmeo.dac.gov.in/",
+    "myscheme_url": "https://www.myscheme.gov.in/schemes/nmeo",
+    "notes": "Wood-pressed oils (mustard, groundnut, sesame) sell at 2x to 3x higher prices than refined oils."
+  }
+]

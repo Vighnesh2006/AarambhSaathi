@@ -1,0 +1,4724 @@
+[
+  {
+    "id": "pmfme / team validation_mushroom_farming",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Mushroom Farming",
+    "category": "Agriculture",
+    "business_type": "Agri-enterprise",
+    "minimum_investment": 60000.0,
+    "recommended_investment": 90000.0,
+    "required_skills": [
+      "Cultivation",
+      "Hygiene Management",
+      "Climate Control"
+    ],
+    "required_resources": [
+      "Small space",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small space",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Variable",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agriculture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 19200.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-enterprise in the Agriculture sector. Requires Small space with an estimated minimum capital of ₹60,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_beekeeping_honey_production",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Beekeeping & Honey Production",
+    "category": "Agriculture",
+    "business_type": "Agri-enterprise",
+    "minimum_investment": 70000.0,
+    "recommended_investment": 105000.0,
+    "required_skills": [
+      "Bee Handling",
+      "Hive Management",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small land/space",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small land/space",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Variable",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agriculture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 22400.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-enterprise in the Agriculture sector. Requires Small land/space with an estimated minimum capital of ₹70,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_plant_nursery",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Plant Nursery",
+    "category": "Horticulture",
+    "business_type": "Agri-enterprise",
+    "minimum_investment": 75000.0,
+    "recommended_investment": 112000.0,
+    "required_skills": [
+      "Plant Propagation",
+      "Nursery Management",
+      "Sales"
+    ],
+    "required_resources": [
+      "Small land",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small land",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Horticulture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 24000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-enterprise in the Horticulture sector. Requires Small land with an estimated minimum capital of ₹75,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_vermicompost_production",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Vermicompost Production",
+    "category": "Agriculture",
+    "business_type": "Circular / Agri-enterprise",
+    "minimum_investment": 50000.0,
+    "recommended_investment": 75000.0,
+    "required_skills": [
+      "Composting",
+      "Quality Control",
+      "Farm Management"
+    ],
+    "required_resources": [
+      "Small land/space",
+      "Water supply",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small land/space",
+    "water_needed": true,
+    "electricity_needed": false,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agriculture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 16000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Operating tools maintenance",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural circular / agri-enterprise in the Agriculture sector. Requires Small land/space with an estimated minimum capital of ₹50,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_hydroponic_fodder_unit",
+    "catalogue_id": "Team validation",
+    "business_name": "Hydroponic Fodder Unit",
+    "category": "Agri-Tech",
+    "business_type": "Technology-enabled",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Hydroponics",
+      "Livestock Knowledge",
+      "Maintenance"
+    ],
+    "required_resources": [
+      "Small shed/room",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small shed/room",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural technology-enabled in the Agri-Tech sector. Requires Small shed/room with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_microgreens_production",
+    "catalogue_id": "Team validation",
+    "business_name": "Microgreens Production",
+    "category": "Agri-Tech",
+    "business_type": "Technology-enabled",
+    "minimum_investment": 70000.0,
+    "recommended_investment": 105000.0,
+    "required_skills": [
+      "Controlled Cultivation",
+      "Hygiene Management",
+      "Marketing"
+    ],
+    "required_resources": [
+      "Small room/space",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small room/space",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 22400.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural technology-enabled in the Agri-Tech sector. Requires Small room/space with an estimated minimum capital of ₹70,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_medicinal_plant_cultivation",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Medicinal Plant Cultivation",
+    "category": "Agriculture",
+    "business_type": "Agri-enterprise",
+    "minimum_investment": 75000.0,
+    "recommended_investment": 112000.0,
+    "required_skills": [
+      "Cultivation",
+      "Plant Identification",
+      "Marketing"
+    ],
+    "required_resources": [
+      "Land",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Land",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Variable",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agriculture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 24000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-enterprise in the Agriculture sector. Requires Land with an estimated minimum capital of ₹75,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / pmfme_spice_cultivation_processing",
+    "catalogue_id": "Agriculture / PMFME",
+    "business_name": "Spice Cultivation & Processing",
+    "category": "Agriculture",
+    "business_type": "Agri-processing",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Cultivation",
+      "Drying",
+      "Processing"
+    ],
+    "required_resources": [
+      "Land + small processing area",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Land + small processing area",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agriculture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-processing in the Agriculture sector. Requires Land + small processing area with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_floriculture",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Floriculture",
+    "category": "Horticulture",
+    "business_type": "Agri-enterprise",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Cultivation",
+      "Irrigation",
+      "Flower Handling"
+    ],
+    "required_resources": [
+      "Land/greenhouse preferred",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Land/greenhouse preferred",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Horticulture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-enterprise in the Horticulture sector. Requires Land/greenhouse preferred with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_seedling_tray_production",
+    "catalogue_id": "Team validation",
+    "business_name": "Seedling Tray Production",
+    "category": "Agriculture",
+    "business_type": "Agri-enterprise",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Nursery Management",
+      "Mould Handling",
+      "Sales"
+    ],
+    "required_resources": [
+      "Small workshop/space",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop/space",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agriculture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-enterprise in the Agriculture sector. Requires Small workshop/space with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / agriculture_dairy_farming",
+    "catalogue_id": "PMFME / Agriculture",
+    "business_name": "Dairy Farming",
+    "category": "Livestock",
+    "business_type": "Livestock enterprise",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Animal Care",
+      "Feed Management",
+      "Milk Handling"
+    ],
+    "required_resources": [
+      "Land/shed",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Land/shed",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Livestock trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural livestock enterprise in the Livestock sector. Requires Land/shed with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_goat_farming",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Goat Farming",
+    "category": "Livestock",
+    "business_type": "Livestock enterprise",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Animal Care",
+      "Breeding",
+      "Feeding"
+    ],
+    "required_resources": [
+      "Land/shed preferred",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Land/shed preferred",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Livestock trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural livestock enterprise in the Livestock sector. Requires Land/shed preferred with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_backyard_poultry",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Backyard Poultry",
+    "category": "Livestock",
+    "business_type": "Livestock enterprise",
+    "minimum_investment": 75000.0,
+    "recommended_investment": 112000.0,
+    "required_skills": [
+      "Poultry Care",
+      "Vaccination",
+      "Sales"
+    ],
+    "required_resources": [
+      "Small shed/space",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small shed/space",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Livestock trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 24000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural livestock enterprise in the Livestock sector. Requires Small shed/space with an estimated minimum capital of ₹75,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_fish_farming",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Fish Farming",
+    "category": "Fisheries",
+    "business_type": "Livestock/Fisheries",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Aquaculture",
+      "Water Management",
+      "Feeding"
+    ],
+    "required_resources": [
+      "Pond/water body",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Pond/water body",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Fisheries trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural livestock/fisheries in the Fisheries sector. Requires Pond/water body with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_duck_farming",
+    "catalogue_id": "Team validation",
+    "business_name": "Duck Farming",
+    "category": "Livestock",
+    "business_type": "Livestock enterprise",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Animal Care",
+      "Breeding",
+      "Disease Management"
+    ],
+    "required_resources": [
+      "Shed + water preferred",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Shed + water preferred",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Livestock trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural livestock enterprise in the Livestock sector. Requires Shed + water preferred with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_silage_production",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Silage Production",
+    "category": "Agriculture",
+    "business_type": "Livestock support",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Fodder Management",
+      "Fermentation",
+      "Storage"
+    ],
+    "required_resources": [
+      "Covered storage area",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Covered storage area",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agriculture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural livestock support in the Agriculture sector. Requires Covered storage area with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_animal_feed_manufacturing",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Animal Feed Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Agri-manufacturing",
+    "minimum_investment": 250000.0,
+    "recommended_investment": 338000.0,
+    "required_skills": [
+      "Feed Formulation",
+      "Machinery Handling",
+      "Quality Control"
+    ],
+    "required_resources": [
+      "Workshop + storage",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Workshop + storage",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 80000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-manufacturing in the Manufacturing sector. Requires Workshop + storage with an estimated minimum capital of ₹250,000 and recommended skill development."
+  },
+  {
+    "id": "dairy / team validation_milk_collection_chilling_centre",
+    "catalogue_id": "Dairy / Team validation",
+    "business_name": "Milk Collection & Chilling Centre",
+    "category": "Dairy",
+    "business_type": "Cold-chain service",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Milk Testing",
+      "Cold-chain Management",
+      "Bookkeeping"
+    ],
+    "required_resources": [
+      "Collection point + chilling",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Collection point + chilling",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Dairy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural cold-chain service in the Dairy sector. Requires Collection point + chilling with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme_paneer_manufacturing",
+    "catalogue_id": "PMFME",
+    "business_name": "Paneer Manufacturing",
+    "category": "Food Processing",
+    "business_type": "Value-added dairy",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Dairy Processing",
+      "Hygiene",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small processing room",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing room",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural value-added dairy in the Food Processing sector. Requires Small processing room with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / icar_millet_processing_unit",
+    "catalogue_id": "PMFME / ICAR",
+    "business_name": "Millet Processing Unit",
+    "category": "Food Processing",
+    "business_type": "Value-added food",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Grain Processing",
+      "Machine Operation",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural value-added food in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "icar / pmfme_mini_flour_mill",
+    "catalogue_id": "ICAR / PMFME",
+    "business_name": "Mini Flour Mill",
+    "category": "Manufacturing",
+    "business_type": "Food processing machinery",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Machine Operation",
+      "Grain Handling",
+      "Maintenance"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural food processing machinery in the Manufacturing sector. Requires Small unit with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "icar / pmfme_dal_mill",
+    "catalogue_id": "ICAR / PMFME",
+    "business_name": "Dal Mill",
+    "category": "Food Processing",
+    "business_type": "Food processing machinery",
+    "minimum_investment": 400000.0,
+    "recommended_investment": 540000.0,
+    "required_skills": [
+      "Processing",
+      "Machine Operation",
+      "Quality Control"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 128000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural food processing machinery in the Food Processing sector. Requires Small unit with an estimated minimum capital of ₹400,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme_spice_grinding_packaging",
+    "catalogue_id": "PMFME",
+    "business_name": "Spice Grinding & Packaging",
+    "category": "Food Processing",
+    "business_type": "Food manufacturing",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Grinding",
+      "Blending",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural food manufacturing in the Food Processing sector. Requires Small unit with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_dehydrated_vegetable_unit",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Dehydrated Vegetable Unit",
+    "category": "Food Processing",
+    "business_type": "Food preservation",
+    "minimum_investment": 250000.0,
+    "recommended_investment": 338000.0,
+    "required_skills": [
+      "Food Preservation",
+      "Dryer Operation",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Processing room",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Processing room",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 80000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural food preservation in the Food Processing sector. Requires Processing room with an estimated minimum capital of ₹250,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_garlic_powder_flakes_unit",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Garlic Powder / Flakes Unit",
+    "category": "Food Processing",
+    "business_type": "Food preservation",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Dehydration",
+      "Grinding",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural food preservation in the Food Processing sector. Requires Small unit with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_onion_dehydration_unit",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Onion Dehydration Unit",
+    "category": "Food Processing",
+    "business_type": "Food preservation",
+    "minimum_investment": 250000.0,
+    "recommended_investment": 338000.0,
+    "required_skills": [
+      "Food Processing",
+      "Drying",
+      "Quality Control"
+    ],
+    "required_resources": [
+      "Processing room",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Processing room",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 80000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural food preservation in the Food Processing sector. Requires Processing room with an estimated minimum capital of ₹250,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_banana_chips_manufacturing",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Banana Chips Manufacturing",
+    "category": "Food Processing",
+    "business_type": "Snack manufacturing",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Food processing",
+      "Frying",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural snack manufacturing in the Food Processing sector. Requires Small unit with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme_fruit_pulp_processing",
+    "catalogue_id": "PMFME",
+    "business_name": "Fruit Pulp Processing",
+    "category": "Food Processing",
+    "business_type": "Value-added food",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Food Preservation",
+      "Processing",
+      "Quality Control"
+    ],
+    "required_resources": [
+      "Processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural value-added food in the Food Processing sector. Requires Processing unit with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme_tomato_processing_unit",
+    "catalogue_id": "PMFME",
+    "business_name": "Tomato Processing Unit",
+    "category": "Food Processing",
+    "business_type": "Value-added food",
+    "minimum_investment": 250000.0,
+    "recommended_investment": 338000.0,
+    "required_skills": [
+      "Processing",
+      "Preservation",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 80000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural value-added food in the Food Processing sector. Requires Processing unit with an estimated minimum capital of ₹250,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme_pickle_chutney_manufacturing",
+    "catalogue_id": "PMFME",
+    "business_name": "Pickle & Chutney Manufacturing",
+    "category": "Food Processing",
+    "business_type": "Home/small food business",
+    "minimum_investment": 75000.0,
+    "recommended_investment": 112000.0,
+    "required_skills": [
+      "Food Preparation",
+      "Hygiene",
+      "Branding"
+    ],
+    "required_resources": [
+      "Small kitchen/unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small kitchen/unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 24000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural home/small food business in the Food Processing sector. Requires Small kitchen/unit with an estimated minimum capital of ₹75,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme_ready_to_cook_food_manufacturing",
+    "catalogue_id": "PMFME",
+    "business_name": "Ready-to-Cook Food Manufacturing",
+    "category": "Food Processing",
+    "business_type": "Packaged foods",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Recipe Development",
+      "Processing",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural packaged foods in the Food Processing sector. Requires Processing unit with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme_millet_snacks_manufacturing",
+    "catalogue_id": "PMFME",
+    "business_name": "Millet Snacks Manufacturing",
+    "category": "Food Processing",
+    "business_type": "Healthy packaged food",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Food Formulation",
+      "Baking/Processing",
+      "Branding"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural healthy packaged food in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_ragijowar_flour_mixes",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Ragi/Jowar Flour & Mixes",
+    "category": "Food Processing",
+    "business_type": "Value-added grains",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Grain Processing",
+      "Blending",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural value-added grains in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_peanut_butter_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Peanut Butter Manufacturing",
+    "category": "Food Processing",
+    "business_type": "Packaged foods",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Roasting",
+      "Grinding",
+      "Food Safety"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural packaged foods in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "icar / pmfme_cold_pressed_oil_unit",
+    "catalogue_id": "ICAR / PMFME",
+    "business_name": "Cold-Pressed Oil Unit",
+    "category": "Food Processing",
+    "business_type": "Agro-processing",
+    "minimum_investment": 400000.0,
+    "recommended_investment": 540000.0,
+    "required_skills": [
+      "Oil Extraction",
+      "Filtration",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 128000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agro-processing in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹400,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_jaggery_value_added_products",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Jaggery Value-Added Products",
+    "category": "Food Processing",
+    "business_type": "Value-added agri-products",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Food Processing",
+      "Moulding",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural value-added agri-products in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_honey_processing_branding",
+    "catalogue_id": "Team validation",
+    "business_name": "Honey Processing & Branding",
+    "category": "Food Processing",
+    "business_type": "Value-added honey",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Honey Filtration",
+      "Quality Testing",
+      "Branding"
+    ],
+    "required_resources": [
+      "Small processing room",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing room",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural value-added honey in the Food Processing sector. Requires Small processing room with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_solar_food_dryer_service",
+    "catalogue_id": "Team validation",
+    "business_name": "Solar Food Dryer Service",
+    "category": "Renewable Energy",
+    "business_type": "Food-tech service",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Solar Equipment",
+      "Food Drying",
+      "Maintenance"
+    ],
+    "required_resources": [
+      "Small workshop/service area",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop/service area",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Renewable Energy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural food-tech service in the Renewable Energy sector. Requires Small workshop/service area with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_areca_leaf_plate_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Areca Leaf Plate Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Eco-products",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Machine Operation",
+      "Moulding",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural eco-products in the Manufacturing sector. Requires Small workshop with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "svep / team validation_bamboo_product_manufacturing",
+    "catalogue_id": "SVEP / Team validation",
+    "business_name": "Bamboo Product Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Handicraft",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Bamboo Processing",
+      "Product Design",
+      "Finishing"
+    ],
+    "required_resources": [
+      "Small workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural handicraft in the Manufacturing sector. Requires Small workshop with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "svep / team validation_bamboo_furniture_manufacturing",
+    "catalogue_id": "SVEP / Team validation",
+    "business_name": "Bamboo Furniture Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Furniture",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Bamboo Construction",
+      "Furniture Design",
+      "Finishing"
+    ],
+    "required_resources": [
+      "Workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural furniture in the Manufacturing sector. Requires Workshop with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_coir_products_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Coir Products Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Natural fibre",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Fibre Processing",
+      "Machine Operation",
+      "Weaving"
+    ],
+    "required_resources": [
+      "Small workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural natural fibre in the Manufacturing sector. Requires Small workshop with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_natural_fibre_rope_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Natural Fibre Rope Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Natural fibre",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Fibre Processing",
+      "Twisting",
+      "Quality Control"
+    ],
+    "required_resources": [
+      "Small workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural natural fibre in the Manufacturing sector. Requires Small workshop with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "svep / team validation_paper_bag_manufacturing",
+    "catalogue_id": "SVEP / Team validation",
+    "business_name": "Paper Bag Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Packaging",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Machine Operation",
+      "Paper Handling",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural packaging in the Manufacturing sector. Requires Small workshop with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_corrugated_box_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Corrugated Box Manufacturing",
+    "category": "Packaging",
+    "business_type": "Packaging",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Machine Operation",
+      "Packaging Design",
+      "Sales"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Packaging trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural packaging in the Packaging sector. Requires Small unit with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_egg_tray_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Egg Tray Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Paper/pulp products",
+    "minimum_investment": 400000.0,
+    "recommended_investment": 540000.0,
+    "required_skills": [
+      "Pulp Processing",
+      "Moulding",
+      "Machine Operation"
+    ],
+    "required_resources": [
+      "Small factory",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small factory",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 128000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural paper/pulp products in the Manufacturing sector. Requires Small factory with an estimated minimum capital of ₹400,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_paper_pulp_packaging_products",
+    "catalogue_id": "Team validation",
+    "business_name": "Paper Pulp Packaging Products",
+    "category": "Manufacturing",
+    "business_type": "Sustainable packaging",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Pulp Processing",
+      "Moulding",
+      "Quality Control"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural sustainable packaging in the Manufacturing sector. Requires Small unit with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "svep / team validation_incense_stick_agarbatti_manufacturing",
+    "catalogue_id": "SVEP / Team validation",
+    "business_name": "Incense Stick / Agarbatti Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Household product",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Mixing",
+      "Machine Operation",
+      "Fragrance Handling"
+    ],
+    "required_resources": [
+      "Small workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural household product in the Manufacturing sector. Requires Small workshop with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_herbal_soap_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Herbal Soap Manufacturing",
+    "category": "FMCG",
+    "business_type": "Personal care",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Formulation",
+      "Safety",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across FMCG trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural personal care in the FMCG sector. Requires Small unit with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_detergent_powder_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Detergent Powder Manufacturing",
+    "category": "FMCG",
+    "business_type": "Household chemical",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Formulation",
+      "Mixing",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across FMCG trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural household chemical in the FMCG sector. Requires Small unit with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_dishwash_liquid_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Dishwash Liquid Manufacturing",
+    "category": "FMCG",
+    "business_type": "Household chemical",
+    "minimum_investment": 75000.0,
+    "recommended_investment": 112000.0,
+    "required_skills": [
+      "Formulation",
+      "Mixing",
+      "Quality Control"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across FMCG trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 24000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural household chemical in the FMCG sector. Requires Small unit with an estimated minimum capital of ₹75,000 and recommended skill development."
+  },
+  {
+    "id": "svep / team validation_candle_manufacturing",
+    "catalogue_id": "SVEP / Team validation",
+    "business_name": "Candle Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Household product",
+    "minimum_investment": 75000.0,
+    "recommended_investment": 112000.0,
+    "required_skills": [
+      "Wax Handling",
+      "Moulding",
+      "Design"
+    ],
+    "required_resources": [
+      "Small workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 24000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural household product in the Manufacturing sector. Requires Small workshop with an estimated minimum capital of ₹75,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_eco_friendly_cleaning_products",
+    "catalogue_id": "Team validation",
+    "business_name": "Eco-Friendly Cleaning Products",
+    "category": "FMCG",
+    "business_type": "Sustainable products",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Formulation",
+      "Quality Control",
+      "Branding"
+    ],
+    "required_resources": [
+      "Small unit",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small unit",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across FMCG trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural sustainable products in the FMCG sector. Requires Small unit with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_reusable_cloth_bag_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Reusable Cloth Bag Manufacturing",
+    "category": "Textile",
+    "business_type": "Eco-products",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Stitching",
+      "Cutting",
+      "Product Design"
+    ],
+    "required_resources": [
+      "Small workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Textile trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural eco-products in the Textile sector. Requires Small workshop with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "svep / team validation_school_uniform_manufacturing",
+    "catalogue_id": "SVEP / Team validation",
+    "business_name": "School Uniform Manufacturing",
+    "category": "Textile",
+    "business_type": "Garments",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Tailoring",
+      "Pattern Making",
+      "Bulk Production"
+    ],
+    "required_resources": [
+      "Small workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Textile trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural garments in the Textile sector. Requires Small workshop with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "svep / team validation_small_garment_manufacturing_unit",
+    "catalogue_id": "SVEP / Team validation",
+    "business_name": "Small Garment Manufacturing Unit",
+    "category": "Textile",
+    "business_type": "Garments",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Cutting",
+      "Stitching",
+      "Production Management"
+    ],
+    "required_resources": [
+      "Workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Textile trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural garments in the Textile sector. Requires Workshop with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "svep / team validation_furniture_manufacturing",
+    "catalogue_id": "SVEP / Team validation",
+    "business_name": "Furniture Manufacturing",
+    "category": "Manufacturing",
+    "business_type": "Furniture",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Carpentry",
+      "Design",
+      "Finishing"
+    ],
+    "required_resources": [
+      "Workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Manufacturing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural furniture in the Manufacturing sector. Requires Workshop with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "svep / team validation_welding_fabrication_unit",
+    "catalogue_id": "SVEP / Team validation",
+    "business_name": "Welding & Fabrication Unit",
+    "category": "Engineering",
+    "business_type": "Fabrication",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Welding",
+      "Fabrication",
+      "Measurement"
+    ],
+    "required_resources": [
+      "Workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Engineering trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural fabrication in the Engineering sector. Requires Workshop with an estimated minimum capital of ₹200,000 and required skill development."
+  },
+  {
+    "id": "team validation_agricultural_tool_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Agricultural Tool Manufacturing",
+    "category": "Engineering",
+    "business_type": "Agri-manufacturing",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Fabrication",
+      "Machining",
+      "Agricultural Knowledge"
+    ],
+    "required_resources": [
+      "Workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Engineering trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-manufacturing in the Engineering sector. Requires Workshop with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_farm_equipment_rental_centre",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Farm Equipment Rental Centre",
+    "category": "Agri-Tech",
+    "business_type": "Equipment service",
+    "minimum_investment": 500000.0,
+    "recommended_investment": 675000.0,
+    "required_skills": [
+      "Machinery Operation",
+      "Maintenance",
+      "Scheduling"
+    ],
+    "required_resources": [
+      "Yard/storage",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Yard/storage",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 160000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural equipment service in the Agri-Tech sector. Requires Yard/storage with an estimated minimum capital of ₹500,000 and required skill development."
+  },
+  {
+    "id": "agriculture / team validation_drip_irrigation_installation_service",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Drip Irrigation Installation Service",
+    "category": "Agri-Tech",
+    "business_type": "Farm service",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Irrigation Design",
+      "Plumbing",
+      "Field Installation"
+    ],
+    "required_resources": [
+      "Small storage/workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small storage/workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural farm service in the Agri-Tech sector. Requires Small storage/workshop with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_solar_pump_installation_service",
+    "catalogue_id": "Team validation",
+    "business_name": "Solar Pump Installation & Service",
+    "category": "Renewable Energy",
+    "business_type": "Energy service",
+    "minimum_investment": 250000.0,
+    "recommended_investment": 338000.0,
+    "required_skills": [
+      "Electrical Work",
+      "Solar Systems",
+      "Troubleshooting"
+    ],
+    "required_resources": [
+      "Workshop/service area",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Workshop/service area",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Renewable Energy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 80000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural energy service in the Renewable Energy sector. Requires Workshop/service area with an estimated minimum capital of ₹250,000 and required skill development."
+  },
+  {
+    "id": "team validation_solar_panel_cleaningmaintenance_service",
+    "catalogue_id": "Team validation",
+    "business_name": "Solar Panel Cleaning/Maintenance Service",
+    "category": "Renewable Energy",
+    "business_type": "Maintenance service",
+    "minimum_investment": 75000.0,
+    "recommended_investment": 112000.0,
+    "required_skills": [
+      "Electrical Safety",
+      "Cleaning",
+      "Inspection"
+    ],
+    "required_resources": [
+      "Small service setup",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small service setup",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Renewable Energy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 24000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural maintenance service in the Renewable Energy sector. Requires Small service setup with an estimated minimum capital of ₹75,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_solar_dryer_manufacturingassembly",
+    "catalogue_id": "Team validation",
+    "business_name": "Solar Dryer Manufacturing/Assembly",
+    "category": "Renewable Energy",
+    "business_type": "Renewable equipment",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Solar Design",
+      "Fabrication",
+      "Assembly"
+    ],
+    "required_resources": [
+      "Workshop",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Workshop",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Renewable Energy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural renewable equipment in the Renewable Energy sector. Requires Workshop with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_biogas_plant_installation_service",
+    "catalogue_id": "Team validation",
+    "business_name": "Biogas Plant Installation Service",
+    "category": "Renewable Energy",
+    "business_type": "Clean-energy service",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Plumbing",
+      "Mechanical Work",
+      "Biogas Systems"
+    ],
+    "required_resources": [
+      "Workshop/service area",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Workshop/service area",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Renewable Energy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural clean-energy service in the Renewable Energy sector. Requires Workshop/service area with an estimated minimum capital of ₹200,000 and required skill development."
+  },
+  {
+    "id": "team validation_biochar_production",
+    "catalogue_id": "Team validation",
+    "business_name": "Biochar Production",
+    "category": "Agri-Tech",
+    "business_type": "Circular economy",
+    "minimum_investment": 250000.0,
+    "recommended_investment": 338000.0,
+    "required_skills": [
+      "Biomass Processing",
+      "Kiln Operation",
+      "Quality Control"
+    ],
+    "required_resources": [
+      "Outdoor processing area",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Outdoor processing area",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 80000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural circular economy in the Agri-Tech sector. Requires Outdoor processing area with an estimated minimum capital of ₹250,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_biomass_briquette_manufacturing",
+    "catalogue_id": "Team validation",
+    "business_name": "Biomass Briquette Manufacturing",
+    "category": "Clean Energy",
+    "business_type": "Fuel manufacturing",
+    "minimum_investment": 500000.0,
+    "recommended_investment": 675000.0,
+    "required_skills": [
+      "Biomass Handling",
+      "Machine Operation",
+      "Quality Control"
+    ],
+    "required_resources": [
+      "Industrial shed",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Industrial shed",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Clean Energy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 160000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural fuel manufacturing in the Clean Energy sector. Requires Industrial shed with an estimated minimum capital of ₹500,000 and required skill development."
+  },
+  {
+    "id": "team validation_farm_waste_composting_service",
+    "catalogue_id": "Team validation",
+    "business_name": "Farm Waste Composting Service",
+    "category": "Environmental",
+    "business_type": "Waste management",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Waste Management",
+      "Composting",
+      "Logistics"
+    ],
+    "required_resources": [
+      "Outdoor processing area",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Outdoor processing area",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Environmental trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural waste management in the Environmental sector. Requires Outdoor processing area with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "team validation / verify local rules_e_waste_collection_sorting_centre",
+    "catalogue_id": "Team validation / verify local rules",
+    "business_name": "E-Waste Collection & Sorting Centre",
+    "category": "Recycling",
+    "business_type": "Waste management",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Electronics Identification",
+      "Sorting",
+      "Record Keeping"
+    ],
+    "required_resources": [
+      "Small collection centre",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small collection centre",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Recycling trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural waste management in the Recycling sector. Requires Small collection centre with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "team validation / verify local rules_plastic_waste_collection_recycling_service",
+    "catalogue_id": "Team validation / verify local rules",
+    "business_name": "Plastic Waste Collection & Recycling Service",
+    "category": "Recycling",
+    "business_type": "Waste management",
+    "minimum_investment": 250000.0,
+    "recommended_investment": 338000.0,
+    "required_skills": [
+      "Waste Sorting",
+      "Machine Handling",
+      "Logistics"
+    ],
+    "required_resources": [
+      "Small yard/unit",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small yard/unit",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Recycling trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 80000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural waste management in the Recycling sector. Requires Small yard/unit with an estimated minimum capital of ₹250,000 and recommended skill development."
+  },
+  {
+    "id": "icar_village_level_agro_processing_centre",
+    "catalogue_id": "ICAR",
+    "business_name": "Village-Level Agro Processing Centre",
+    "category": "Agro Processing",
+    "business_type": "Integrated processing",
+    "minimum_investment": 2500000.0,
+    "recommended_investment": 3125000.0,
+    "required_skills": [
+      "Processing",
+      "Machinery",
+      "Business Management"
+    ],
+    "required_resources": [
+      "Processing centre",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Processing centre",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "High",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agro Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 800000.0,
+      "margin_percentage": 45
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "High Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural integrated processing in the Agro Processing sector. Requires Processing centre with an estimated minimum capital of ₹2,500,000 and required skill development."
+  },
+  {
+    "id": "agriculture / team validation_custom_hiring_centre_for_farm_machinery",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Custom Hiring Centre for Farm Machinery",
+    "category": "Agri-Tech",
+    "business_type": "Equipment service",
+    "minimum_investment": 1000000.0,
+    "recommended_investment": 1250000.0,
+    "required_skills": [
+      "Machinery Operation",
+      "Maintenance",
+      "Business Management"
+    ],
+    "required_resources": [
+      "Yard/storage",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Yard/storage",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "High",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 320000.0,
+      "margin_percentage": 45
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "High Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural equipment service in the Agri-Tech sector. Requires Yard/storage with an estimated minimum capital of ₹1,000,000 and required skill development."
+  },
+  {
+    "id": "team validation_mini_cold_storage",
+    "catalogue_id": "Team validation",
+    "business_name": "Mini Cold Storage",
+    "category": "Cold Chain",
+    "business_type": "Storage infrastructure",
+    "minimum_investment": 800000.0,
+    "recommended_investment": 1000000.0,
+    "required_skills": [
+      "Refrigeration",
+      "Electrical Maintenance",
+      "Inventory"
+    ],
+    "required_resources": [
+      "Insulated facility",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Insulated facility",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "High",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Cold Chain trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 256000.0,
+      "margin_percentage": 45
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "High Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural storage infrastructure in the Cold Chain sector. Requires Insulated facility with an estimated minimum capital of ₹800,000 and required skill development."
+  },
+  {
+    "id": "team validation_solar_cold_storage",
+    "catalogue_id": "Team validation",
+    "business_name": "Solar Cold Storage",
+    "category": "Renewable Energy",
+    "business_type": "Cold-chain technology",
+    "minimum_investment": 1200000.0,
+    "recommended_investment": 1500000.0,
+    "required_skills": [
+      "Solar Systems",
+      "Refrigeration",
+      "Maintenance"
+    ],
+    "required_resources": [
+      "Insulated facility",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Insulated facility",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "High",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Renewable Energy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 384000.0,
+      "margin_percentage": 45
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "High Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural cold-chain technology in the Renewable Energy sector. Requires Insulated facility with an estimated minimum capital of ₹1,200,000 and required skill development."
+  },
+  {
+    "id": "agriculture / team validation_pack_house_for_fruits_vegetables",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Pack House for Fruits & Vegetables",
+    "category": "Agriculture",
+    "business_type": "Post-harvest management",
+    "minimum_investment": 500000.0,
+    "recommended_investment": 675000.0,
+    "required_skills": [
+      "Grading",
+      "Packing",
+      "Logistics"
+    ],
+    "required_resources": [
+      "Covered facility",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Covered facility",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agriculture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 160000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural post-harvest management in the Agriculture sector. Requires Covered facility with an estimated minimum capital of ₹500,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_farmer_produce_collection_centre",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Farmer Produce Collection Centre",
+    "category": "Agri-Business",
+    "business_type": "Aggregation",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Procurement",
+      "Grading",
+      "Negotiation"
+    ],
+    "required_resources": [
+      "Collection point",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Collection point",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Business trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural aggregation in the Agri-Business sector. Requires Collection point with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "dairy / team validation_milk_quality_testing_service",
+    "catalogue_id": "Dairy / Team validation",
+    "business_name": "Milk Quality Testing Service",
+    "category": "Dairy",
+    "business_type": "Quality service",
+    "minimum_investment": 100000.0,
+    "recommended_investment": 150000.0,
+    "required_skills": [
+      "Milk Testing",
+      "Record Keeping",
+      "Dairy Knowledge"
+    ],
+    "required_resources": [
+      "Small lab/service point",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small lab/service point",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Dairy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 32000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "Medium",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural quality service in the Dairy sector. Requires Small lab/service point with an estimated minimum capital of ₹100,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_digital_agriculture_service_centre",
+    "catalogue_id": "Team validation",
+    "business_name": "Digital Agriculture Service Centre",
+    "category": "Agri-Tech",
+    "business_type": "Digital service",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Computer Skills",
+      "Agriculture Knowledge",
+      "Customer Service"
+    ],
+    "required_resources": [
+      "Small office",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small office",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural digital service in the Agri-Tech sector. Requires Small office with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "team validation / verify aviation rules_drone_based_crop_monitoring_service",
+    "catalogue_id": "Team validation / verify aviation rules",
+    "business_name": "Drone-Based Crop Monitoring Service",
+    "category": "Agri-Tech",
+    "business_type": "Precision agriculture",
+    "minimum_investment": 600000.0,
+    "recommended_investment": 750000.0,
+    "required_skills": [
+      "Drone Operation",
+      "GIS/Data Analysis",
+      "Agriculture Knowledge"
+    ],
+    "required_resources": [
+      "Office + field setup",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Office + field setup",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "High",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 192000.0,
+      "margin_percentage": 45
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "High Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural precision agriculture in the Agri-Tech sector. Requires Office + field setup with an estimated minimum capital of ₹600,000 and required skill development."
+  },
+  {
+    "id": "team validation_precision_farm_advisory_service",
+    "catalogue_id": "Team validation",
+    "business_name": "Precision Farm Advisory Service",
+    "category": "Agri-Tech",
+    "business_type": "Digital advisory",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Data Analysis",
+      "Agronomy",
+      "Digital Tools"
+    ],
+    "required_resources": [
+      "Small office",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small office",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural digital advisory in the Agri-Tech sector. Requires Small office with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "agriculture / team validation_soil_testing_farm_advisory_centre",
+    "catalogue_id": "Agriculture / Team validation",
+    "business_name": "Soil Testing & Farm Advisory Centre",
+    "category": "Agriculture",
+    "business_type": "Agri-service",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Soil Testing",
+      "Agriculture",
+      "Report Preparation"
+    ],
+    "required_resources": [
+      "Small lab",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small lab",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agriculture trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri-service in the Agriculture sector. Requires Small lab with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_hydroponic_fodder_commercial_unit",
+    "catalogue_id": "Team validation",
+    "business_name": "Hydroponic Fodder Commercial Unit",
+    "category": "Agri-Tech",
+    "business_type": "Controlled agriculture",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Hydroponics",
+      "Livestock Nutrition",
+      "Automation"
+    ],
+    "required_resources": [
+      "Shed/controlled unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Shed/controlled unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural controlled agriculture in the Agri-Tech sector. Requires Shed/controlled unit with an estimated minimum capital of ₹300,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_vertical_farming_unit",
+    "catalogue_id": "Team validation",
+    "business_name": "Vertical Farming Unit",
+    "category": "Agri-Tech",
+    "business_type": "Controlled agriculture",
+    "minimum_investment": 500000.0,
+    "recommended_investment": 675000.0,
+    "required_skills": [
+      "Hydroponics",
+      "Automation",
+      "Crop Management"
+    ],
+    "required_resources": [
+      "Indoor/controlled space",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Indoor/controlled space",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "High",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 160000.0,
+      "margin_percentage": 45
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "High Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural controlled agriculture in the Agri-Tech sector. Requires Indoor/controlled space with an estimated minimum capital of ₹500,000 and recommended skill development."
+  },
+  {
+    "id": "team validation_mushroom_spawn_production",
+    "catalogue_id": "Team validation",
+    "business_name": "Mushroom Spawn Production",
+    "category": "Agri-Tech",
+    "business_type": "Bio-production",
+    "minimum_investment": 300000.0,
+    "recommended_investment": 405000.0,
+    "required_skills": [
+      "Microbiology Basics",
+      "Sterile Technique",
+      "Cultivation"
+    ],
+    "required_resources": [
+      "Controlled lab/room",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Controlled lab/room",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Required",
+    "risk_level": "High",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "High",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Agri-Tech trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 96000.0,
+      "margin_percentage": 45
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "High Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural bio-production in the Agri-Tech sector. Requires Controlled lab/room with an estimated minimum capital of ₹300,000 and required skill development."
+  },
+  {
+    "id": "team validation_insect_protein_black_soldier_fly_compost_unit",
+    "catalogue_id": "Team validation",
+    "business_name": "Insect Protein / Black Soldier Fly Compost Unit",
+    "category": "Bio/Circular Economy",
+    "business_type": "Waste-to-resource",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Insect Farming",
+      "Organic Waste Management",
+      "Processing"
+    ],
+    "required_resources": [
+      "Controlled/outdoor space",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Controlled/outdoor space",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "Medium",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Bio/Circular Economy trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural waste-to-resource in the Bio/Circular Economy sector. Requires Controlled/outdoor space with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_jackfruit_value_addition_unit",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Jackfruit Value-Addition Unit",
+    "category": "Food Processing",
+    "business_type": "Fruit processing",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Food Processing",
+      "Preservation",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural fruit processing in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_amla_processing_unit",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Amla Processing Unit",
+    "category": "Food Processing",
+    "business_type": "Fruit processing",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Food Processing",
+      "Preservation",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural fruit processing in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_tamarind_processing_packaging",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Tamarind Processing & Packaging",
+    "category": "Food Processing",
+    "business_type": "Agri value-addition",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Processing",
+      "Grading",
+      "Packaging"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Low",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Low",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 40
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Low Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural agri value-addition in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹150,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme_turmeric_processing_branding",
+    "catalogue_id": "PMFME",
+    "business_name": "Turmeric Processing & Branding",
+    "category": "Food Processing",
+    "business_type": "Spice processing",
+    "minimum_investment": 200000.0,
+    "recommended_investment": 270000.0,
+    "required_skills": [
+      "Processing",
+      "Grinding",
+      "Branding"
+    ],
+    "required_resources": [
+      "Small processing unit",
+      "Water supply",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Small processing unit",
+    "water_needed": true,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 64000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural spice processing in the Food Processing sector. Requires Small processing unit with an estimated minimum capital of ₹200,000 and recommended skill development."
+  },
+  {
+    "id": "pmfme / team validation_local_specialty_food_brand",
+    "catalogue_id": "PMFME / Team validation",
+    "business_name": "Local Specialty Food Brand",
+    "category": "Food Processing",
+    "business_type": "FMCG / local brand",
+    "minimum_investment": 150000.0,
+    "recommended_investment": 202000.0,
+    "required_skills": [
+      "Food Production",
+      "Branding",
+      "Digital Marketing"
+    ],
+    "required_resources": [
+      "Kitchen/small unit",
+      "Electricity connection",
+      "Basic tools/setup"
+    ],
+    "space_requirement": "Kitchen/small unit",
+    "water_needed": false,
+    "electricity_needed": true,
+    "training_required": "Recommended",
+    "risk_level": "Medium",
+    "market_factors": {
+      "demand_level": "High",
+      "competition": "Medium",
+      "market_reach": "Local village markets, district mandis, and retail consumers across Food Processing trade networks",
+      "seasonal_variance": "Moderate"
+    },
+    "revenue_factors": {
+      "estimated_monthly_revenue_per_unit": 48000.0,
+      "margin_percentage": 35
+    },
+    "common_expenses": [
+      "Raw materials & consumables",
+      "Electricity & utilities",
+      "Packaging & local transit",
+      "Contingency working capital"
+    ],
+    "risks": [
+      "Medium Risk: Price fluctuations of inputs and seasonal variations.",
+      "Quality consistency and storage requirements."
+    ],
+    "suitable_locations": [
+      "Rural agrarian villages",
+      "Peri-urban clusters and weekly haats",
+      "District trading centers"
+    ],
+    "scalability": "High",
+    "source_validation": "GramVantage Rural Catalogue",
+    "description": "A scalable rural fmcg / local brand in the Food Processing sector. Requires Kitchen/small unit with an estimated minimum capital of ₹150,000 and recommended skill development."
+  }
+]

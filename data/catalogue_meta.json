@@ -1,0 +1,30 @@
+{
+  "source_file": "C:\\Users\\vighn\\Downloads\\GramVantage_Business_Catalogue.xlsx",
+  "total_businesses": 90,
+  "domains_count": 20,
+  "domains_breakdown": {
+    "Agriculture": 9,
+    "Horticulture": 2,
+    "Agri-Tech": 12,
+    "Livestock": 4,
+    "Fisheries": 1,
+    "Manufacturing": 13,
+    "Dairy": 2,
+    "Food Processing": 23,
+    "Renewable Energy": 6,
+    "Packaging": 1,
+    "FMCG": 4,
+    "Textile": 3,
+    "Engineering": 2,
+    "Clean Energy": 1,
+    "Environmental": 1,
+    "Recycling": 2,
+    "Agro Processing": 1,
+    "Cold Chain": 1,
+    "Agri-Business": 1,
+    "Bio/Circular Economy": 1
+  },
+  "min_investment_overall": 50000.0,
+  "max_investment_overall": 2500000.0,
+  "status": "Trained & Ingested into Knowledge Base"
+}
