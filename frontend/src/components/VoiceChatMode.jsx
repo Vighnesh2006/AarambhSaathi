@@ -416,36 +416,36 @@ export default function VoiceChatMode({
     <div className="w-full max-w-4xl mx-auto flex flex-col items-center justify-between min-h-[580px] p-4 sm:p-8 bg-gradient-to-b from-[#eaf5ee] via-[#f7fbf8] to-[#f0f7f2] rounded-3xl border border-[#d6e5da] shadow-card">
       
       {/* Top Banner Tagline & Active Controls */}
-      <div className="w-full flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-emerald-100">
+      <div className="w-full flex flex-wrap items-center justify-between gap-2.5 pb-3 sm:pb-4 border-b border-emerald-100">
         <div className="flex items-center gap-2">
-          <div className="relative">
+          <div className="relative shrink-0">
             <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
               🌱
             </div>
-            <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-white animate-ping" />
+            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white animate-ping" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h4 className="text-sm font-extrabold text-[#072a24] font-display">
+              <h4 className="text-xs sm:text-sm font-extrabold text-[#072a24] font-display">
                 {t.voiceTitle}
               </h4>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-2xs">
+              <span className="px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[9px] sm:text-[10px] font-black uppercase tracking-wider flex items-center gap-1 shadow-2xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
                 Active
               </span>
             </div>
-            <p className="text-[11px] text-[#527068]">
+            <p className="text-[11px] text-[#527068] hidden sm:block">
               {t.tagline}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Language Switcher Pills */}
-          <div className="flex rounded-xl bg-white p-1 border border-emerald-200 shadow-2xs">
+          <div className="flex rounded-xl bg-white p-0.5 border border-emerald-200 shadow-2xs">
             <button
               onClick={() => handleLangSelect('en')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+              className={`px-2 py-0.5 rounded-lg text-[10px] sm:text-xs font-bold transition ${
                 language === 'en' ? 'bg-[#075247] text-white' : 'text-slate-600 hover:text-emerald-900'
               }`}
             >
@@ -453,15 +453,15 @@ export default function VoiceChatMode({
             </button>
             <button
               onClick={() => handleLangSelect('hi')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+              className={`px-2 py-0.5 rounded-lg text-[10px] sm:text-xs font-bold transition ${
                 language === 'hi' ? 'bg-[#075247] text-white' : 'text-slate-600 hover:text-emerald-900'
               }`}
             >
-              हिन्दी
+              हिंदी
             </button>
             <button
               onClick={() => handleLangSelect('mr')}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition ${
+              className={`px-2 py-0.5 rounded-lg text-[10px] sm:text-xs font-bold transition ${
                 language === 'mr' ? 'bg-[#075247] text-white' : 'text-slate-600 hover:text-emerald-900'
               }`}
             >
@@ -471,49 +471,49 @@ export default function VoiceChatMode({
 
           <button
             onClick={toggleMute}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition ${
+            className={`flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold border transition ${
               isMuted
                 ? 'bg-rose-50 text-rose-700 border-rose-200'
                 : 'bg-emerald-50 text-[#075247] border-emerald-200 hover:bg-emerald-100'
             }`}
             title={isMuted ? 'Unmute Assistant Voice' : 'Mute Assistant Voice'}
           >
-            {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-            <span>{isMuted ? 'Muted' : 'Voice On'}</span>
+            {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+            <span className="hidden xs:inline">{isMuted ? 'Muted' : 'Voice'}</span>
           </button>
 
           <button
             onClick={handleDeactivateBot}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-300 text-xs font-bold text-amber-900 hover:bg-amber-100 transition shadow-2xs"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-50 border border-amber-300 text-xs font-bold text-amber-900 hover:bg-amber-100 transition shadow-2xs"
             title="Stop / Deactivate Bot"
           >
-            <Power size={14} className="text-amber-700" />
+            <Power size={13} className="text-amber-700" />
             <span>Stop</span>
           </button>
 
           <button
             onClick={onSwitchToText}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-[#075247] hover:bg-emerald-50 shadow-2xs transition"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white border border-emerald-200 text-xs font-bold text-[#075247] hover:bg-emerald-50 shadow-2xs transition"
           >
-            <Keyboard size={15} />
-            <span>{t.voiceSwitchToText}</span>
+            <Keyboard size={14} />
+            <span className="hidden xs:inline">{t.voiceSwitchToText}</span>
           </button>
         </div>
       </div>
 
       {errorMessage && (
-        <div className="w-full max-w-md my-2 p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2 shadow-xs">
-          <AlertCircle size={18} className="shrink-0 text-rose-600" />
+        <div className="w-full max-w-md my-2 p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2 shadow-xs">
+          <AlertCircle size={16} className="shrink-0 text-rose-600" />
           <span>{errorMessage}</span>
         </div>
       )}
 
       {/* Center AI Bot Mascot + Wave & Mic Control */}
-      <div className="flex flex-col items-center text-center my-6 space-y-4 max-w-xl w-full">
+      <div className="flex flex-col items-center text-center my-4 sm:my-6 space-y-3.5 max-w-xl w-full">
         
         {/* Robot Avatar with Speech Bubble */}
-        <div className="relative">
-          <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full p-2 bg-gradient-to-tr from-emerald-400 via-teal-300 to-amber-300 shadow-2xl animate-soft-pulse">
+        <div className="relative pt-6 sm:pt-0">
+          <div className="w-32 h-32 sm:w-44 sm:h-44 rounded-full p-2 bg-gradient-to-tr from-emerald-400 via-teal-300 to-amber-300 shadow-2xl animate-soft-pulse mx-auto">
             <img
               src={robotAvatarImg}
               alt="Aarambh Saathi Bot"
@@ -521,12 +521,12 @@ export default function VoiceChatMode({
             />
           </div>
 
-          {/* Speech Bubble */}
-          <div className="absolute -top-3 sm:-top-5 -right-16 sm:-right-24 bg-white rounded-2xl border-2 border-[#15803d] px-4 py-2.5 shadow-xl text-center max-w-[170px] sm:max-w-[190px]">
-            <p className="text-xs sm:text-sm font-black text-[#064e3b] font-display">
+          {/* Speech Bubble (Centered above avatar on mobile, right on sm+) */}
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:-top-5 sm:-right-20 bg-white rounded-2xl border-2 border-[#15803d] px-3 py-1.5 sm:px-4 sm:py-2.5 shadow-xl text-center max-w-[170px] sm:max-w-[190px] z-10">
+            <p className="text-xs sm:text-sm font-black text-[#064e3b] font-display leading-tight">
               {t.voiceBubblePrompt}
             </p>
-            <p className="text-[10px] text-emerald-700 font-semibold mt-0.5">
+            <p className="text-[9px] sm:text-[10px] text-emerald-700 font-semibold mt-0.5">
               {t.voiceBubbleSub}
             </p>
           </div>

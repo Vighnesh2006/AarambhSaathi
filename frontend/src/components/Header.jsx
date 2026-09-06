@@ -68,20 +68,20 @@ export default function Header({
 
   return (
     <header className="sticky top-0 z-50 bg-[#063f39] text-white shadow-lg border-b border-[#0f5349]">
-      <div className="mx-auto flex h-[78px] max-w-[1500px] items-center justify-between px-4 sm:px-8">
+      <div className="mx-auto flex h-16 sm:h-[78px] max-w-[1500px] items-center justify-between px-3 sm:px-8">
         
         {/* ================= LOGO & BRANDING ================= */}
         <div
           onClick={() => handleNavClick('home')}
-          className="flex items-center gap-3.5 cursor-pointer select-none group"
+          className="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer select-none group shrink-0"
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f7c928] shadow-md group-hover:scale-105 transition-transform">
-            <Sprout className="h-8 w-8 text-[#075044]" />
+          <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-[#f7c928] shadow-md group-hover:scale-105 transition-transform shrink-0">
+            <Sprout className="h-6 w-6 sm:h-8 sm:w-8 text-[#075044]" />
           </div>
 
           <div>
-            <div className="flex items-center gap-2">
-              <h1 className="text-2xl sm:text-[26px] font-extrabold leading-none tracking-tight font-display">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <h1 className="text-xl sm:text-[26px] font-extrabold leading-none tracking-tight font-display">
                 {language === 'en' ? (
                   <>Aarambh <span className="text-[#b9db4a]">Saathi</span></>
                 ) : (
@@ -89,12 +89,12 @@ export default function Header({
                 )}
               </h1>
               {userRole === 'admin' && (
-                <span className="text-[10px] bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded-md uppercase tracking-wider">
-                  Admin Center
+                <span className="text-[9px] sm:text-[10px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.5 rounded-md uppercase tracking-wider">
+                  Admin
                 </span>
               )}
             </div>
-            <p className="mt-1 text-xs sm:text-[14px] text-emerald-100 font-normal">
+            <p className="mt-0.5 text-xs sm:text-[14px] text-emerald-100 font-normal hidden sm:block">
               {t.tagline}
             </p>
           </div>
@@ -206,35 +206,35 @@ export default function Header({
         </div>
 
         {/* ================= MOBILE HAMBURGER BUTTON ================= */}
-        <div className="lg:hidden flex items-center gap-2">
+        <div className="lg:hidden flex items-center gap-1.5 sm:gap-2">
           {userRole !== 'admin' ? (
             <button
               onClick={onOpenAdminLogin}
-              className="p-2 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold"
+              className="p-1.5 sm:p-2 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold"
             >
-              <Lock size={16} />
+              <Lock size={15} />
             </button>
           ) : (
             <button
               onClick={onAdminLogout}
-              className="p-2 rounded-xl bg-rose-600 text-white text-xs font-bold"
+              className="p-1.5 sm:p-2 rounded-xl bg-rose-600 text-white text-xs font-bold"
             >
-              <LogOut size={16} />
+              <LogOut size={15} />
             </button>
           )}
 
           <button
             onClick={onOpenProfileDrawer}
-            className="p-2 rounded-xl bg-white text-[#08745e]"
+            className="p-1.5 sm:p-2 rounded-xl bg-white text-[#08745e]"
           >
-            <Users size={18} />
+            <Users size={16} />
           </button>
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white"
+            className="p-1.5 sm:p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white"
           >
-            {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 

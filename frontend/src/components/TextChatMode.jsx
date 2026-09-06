@@ -133,45 +133,45 @@ export default function TextChatMode({
     <div className="w-full max-w-5xl mx-auto flex flex-col gap-8">
       
       {/* ================= MAIN CHAT CONTAINER (Full Width) ================= */}
-      <div className="w-full flex flex-col h-[calc(100vh-140px)] min-h-[580px] bg-white rounded-3xl border border-[#d6e5da] shadow-card overflow-hidden">
+      <div className="w-full flex flex-col h-[calc(100vh-140px)] min-h-[440px] sm:min-h-[580px] bg-white rounded-3xl border border-[#d6e5da] shadow-card overflow-hidden">
         
         {/* Chat Header */}
-        <div className="bg-gradient-to-r from-[#075247] to-[#15803d] px-5 py-3.5 text-white flex items-center justify-between shadow-xs">
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <div className="w-10 h-10 rounded-full bg-white/10 p-0.5 border border-amber-300/60 overflow-hidden shadow-inner">
+        <div className="bg-gradient-to-r from-[#075247] to-[#15803d] px-3 py-2.5 sm:px-5 sm:py-3.5 text-white flex items-center justify-between shadow-xs gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="relative shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 p-0.5 border border-amber-300/60 overflow-hidden shadow-inner">
                 <img
                   src={robotAvatarImg}
                   alt="Aarambh Saathi Mascot"
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
-              <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 ring-2 ring-[#075247]" />
+              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-400 ring-2 ring-[#075247]" />
             </div>
 
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-base font-extrabold font-display leading-tight">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <h3 className="text-sm sm:text-base font-extrabold font-display leading-tight truncate">
                   {t.appName}
                 </h3>
-                <span className="text-[10px] bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded-full shadow-2xs">
+                <span className="text-[9px] sm:text-[10px] bg-amber-400 text-slate-950 font-black px-1.5 sm:px-2 py-0.5 rounded-full shadow-2xs shrink-0">
                   {t.chatAiAdvisorBadge}
                 </span>
               </div>
-              <p className="text-xs text-emerald-100">
+              <p className="text-[11px] sm:text-xs text-emerald-100 hidden md:block truncate">
                 {t.chatSubtitle}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             {/* Multilingual Choice Option Selector */}
-            <div className="flex items-center gap-1 bg-black/25 p-1 rounded-xl border border-white/20 shadow-inner">
-              <Globe size={13} className="text-amber-300 ml-1 shrink-0" />
+            <div className="flex items-center gap-0.5 sm:gap-1 bg-black/25 p-0.5 sm:p-1 rounded-xl border border-white/20 shadow-inner">
+              <Globe size={12} className="text-amber-300 ml-0.5 shrink-0 hidden xs:inline" />
               <button
                 type="button"
                 onClick={() => onLanguageChange && onLanguageChange('en')}
-                className={`px-2 py-0.5 rounded-lg text-[11px] font-black transition ${
+                className={`px-1.5 sm:px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-black transition ${
                   language === 'en'
                     ? 'bg-amber-400 text-slate-950 shadow-2xs'
                     : 'text-emerald-100 hover:text-white'
@@ -183,7 +183,7 @@ export default function TextChatMode({
               <button
                 type="button"
                 onClick={() => onLanguageChange && onLanguageChange('hi')}
-                className={`px-2 py-0.5 rounded-lg text-[11px] font-black transition ${
+                className={`px-1.5 sm:px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-black transition ${
                   language === 'hi'
                     ? 'bg-amber-400 text-slate-950 shadow-2xs'
                     : 'text-emerald-100 hover:text-white'
@@ -195,7 +195,7 @@ export default function TextChatMode({
               <button
                 type="button"
                 onClick={() => onLanguageChange && onLanguageChange('mr')}
-                className={`px-2 py-0.5 rounded-lg text-[11px] font-black transition ${
+                className={`px-1.5 sm:px-2 py-0.5 rounded-lg text-[10px] sm:text-[11px] font-black transition ${
                   language === 'mr'
                     ? 'bg-amber-400 text-slate-950 shadow-2xs'
                     : 'text-emerald-100 hover:text-white'
@@ -208,7 +208,7 @@ export default function TextChatMode({
 
             <button
               onClick={onSwitchToVoice}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-xs font-bold text-white border border-white/20 transition shadow-2xs"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-xs font-bold text-white border border-white/20 transition shadow-2xs"
               title={t.chatSwitchToVoice}
             >
               <Mic size={14} className="text-amber-300" />
@@ -217,26 +217,26 @@ export default function TextChatMode({
 
             <button
               onClick={onClearChat}
-              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-emerald-100 hover:text-white transition"
+              className="p-1.5 sm:p-2 rounded-xl bg-white/10 hover:bg-white/20 text-emerald-100 hover:text-white transition"
               title={t.chatResetBtn}
             >
-              <Trash2 size={15} />
+              <Trash2 size={14} />
             </button>
           </div>
         </div>
 
         {/* Message Stream */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-[#f9fbf9]">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3.5 bg-[#f9fbf9]">
           {messages.map((msg, index) => {
             const isBot = msg.role === 'assistant';
             return (
               <div
                 key={index}
-                className={`flex gap-3 ${isBot ? 'justify-start' : 'justify-end'}`}
+                className={`flex gap-2 sm:gap-3 ${isBot ? 'justify-start' : 'justify-end'}`}
               >
                 {/* Bot Avatar */}
                 {isBot && (
-                  <div className="w-9 h-9 rounded-full shrink-0 overflow-hidden bg-emerald-700 border-2 border-white shadow-md">
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full shrink-0 overflow-hidden bg-emerald-700 border-2 border-white shadow-md">
                     <img
                       src={robotAvatarImg}
                       alt="Aarambh Saathi"
@@ -245,9 +245,9 @@ export default function TextChatMode({
                   </div>
                 )}
 
-                <div className="max-w-[85%] sm:max-w-[78%] space-y-2">
+                <div className="max-w-[88%] sm:max-w-[78%] space-y-2">
                   <div
-                    className={`rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-xs ${
+                    className={`rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm leading-relaxed shadow-xs ${
                       isBot
                         ? 'bg-white text-[#072a24] border border-[#e1ece4] rounded-tl-sm'
                         : 'bg-[#075247] text-white font-medium rounded-tr-sm shadow-md'
@@ -255,21 +255,19 @@ export default function TextChatMode({
                   >
                     <p className="whitespace-pre-line">{msg.content}</p>
                     <span
-                      className={`block text-[10px] mt-1.5 text-right font-medium ${
+                      className={`block text-[9px] sm:text-[10px] mt-1 text-right font-medium ${
                         isBot ? 'text-slate-400' : 'text-emerald-200'
                       }`}
                     >
                       {msg.timestamp || 'Just now'}
                     </span>
                   </div>
-
-
                 </div>
 
                 {/* User Avatar */}
                 {!isBot && (
-                  <div className="w-9 h-9 rounded-full shrink-0 bg-[#063f39] text-amber-300 font-bold flex items-center justify-center border-2 border-white shadow-md text-xs">
-                    <User size={18} />
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full shrink-0 bg-[#063f39] text-amber-300 font-bold flex items-center justify-center border-2 border-white shadow-md text-xs">
+                    <User size={16} />
                   </div>
                 )}
               </div>
@@ -296,13 +294,13 @@ export default function TextChatMode({
 
         {/* Suggested Quick Replies */}
         {suggestedReplies && suggestedReplies.length > 0 && (
-          <div className="px-4 py-2 bg-white border-t border-[#e8efe9] flex items-center gap-2 overflow-x-auto">
+          <div className="px-3 py-2 bg-white border-t border-[#e8efe9] flex items-center gap-2 overflow-x-auto">
             <span className="text-[11px] font-bold text-[#527068] shrink-0">{t.chatSuggestions}</span>
             {suggestedReplies.map((reply, rIdx) => (
               <button
                 key={rIdx}
                 onClick={() => handleQuickOptionClick(reply)}
-                className="whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-[#075247] border border-emerald-200 transition"
+                className="whitespace-nowrap px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-[#075247] border border-emerald-200 transition shrink-0"
               >
                 {reply}
               </button>
@@ -311,7 +309,7 @@ export default function TextChatMode({
         )}
 
         {/* Input Bar */}
-        <div className="p-3 sm:p-4 bg-white border-t border-[#dce8e0]">
+        <div className="p-2.5 sm:p-4 bg-white border-t border-[#dce8e0]">
           <form onSubmit={handleSubmit} className="flex items-center gap-2">
             <div className="relative flex-1">
               <input
@@ -319,49 +317,49 @@ export default function TextChatMode({
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder={t.chatPlaceholder}
-                className="w-full px-4 py-3 rounded-2xl bg-[#f4f8f5] border border-[#d6e5da] text-sm text-[#072a24] focus:outline-hidden focus:ring-2 focus:ring-[#075247] focus:bg-white placeholder-slate-400 font-medium transition"
+                className="w-full px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-2xl bg-[#f4f8f5] border border-[#d6e5da] text-xs sm:text-sm text-[#072a24] focus:outline-hidden focus:ring-2 focus:ring-[#075247] focus:bg-white placeholder-slate-400 font-medium transition"
               />
             </div>
 
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
-              className={`p-3.5 rounded-2xl flex items-center justify-center transition-all ${
+              className={`p-3 sm:p-3.5 rounded-2xl flex items-center justify-center transition-all shrink-0 ${
                 input.trim() && !isLoading
                   ? 'bg-[#075247] hover:bg-[#063f39] text-white shadow-md active:scale-95'
                   : 'bg-slate-100 text-slate-400 cursor-not-allowed'
               }`}
             >
-              <Send size={18} />
+              <Send size={16} />
             </button>
           </form>
 
           {/* 4 Starter Fast Actions */}
-          <div className="mt-2.5 flex flex-wrap items-center gap-2">
+          <div className="mt-2 flex items-center gap-2 overflow-x-auto pb-1 sm:flex-wrap shrink-0">
             <button
               onClick={() => onJourneyStepClick(2)}
-              className="px-3 py-1 rounded-lg text-xs font-semibold text-[#075247] bg-[#edf7ee] hover:bg-[#e0f2e2] transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              className="px-2.5 py-1 rounded-lg text-xs font-semibold text-[#075247] bg-[#edf7ee] hover:bg-[#e0f2e2] transition flex items-center gap-1.5 shrink-0 shadow-2xs"
             >
               <span>🌾</span>
               <span>{t.actFindBiz}</span>
             </button>
             <button
               onClick={() => onSendMessage(language === 'mr' ? 'माझ्या व्यवसायासाठी सप्लायर आणि मशिनरी यादी दाखवा' : language === 'hi' ? 'मेरे व्यवसाय के लिए सप्लायर और मशीनरी सूची दिखाएं' : 'Show me machinery and verified supplier details')}
-              className="px-3 py-1 rounded-lg text-xs font-semibold text-[#075247] bg-[#edf7ee] hover:bg-[#e0f2e2] transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              className="px-2.5 py-1 rounded-lg text-xs font-semibold text-[#075247] bg-[#edf7ee] hover:bg-[#e0f2e2] transition flex items-center gap-1.5 shrink-0 shadow-2xs"
             >
               <span>⚙️</span>
               <span>{language === 'mr' ? 'सप्लायर व मशिनरी पहा' : language === 'hi' ? 'सप्लायर एवं मशीनरी देखें' : 'View Machinery & Suppliers'}</span>
             </button>
             <button
               onClick={() => onJourneyStepClick(3)}
-              className="px-3 py-1 rounded-lg text-xs font-semibold text-[#075247] bg-[#edf7ee] hover:bg-[#e0f2e2] transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              className="px-2.5 py-1 rounded-lg text-xs font-semibold text-[#075247] bg-[#edf7ee] hover:bg-[#e0f2e2] transition flex items-center gap-1.5 shrink-0 shadow-2xs"
             >
               <span>💰</span>
               <span>{t.actCalcFinance}</span>
             </button>
             <button
               onClick={() => onJourneyStepClick(4)}
-              className="px-3 py-1 rounded-lg text-xs font-semibold text-[#075247] bg-[#edf7ee] hover:bg-[#e0f2e2] transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
+              className="px-2.5 py-1 rounded-lg text-xs font-semibold text-[#075247] bg-[#edf7ee] hover:bg-[#e0f2e2] transition flex items-center gap-1.5 shrink-0 shadow-2xs"
             >
               <span>🏛️</span>
               <span>{t.actCheckSchemes}</span>
