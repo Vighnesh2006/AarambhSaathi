@@ -22,6 +22,54 @@ import { getTranslation } from '../services/translations';
 import robotAvatarImg from '../assets/robot_avatar_1788638099080.jpg';
 import landscapeImg from '../assets/rural_sprout_landscape_1788638113042.jpg';
 
+// Helper to parse markdown bold (**text**) and code (`text`) into clean JSX elements, eliminating raw ** asterisks
+const renderFormattedMessage = (content, isBot) => {
+  if (!content) return null;
+
+  const lines = content.split('\n');
+
+  return lines.map((line, lineIdx) => {
+    const parts = line.split(/(\*\*.*?\*\*|`.*?`)/g);
+
+    const formattedParts = parts.map((part, partIdx) => {
+      if (part.startsWith('**') && part.endsWith('**') && part.length >= 4) {
+        const text = part.slice(2, -2);
+        return (
+          <strong
+            key={partIdx}
+            className={isBot ? "font-extrabold text-[#063f39]" : "font-extrabold text-amber-300"}
+          >
+            {text}
+          </strong>
+        );
+      } else if (part.startsWith('`') && part.endsWith('`') && part.length >= 2) {
+        const codeText = part.slice(1, -1);
+        return (
+          <code
+            key={partIdx}
+            className={`mx-1 px-1.5 py-0.5 rounded text-[11px] font-mono font-bold ${
+              isBot
+                ? "bg-emerald-100/70 text-[#075247] border border-emerald-200"
+                : "bg-emerald-900/60 text-amber-300 border border-emerald-700"
+            }`}
+          >
+            {codeText}
+          </code>
+        );
+      }
+      // Strip any stray unmatched ** asterisks
+      return part.replace(/\*\*/g, '');
+    });
+
+    return (
+      <React.Fragment key={lineIdx}>
+        {formattedParts}
+        {lineIdx < lines.length - 1 && <br />}
+      </React.Fragment>
+    );
+  });
+};
+
 export default function TextChatMode({
   messages,
   onSendMessage,
@@ -253,7 +301,7 @@ export default function TextChatMode({
                         : 'bg-[#075247] text-white font-medium rounded-tr-sm shadow-md'
                     }`}
                   >
-                    <p className="whitespace-pre-line">{msg.content}</p>
+                    <div className="leading-relaxed font-normal">{renderFormattedMessage(msg.content, isBot)}</div>
                     <span
                       className={`block text-[9px] sm:text-[10px] mt-1 text-right font-medium ${
                         isBot ? 'text-slate-400' : 'text-emerald-200'
