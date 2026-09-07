@@ -86,11 +86,13 @@ export default function TextChatMode({
 }) {
   const t = getTranslation(language);
   const [input, setInput] = useState('');
-  const chatEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
-  // Auto-scroll on new messages
+  // Auto-scroll on new messages (internal container scroll only)
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages, isLoading]);
 
   const handleSubmit = (e) => {
@@ -274,7 +276,7 @@ export default function TextChatMode({
         </div>
 
         {/* Message Stream */}
-        <div className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3.5 bg-[#f9fbf9]">
+        <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3.5 bg-[#f9fbf9]">
           {messages.map((msg, index) => {
             const isBot = msg.role === 'assistant';
             return (
@@ -336,8 +338,6 @@ export default function TextChatMode({
               </div>
             </div>
           )}
-
-          <div ref={chatEndRef} />
         </div>
 
         {/* Suggested Quick Replies */}

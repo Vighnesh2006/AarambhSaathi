@@ -11,11 +11,13 @@ export default function ChatPanel({
 }) {
   const [input, setInput] = useState('');
   const [isListening, setIsListening] = useState(false);
-  const chatEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
-  // Auto-scroll to bottom
+  // Auto-scroll to bottom inside container
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [messages, isLoading]);
 
   const handleSubmit = (e) => {
@@ -97,7 +99,7 @@ export default function ChatPanel({
       </div>
 
       {/* Message List */}
-      <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-slate-50/50">
+      <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-slate-50/50">
         {messages.map((msg, index) => {
           const isUser = msg.role === 'user';
           return (
@@ -155,8 +157,6 @@ export default function ChatPanel({
             </div>
           </div>
         )}
-
-        <div ref={chatEndRef} />
       </div>
 
       {/* Suggested Quick Replies */}
