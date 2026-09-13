@@ -333,7 +333,7 @@ export default function App() {
     } else if (step === 2) {
       const el = document.getElementById('opportunities-section');
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
         handleSendMessage(
           language === 'mr'
@@ -346,7 +346,7 @@ export default function App() {
     } else if (step === 3) {
       const el = document.getElementById('finance-section');
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
         handleSendMessage(
           language === 'mr'
@@ -359,7 +359,7 @@ export default function App() {
     } else if (step === 4) {
       const el = document.getElementById('schemes-section');
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
         handleSendMessage(
           language === 'mr'

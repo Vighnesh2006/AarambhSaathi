@@ -13,12 +13,25 @@ export default function ChatPanel({
   const [isListening, setIsListening] = useState(false);
   const chatContainerRef = useRef(null);
 
-  // Auto-scroll to bottom inside container
+  // Robust multi-phase auto-scroll inside container
   useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  }, [messages, isLoading]);
+    const scrollToBottom = () => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      }
+    };
+
+    scrollToBottom();
+    const rafId = requestAnimationFrame(scrollToBottom);
+    const timer1 = setTimeout(scrollToBottom, 60);
+    const timer2 = setTimeout(scrollToBottom, 180);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [messages, isLoading, suggestedReplies]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -99,7 +112,7 @@ export default function ChatPanel({
       </div>
 
       {/* Message List */}
-      <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-slate-50/50">
+      <div ref={chatContainerRef} className="flex-1 overflow-y-auto overscroll-y-contain p-4 sm:p-5 space-y-4 bg-slate-50/50">
         {messages.map((msg, index) => {
           const isUser = msg.role === 'user';
           return (

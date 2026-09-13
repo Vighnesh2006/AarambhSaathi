@@ -88,12 +88,30 @@ export default function TextChatMode({
   const [input, setInput] = useState('');
   const chatContainerRef = useRef(null);
 
-  // Auto-scroll on new messages (internal container scroll only)
+  // Robust multi-phase auto-scroll on new messages, loading state, or suggested replies changes
   useEffect(() => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  }, [messages, isLoading]);
+    const scrollToBottom = () => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      }
+    };
+
+    // 1. Immediate sync scroll
+    scrollToBottom();
+
+    // 2. Next animation frame for DOM paint/reflow
+    const rafId = requestAnimationFrame(scrollToBottom);
+
+    // 3. Short timeouts for markdown formatting, avatar loads & suggested replies layout shifts
+    const timer1 = setTimeout(scrollToBottom, 60);
+    const timer2 = setTimeout(scrollToBottom, 180);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [messages, isLoading, suggestedReplies]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -276,7 +294,7 @@ export default function TextChatMode({
         </div>
 
         {/* Message Stream */}
-        <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-3 sm:p-6 space-y-3.5 bg-[#f9fbf9]">
+        <div ref={chatContainerRef} className="flex-1 overflow-y-auto overscroll-y-contain p-3 sm:p-6 space-y-3.5 bg-[#f9fbf9]">
           {messages.map((msg, index) => {
             const isBot = msg.role === 'assistant';
             return (

@@ -1,0 +1,1030 @@
+================================================================================
+AARAMBH SAATHI - COMPLETE PROJECT DOCUMENTATION
+GramVantage AI: Rural Micro-Entrepreneur Advisory Platform
+Version 1.2.0  |  Date: September 2026
+Repository: https://github.com/Vighnesh2006/AarambhSaathi
+================================================================================
+
+================================================================================
+1. PROJECT OVERVIEW
+================================================================================
+Aarambh Saathi (meaning Starting Companion) is an AI-driven, hyper-local
+business advisory and financial structuring assistant for rural micro-entrepreneurs
+in India.
+
+It guides a rural user (farmer, tailor, daily labourer, homemaker) through an
+18-state conversation funnel:
+
+  1. Collects user profile: name, village, occupation, skills, capital, resources
+  2. Recommends Top 3 matching rural businesses via deterministic scoring engine
+  3. Shows required machinery and equipment for chosen business
+  4. Lists verified machinery suppliers with pricing and contact info
+  5. Calculates financial plan: EMI, loan amount, payback period
+  6. Matches user with government subsidy schemes (central and state level)
+  7. Generates 90-Day Detailed Project Report (DPR) in EN, Hindi, Marathi
+
+================================================================================
+2. TECH STACK
+================================================================================
+
+BACKEND (Python)
+  Framework:    FastAPI >= 0.110.0
+  Server:       Uvicorn >= 0.28.0
+  Data Models:  Pydantic >= 2.6.0
+  LLM / AI:     Google Gemini API (google-generativeai >= 0.4.0)
+                Model: gemini-1.5-flash
+                ONLY used for NLU fallback entity extraction from chat text.
+                ALL scoring, finance, schemes = 100% DETERMINISTIC (no LLM)
+                Gracefully disabled when GEMINI_API_KEY is absent.
+  Database:     SQLite (gramvantage.db) via Python sqlite3
+  File Parse:   openpyxl >= 3.1.2 (Excel import for businesses/suppliers)
+  File Upload:  python-multipart >= 0.0.9
+  Env Vars:     python-dotenv >= 1.0.0
+  Language:     Python 3.11 (Dockerfile base image)
+
+FRONTEND (JavaScript/React)
+  Framework:    React 18 (Vite 5.4 build system)
+  Language:     JavaScript (JSX)
+  Styling:      Tailwind CSS (utility-first, via PostCSS)
+  Icons:        Lucide React (SVG icon library)
+  Voice Input:  Web Speech API (browser-native, no external SDK required)
+  Voice Output: Web Speech Synthesis API (SpeechSynthesisUtterance)
+  HTTP Client:  Native fetch() API
+  Build Output: frontend/dist/ (static SPA, deployed to Firebase)
+
+DEPLOYMENT
+  Frontend Hosting:  Firebase Hosting (project: aarambh-saathi-prod)
+  Backend Hosting:   Render.com (render.yaml) or Docker-compatible
+  Containerization:  Dockerfile (Python 3.11-slim, port 8080)
+  Process Manager:   Procfile (Render/Heroku compatibility)
+  Version Control:   GitHub - github.com/Vighnesh2006/AarambhSaathi
+  CI/CD:             Git push to main -> Render auto-deploys
+
+DATABASE (SQLite - backend/gramvantage.db)
+  Tables:
+    chat_sessions    : session_id, created_at, language, profile_json
+    chat_messages    : id, session_id, role, content, timestamp
+    generated_reports: report_id, created_at, session_id, business_id, report_json
+
+STATIC DATA FILES (data/)
+  businesses.json     90 curated rural business records (168 KB)
+  schemes.json        60+ government subsidy schemes (109 KB)
+  machines.json       Machinery catalogue with IDs, prices, specs (30 KB)
+  suppliers.json      Verified supplier records per machine type (27 KB)
+  catalogue_meta.json Business catalogue metadata / training stats
+  schemes_meta.json   Scheme database last-sync metadata
+
+================================================================================
+3. PROJECT DIRECTORY STRUCTURE
+================================================================================
+
+Ruraltech/
++-- backend/
+|   +-- main.py              FastAPI app, all API routes (375 lines)
+|   +-- chatbot.py           Chatbot state machine + Gemini NLU (1068 lines)
+|   +-- recommendation.py   5-factor scoring engine (247 lines)
+|   +-- finance.py          Deterministic EMI/loan calculator (393 lines)
+|   +-- feasibility.py      Hyper-local feasibility heuristics
+|   +-- schemes.py          Government scheme matcher (145 lines)
+|   +-- scheme_scraper.py   Scheme sync from myscheme.gov.in
+|   +-- supplier.py         Machinery + supplier recommendation (418 lines)
+|   +-- supplier_sources/   Pluggable supplier adapter modules
+|   |   +-- local_database.py   Local JSON supplier database adapter
+|   |   +-- indiamart.py        IndiaMart-style deterministic adapter
+|   |   +-- tradeindia.py       TradeIndia-style deterministic adapter
+|   |   +-- manufacturers.py    Direct manufacturer records adapter
+|   +-- report.py           90-Day DPR report generator
+|   +-- importer.py         Excel/CSV business and supplier importer
+|   +-- database.py         SQLite connection, init, data loaders
+|   +-- models.py           All Pydantic data models (156 lines)
+|   +-- config.py           Environment config, paths, API key
+|   +-- .env                GEMINI_API_KEY (git-ignored)
+|   +-- gramvantage.db      SQLite database file
+|   +-- requirements.txt    Python dependencies
+|   +-- test_backend.py     Backend unit tests
+|
++-- frontend/
+|   +-- src/
+|   |   +-- App.jsx              Root component, global state (28 KB)
+|   |   +-- main.jsx             ReactDOM entry point
+|   |   +-- index.css            Tailwind + global styles
+|   |   +-- components/
+|   |   |   +-- TextChatMode.jsx     Primary chat UI - text mode (18 KB)
+|   |   |   +-- VoiceChatMode.jsx    Voice input/output chat (26 KB)
+|   |   |   +-- ChatPanel.jsx        Legacy chat panel component
+|   |   |   +-- Header.jsx           Top navigation bar
+|   |   |   +-- HomeView.jsx         Landing/home screen
+|   |   |   +-- AboutView.jsx        About/features page
+|   |   |   +-- RecommendationCard.jsx   Top 3 business recommendations
+|   |   |   +-- FeasibilityCard.jsx      Local feasibility analysis display
+|   |   |   +-- FinancialSummary.jsx     EMI/loan financial calculator UI
+|   |   |   +-- SchemesCard.jsx          Government schemes display
+|   |   |   +-- BusinessSetupCard.jsx    Machinery and supplier UI
+|   |   |   +-- ProfileCard.jsx          User profile viewer/editor
+|   |   |   +-- ReportModal.jsx          90-Day DPR report full modal
+|   |   |   +-- CatalogueModal.jsx       Admin: business catalogue browser
+|   |   |   +-- AdminLoginModal.jsx      Admin RBAC login modal
+|   |   +-- services/
+|   |   |   +-- api.js           All frontend -> backend API calls
+|   |   |   +-- translations.js  EN/HI/MR multilingual UI strings (39 KB)
+|   |   |   +-- voice.js         Text-to-speech via SpeechSynthesis
+|   |   +-- assets/              Images: robot avatar, rural landscapes
+|   +-- dist/                Production build output for Firebase
+|   +-- package.json, vite.config.js, tailwind.config.js
+|
++-- data/
+|   +-- businesses.json, schemes.json, machines.json, suppliers.json
+|   +-- catalogue_meta.json, schemes_meta.json
+|
++-- Dockerfile              Docker container definition
++-- Procfile                Render/Heroku process config
++-- render.yaml             Render.com deployment config
++-- firebase.json           Firebase hosting config
++-- .firebaserc             Firebase project binding
++-- README.md
++-- test_chatbot_flow.py, test_advanced_flow.py
++-- test_hardcore_mvp.py, test_workflow_rebuild.py
+
+================================================================================
+4. CHATBOT WORKFLOW - 18-STATE MACHINE
+================================================================================
+
+Linear funnel. Each user message advances exactly ONE state.
+Sessions are stored in-memory in the SESSIONS dict (chatbot.py).
+
+STATE FLOW:
+  PERSONAL_NAME          Bot asks for user name.
+  PERSONAL_PLACE         Bot asks for village / location.
+  PERSONAL_OCCUPATION    Bot shows occupation chips:
+                         Farmer / Tailor / Student / Homemaker /
+                         Daily Labourer / Retail Shopkeeper
+  BUSINESS_SKILLS        Bot shows 4 skill chips (filtered by occupation).
+  BUSINESS_RESOURCES     Bot asks what resources the user owns.
+                         (land, cattle, shop, vehicle, tools, etc.)
+  BUSINESS_CAPITAL       Bot asks available capital in rupees.
+  BUSINESS_INTEREST      Bot shows 3-4 business ideas (by occupation).
+  PROFILE_CONFIRMATION   Bot summarizes the profile. User confirms.
+  RECOMMENDATION         Bot shows Top 3 matching businesses with scores,
+                         why_matches list, investment range, risk summary.
+  BUSINESS_SELECTION     User selects one business to pursue.
+  FEASIBILITY            Bot shows hyper-local feasibility: market opportunity,
+                         competition level, risk, positive and caution factors.
+  EQUIPMENT_SUPPLIER     Bot shows:
+                           a) Required machinery list for chosen business
+                           b) Verified supplier per machine (name, location,
+                              price range, phone, GST, delivery, warranty)
+  SUPPLIER_DONE          Bot asks: proceed to finance? Check schemes?
+  FINANCIAL              Bot shows: scheme tier, loan amount, monthly EMI,
+                         total repayment, break-even months.
+  SCHEME_OPT_IN          Bot asks if user wants to check government schemes.
+  SCHEME_PROFILE         Collects gender / social category for eligibility.
+  SCHEME_MATCHING        Bot shows matched central + state government schemes
+                         with documents required, support type, official links.
+  DPR                    Bot generates full 90-Day DPR in session language.
+  COMPLETE               Conversation done. Option to restart.
+
+OCCUPATION -> SKILLS MAP (shown at BUSINESS_SKILLS state):
+  Farmer:       Crop Cultivation and Land Management
+                Cattle Rearing and Dairy
+                Agricultural Equipment Operation
+                Irrigation and Water Management
+  Tailor:       Stitching and Tailoring
+                Pattern Cutting and Design
+                Sewing Machine Operation
+                Fabric Selection and Handling
+  Student:      Computer Skills and Digital Marketing
+                Sales and Customer Service
+                Business Planning and Management
+                Basic Accounting
+  Homemaker:    Food Processing and Preservation
+                Handicraft and Embroidery
+                Retail and Customer Service
+                Packaging and Labelling
+  Day Labourer: Manual Labour and Construction
+                Agricultural Field Work
+                Machine Operation Basics
+                Transport and Logistics
+  Shopkeeper:   Retail Inventory Management
+                Customer Service and Sales
+                Basic Accounting and GST
+                Supply Chain and Procurement
+
+OCCUPATION -> BUSINESS IDEAS MAP (shown at BUSINESS_INTEREST state):
+  Farmer:       Dairy Farming, Mushroom Farming, Poultry Farming,
+                Vermicompost Production
+  Tailor:       Rural Tailoring and Garment Unit, School Uniform Manufacturing,
+                Boutique Garments Unit
+  Student:      Mushroom Farming, Beekeeping and Honey Production,
+                Rural Tailoring and Garment Unit
+  Homemaker:    Pickle and Papad Production, Rural Tailoring and Garment Unit,
+                Beekeeping and Honey Production
+  Day Labourer: Mini Flour Mill (Atta Chakki), Goat Rearing and Breeding,
+                Vermicompost Production
+  Shopkeeper:   Mini Flour Mill, Spice Processing and Packaging,
+                Bakery and Snack Production Unit
+
+================================================================================
+5. BACKEND MODULES - FUNCTIONS
+================================================================================
+
+--- 5.1 main.py (FastAPI App and API Routes) ---
+
+  CORS: allow_origins=["*"]. on_startup() calls init_db().
+
+  ENDPOINTS:
+  GET  /health, /api/health         Health check
+  POST /api/chat                    Stateful chatbot -> process_chat()
+  POST /api/profile                 Update user profile
+  POST /api/recommend               Top 3 business recommendations
+  POST /api/feasibility             Hyper-local feasibility analysis
+  POST /api/financial               EMI and loan financial plan
+  GET  /api/businesses              List/filter 90 businesses
+  GET  /api/schemes                 List 60+ government schemes
+  GET  /api/schemes/stats           Scheme database stats
+  POST /api/schemes/sync            Sync from myscheme.gov.in
+  POST /api/schemes/match           Match schemes to user profile
+  GET  /api/equipment/{name}        Required machinery for business
+  POST /api/suppliers/search        Search suppliers for machine
+  POST /api/suppliers/recommend     Full machinery + supplier pipeline
+  POST /api/report                  Generate 90-Day DPR
+  GET  /api/train/status            Catalogue metadata
+  POST /api/train                   Retrain from Excel
+  POST /api/businesses/import       Upload Excel/CSV businesses
+  POST /api/suppliers/import        Upload Excel/CSV suppliers
+
+--- 5.2 chatbot.py (1068 lines - Core State Machine + NLU) ---
+
+  GLOBAL CONSTANTS:
+    SESSIONS                In-memory: session_id -> {state, profile, language}
+    WORKFLOW_STATES         Ordered list of 18 state names
+    BIZ_SECTOR_TO_MACHINE_CATEGORIES  keyword -> machine category list
+    OCCUPATION_SKILLS_MAP   occupation -> 4 skill quick-reply options
+    OCCUPATION_BUSINESS_MAP occupation -> 3-4 business idea options
+    KEYWORD_MAP             business keyword -> canonical business name
+
+  FUNCTIONS:
+    extract_capital_from_text(text) -> Optional[float]
+      Parses: "1 lakh", "50,000", "ek lakh", "pannas hazar", "Rs 1.5L"
+      Also handles Devanagari word forms.
+      Returns rupee amount as float, or None if not found.
+
+    clean_name_string(raw) -> str
+      Strips: "My name is", "I am", "mera naam", "mazhe naav"
+      Returns capitalized name.
+
+    clean_location_string(raw) -> str
+      Strips: "I live in", "from", "yethe rahto", etc.
+
+    resolve_state_from_location(loc) -> str
+      Maps known city names to Indian states. Default: Maharashtra.
+
+    extract_entities_locally(user_msg, current_state) -> Dict
+      Rule-based multilingual entity extractor (EN/HI/MR).
+      Extracts: name, location, capital, occupation, skills,
+                resources, business_interest from free text.
+
+    call_gemini_nlu(user_msg, state, profile, language, history) -> Dict
+      Google Gemini flash model for entity extraction fallback.
+      Returns JSON dict with extracted profile field values.
+      Only activated when GEMINI_API_KEY env var is set.
+
+    get_bot_response(state, profile, language) -> (str, List[str])
+      Deterministic template-based bot reply for each state.
+      Generated in EN/HI/MR based on language. NO LLM calls.
+      Returns (bot_message_text, suggested_quick_replies_list).
+
+    process_chat(request: ChatRequest) -> ChatResponse   [MAIN FUNCTION]
+      1. Create or retrieve session from SESSIONS dict
+      2. Check business keyword interceptor (DISABLED in early states)
+      3. Advance state machine based on current_state + user message
+      4. extract_entities_locally() -> merge extracted fields into profile
+      5. call_gemini_nlu() as fallback if local extraction is incomplete
+      6. get_bot_response() -> bot reply text + quick_reply chips
+      7. When state == DPR: generate full trilingual DPR inline (no LLM)
+      8. Return ChatResponse with updated_profile, quick_replies, is_profile_ready
+
+  DPR GENERATION (state == DPR) - FULLY DETERMINISTIC:
+    Template fill using profile data. No LLM involved.
+    Computes: project_cost, loan_amount, monthly_revenue, monthly_profit,
+              payback_period_months, machines_list, action_plan M1/M2/M3,
+              applicable government scheme name.
+    Output in EN/HI/MR based on session language.
+
+--- 5.3 recommendation.py (Business Scoring Engine) ---
+
+  SECTOR_KEYWORD_MAP: 11 sectors -> keyword lists
+    DAIRY, GOAT_SHEEP, POULTRY, LIVESTOCK, FISHERIES, BEEKEEPING,
+    AGRICULTURE, TEXTILES, FOOD_PROCESSING, MANUFACTURING
+
+  detect_user_target_sector(profile) -> Optional[str]
+    Priority 1: business_interest + skills fields
+    Priority 2: occupation + experience + resources fields
+
+  detect_business_sector(business_dict) -> str
+    Categorizes using category/name/description text.
+
+  score_business(biz_dict, profile) -> BusinessRecommendation
+    3-factor weighted scoring (max approx 100 points):
+
+    Skill Match (max 70 pts):
+      - Overlap: user skills vs 3 required_skills per business
+      - Direct interest name match bonus: +20 pts
+      - Sector alignment boost: +15 to +25 pts
+      - Cross-sector keyword matching (livestock mgmt <-> animal care)
+      - Hard filter: -50 pts for unrelated manufacturing + livestock profile
+
+    Experience (max 15 pts):
+      5yr/experienced=15, some/basic=12.5, default=10
+
+    Capital and Resource Match (max 15 pts):
+      >= recommended_investment: 15 pts
+      >= minimum_investment: 13 pts
+      >= 10% of minimum (margin money eligibility): 11.5 pts
+      not stated: 12 pts
+
+  get_recommendations(profile, top_n=3) -> RecommendationResponse
+    Scores all 90 businesses. Sorts descending by total_score.
+    Returns top 3 with score >= 50.
+    Fallback: top 3 regardless of score if none reach threshold.
+
+--- 5.4 finance.py (EMI and Financial Structuring Engine) ---
+
+  SCHEME TIERS (National Micro-Enterprise Lending Framework - SIH26091):
+    Micro Finance:  Cost <= Rs 1,40,000  | Rate 6.5% p.a. | 3yr | Morat 3mo
+    Term Loan:      Cost <= Rs 50,00,000 | Rate 8.0% p.a. | 7yr | Morat 6mo
+    Commercial:     Cost > Rs 50,00,000  | Rate 12% p.a.  | 5yr | Morat 3mo
+    Max financing cap: 90% of project cost in all tiers.
+
+  validate_financial_inputs(...) -> List[str]
+    Validates: project_cost, own_contribution, revenue, expenses, rates.
+
+  calculate_reducing_balance_emi(principal, annual_rate, tenure_months) -> float
+    EMI = P * r * (1+r)^n / ((1+r)^n - 1)  [standard reducing balance]
+
+  calculate_financial_plan(inputs: FinancialInput) -> FinancialPlan
+    1. Detect tier from project_cost
+    2. own_contribution = max(10% of cost, user-provided amount)
+    3. required_loan = project_cost - own_contribution (capped at tier max)
+    4. monthly_emi = calculate_reducing_balance_emi()
+    5. total_repayment, interest_payable computed
+    6. monthly_profit = revenue - operating_expenses - EMI
+    7. break_even_months = own_contribution / monthly_profit
+    Returns: complete FinancialPlan object.
+
+--- 5.5 feasibility.py ---
+
+  evaluate_hyper_local_feasibility(business_id, profile) -> FeasibilityResponse
+    Rule-based. 100% deterministic. No LLM.
+    Evaluates: market_opportunity, competition_level, resource_availability,
+               risk_level, positive_factors, caution_factors.
+    Returns feasibility_score 0-100 + factor lists.
+
+--- 5.6 schemes.py (Government Scheme Matcher) ---
+
+  SECTOR_ALIASES: 9 sector groups -> keyword lists.
+    Agriculture and Allied, Manufacturing and Processing, Food Processing,
+    Services and Textiles, Dairy and Livestock, Fisheries and Aquaculture,
+    Clean Energy and Renewable, Women and Rural Livelihoods,
+    Artisans and Traditional Crafts.
+
+  match_government_schemes(profile, business_id, category, project_cost)
+    -> List[MatchedScheme]
+    Per scheme scoring:
+      +40: exact business_id in scheme eligible_ids list
+      +25: category/sector match via SECTOR_ALIASES
+      +20: user interest keyword match
+      +15: user resource match (user has cattle -> dairy scheme matched)
+      +10: state-level scheme, user is in that state
+      +5:  gender-specific scheme, user is female
+      Skip: state scheme does not match user state
+    Returns top 5 highest-scoring schemes.
+
+--- 5.7 supplier.py (Machinery and Supplier Engine) ---
+
+  BUSINESS_EQUIPMENT_MAP: keyword -> list of machine IDs
+    e.g. "dairy" -> ["M001","M002","M003","M004","M005",...]
+    Covers: spice, dairy, poultry, mushroom, flour, pickle, bakery,
+    tailoring, beekeeping, goat, fish, bamboo, mobile repair, etc.
+
+  ACTIVE_SOURCES (pluggable adapter pattern):
+    LocalDatabaseSource, IndiaMARTSource, TradeIndiaSource, ManufacturerSource
+    New source: implement adapter class in backend/supplier_sources/
+
+  load_all_machines() -> List[Dict]   Reads data/machines.json
+  load_all_suppliers() -> List[Dict]  Reads data/suppliers.json
+
+  get_required_machines(business_name, business_scale) -> List[Dict]
+    business_name keyword -> machine IDs -> machine details with price range.
+
+  search_suppliers(machine_id, location, budget, capacity) -> List[Dict]
+    Queries all ACTIVE_SOURCES.
+    Deterministic ranking: location proximity > budget fit > source reliability.
+    Returns: name, location, phone, price, GST, delivery_days, warranty, website.
+
+  get_supplier_recommendations(biz_name, scale, location, budget) -> Dict
+    Full pipeline: get_required_machines + search_suppliers per machine.
+    Returns {machines: [...], suppliers_by_machine: {...}}
+
+--- 5.8 report.py ---
+
+  generate_business_report(request: ReportRequest) -> BusinessReport
+    1. get_recommendations() -> target business
+    2. evaluate_hyper_local_feasibility() -> feasibility analysis
+    3. calculate_financial_plan() -> EMI/loan structure
+    4. match_government_schemes() -> applicable schemes
+    5. Builds 90-day action plan dict (Month1/Month2/Month3)
+    6. Compiles explainable_reasons list
+    7. save_report() -> persists to SQLite
+    Returns: complete BusinessReport object.
+
+--- 5.9 importer.py ---
+
+  import_business_catalogue(file_path) -> Dict
+    Reads "Business Master" sheet from Excel or CSV.
+    Normalizes: business_name, category, required_skills, investment,
+                description, risks, market_factors, scalability.
+    Writes normalized records to data/businesses.json.
+    Updates data/catalogue_meta.json with stats.
+
+  import_supplier_catalogue(file_path) -> Dict
+    Reads "Suppliers" and "Machines" sheets from Excel.
+    Normalizes machine records (ID, name, category, price range, specs).
+    Normalizes supplier records (name, machine_id, location, contact, price).
+    Merges into data/machines.json + data/suppliers.json.
+    Returns {imported_suppliers: N, imported_machines: M}.
+
+--- 5.10 database.py ---
+
+  get_connection() -> sqlite3.Connection   (Row factory enabled)
+  init_db()                               Creates 3 SQLite tables if not exist
+  validate_mvp_datasets()                 On startup: validates 90 businesses,
+                                          warns on duplicates, warns if any biz
+                                          has != 3 required_skills.
+  load_businesses_data() -> List[Dict]    Reads data/businesses.json
+  load_schemes_data() -> List[Dict]       Reads data/schemes.json
+  get_business_by_id(business_id)         Finds one business dict by ID string
+  save_report(report_id, session_id, business_id, report_dict)
+    Persists generated DPR to generated_reports SQLite table.
+
+--- 5.11 config.py ---
+
+  BASE_DIR        = backend/ directory
+  PROJECT_ROOT    = Ruraltech/ root
+  DATA_DIR        = Ruraltech/data/
+  GEMINI_API_KEY  = from backend/.env (GEMINI_API_KEY env var)
+  PORT            = 8000 default (overridden by PORT env var)
+  HOST            = 0.0.0.0
+  BUSINESSES_FILE = data/businesses.json
+  SCHEMES_FILE    = data/schemes.json
+
+================================================================================
+6. PYDANTIC DATA MODELS (backend/models.py)
+================================================================================
+
+UserProfile:
+  name, location, district, state, occupation
+  skills: List[str], experience, capital: float
+  resources: List[str], business_interest, goal, scale
+  constraints: List[str], gender, category
+  language: str  ("en" | "hi" | "mr")
+
+ChatMessage:     role, content, timestamp
+ChatRequest:     session_id, message, conversation_history, profile, language
+ChatResponse:    session_id, current_step, reply, updated_profile,
+                 is_profile_ready, missing_fields, suggested_quick_replies, language
+
+RecommendationScoreBreakdown:
+  skill_match_score, capital_match_score, resource_match_score,
+  market_potential_score, risk_score, total_score
+
+BusinessRecommendation:
+  business_id, business_name, category, overall_score, breakdown,
+  required_investment, user_capital, why_matches: List[str],
+  main_opportunity, main_risk, description, scalability
+
+RecommendationResponse:
+  recommendations: List[BusinessRecommendation], profile_summary,
+  calculation_method
+
+FeasibilityRequest:  business_id, profile
+FeasibilityResponse: business_id, business_name, feasibility_score,
+                     market_opportunity, competition_level, resource_availability,
+                     risk_level, positive_factors: List[str],
+                     caution_factors: List[str], is_demo_data, disclaimer
+
+FinancialInput:
+  project_cost, user_contribution, custom_interest_rate,
+  custom_tenure_years, custom_moratorium_months,
+  estimated_monthly_revenue, estimated_monthly_operating_expenses
+
+FinancialPlan:
+  project_cost, scheme_tier, tier_description, own_contribution,
+  own_contribution_percentage, required_loan, loan_percentage,
+  interest_rate, tenure_years, tenure_months, moratorium_months,
+  monthly_emi, total_repayment, total_interest_payable,
+  monthly_revenue, monthly_operating_expenses, monthly_profit,
+  annual_profit, break_even_months, disclaimer
+
+MatchedScheme:
+  scheme_id, scheme_name, why_relevant, possible_support,
+  eligibility_summary, required_documents: List[str], official_source,
+  notes, myscheme_url, category, ministry
+
+SchemeMatchRequest:  profile, business_category, business_id, project_cost
+ReportRequest:       profile, selected_business_id, custom_project_cost
+
+BusinessReport:
+  report_id, created_at, entrepreneur_profile, recommended_business,
+  local_feasibility, financial_plan, relevant_schemes: List[MatchedScheme],
+  explainable_reasons: List[str], action_plan_90_days: Dict, disclaimer
+
+================================================================================
+7. FRONTEND COMPONENTS AND FUNCTIONS
+================================================================================
+
+--- App.jsx (Root Component - Global State Manager) ---
+
+  STATE VARIABLES:
+    activeTab           "home" | "about" | "chat" | "catalogue" | "schemes"
+    chatMode            "text" | "voice"
+    language            "en" | "hi" | "mr"
+    userRole            "user" | "admin" (persisted in localStorage)
+    journeyStep         1-5 (current advisory journey progress)
+    profile             UserProfile object
+    sessionId           Unique session ID per conversation
+    messages            Array of {role, content, id} chat objects
+    isLoading           boolean - bot is generating a response
+    suggestedReplies    Array of quick-reply strings from backend
+    isProfileReady      boolean - all profile collection states complete
+    recommendations     Array of BusinessRecommendation objects
+    selectedBusinessId  Currently selected business ID string
+    feasibility         FeasibilityResponse object
+    schemes             Array of MatchedScheme objects
+    financialPlan       FinancialPlan object
+    isReportOpen        boolean - DPR modal is open
+    generatedReportData BusinessReport object from /api/report
+    isCatalogueModalOpen boolean
+    totalCatalogueItems integer (from /api/train/status response)
+
+  KEY FUNCTIONS:
+    handleLanguageChange(lang)
+      Updates language state. Resets greeting if chat is fresh.
+
+    handleReset()
+      Clears all state back to initial values. Generates new sessionId.
+
+    runAnalysisPipeline(profile, preferredBusinessId)
+      Async chain:
+        1. getRecommendations(profile)
+        2. getFeasibility(top_business_id, profile)
+        3. matchSchemes(profile, business_id, category, project_cost)
+      Updates recommendations, feasibility, schemes, journeyStep.
+
+    handleSendMessage(text)
+      1. Appends user message to messages array
+      2. Calls sendChatMessage() -> POST /api/chat
+      3. Appends bot reply to messages
+      4. Updates profile, suggestedReplies, isProfileReady from response
+      5. Triggers voice output if in voice mode
+      6. Triggers runAnalysisPipeline() when is_profile_ready == true
+
+    handleSelectBusiness(bizId)
+      Updates selectedBusinessId. Re-runs feasibility and scheme matching.
+
+    handleOpenReport()
+      Calls generateReport() -> POST /api/report. Opens ReportModal.
+
+    handleJourneyStepClick(step)
+      step 1 -> opens profile drawer / ProfileCard
+      step 2 -> scrollIntoView("opportunities-section") or chat message
+      step 3 -> scrollIntoView("finance-section") or chat message
+      step 4 -> scrollIntoView("schemes-section") or chat message
+      step 5 -> handleOpenReport()
+
+    handleAdminLoginSuccess(adminData)
+      Sets userRole = "admin". Persists to localStorage.
+
+    handleAdminLogout()
+      Clears admin role. Redirects to home if on admin-only tab.
+
+--- TextChatMode.jsx (Primary Chat Interface) ---
+
+  Props:
+    messages, onSendMessage, isLoading, suggestedReplies, onClearChat,
+    language, onLanguageChange, onSwitchToVoice, journeyStep,
+    onJourneyStepClick, isProfileReady, onOpenReport
+
+  SCROLL FIX (Sep 2026 bug fix):
+    chatContainerRef: useRef attached to scrollable messages div.
+    useEffect on messages: chatContainerRef.current.scrollTop = scrollHeight
+    NEVER calls scrollIntoView() from message update.
+    Page/window position is UNCHANGED when user sends messages.
+    Journey navigation (steps 2/3/4) still uses scrollIntoView on explicit click.
+
+  FUNCTIONS:
+    renderFormattedMessage(content, isBot)
+      Parses **bold** markdown into <strong> tags.
+      Strips stray ** asterisks from Gemini output.
+      Renders line-by-line with <br/> separators.
+
+    handleSubmit(e)
+      e.preventDefault() -> calls onSendMessage(input.trim())
+
+    handleQuickOptionClick(text)
+      Calls onSendMessage(text) for quick-reply chip clicks.
+
+  UI SECTIONS:
+    - Chat header: bot avatar, language buttons (EN/HI/MR), voice toggle, reset
+    - Message stream: scrollable div with chatContainerRef
+    - Typing indicator: 3 animated bouncing dots (shown when isLoading)
+    - Suggested quick-reply chips: horizontal scroll row
+    - Input bar: text input + Submit button (form with e.preventDefault)
+    - 4 fast-action buttons:
+        "Find Business" -> onJourneyStepClick(2)
+        "Machinery and Suppliers" -> sends supplier query message
+        "Calculate Finance" -> onJourneyStepClick(3)
+        "Check Schemes" -> onJourneyStepClick(4)
+    - 6 occupation starter tiles: Farmer, Tailor, Student, Homemaker,
+        Day Labourer, Shopkeeper (with pre-filled query in EN/HI/MR)
+
+--- VoiceChatMode.jsx (Voice Chat Interface) ---
+
+  Uses Web Speech API (SpeechRecognition) for voice input.
+  Languages: hi-IN, mr-IN, en-IN based on current language setting.
+  Calls onSendMessage() when speech recognition result is finalized.
+  Provides push-to-talk (hold button) or toggle mic mode.
+  Visual feedback: animated waveform bars, recording indicator, bot avatar.
+
+--- services/api.js (Frontend API Layer) ---
+
+  Base URL: import.meta.env.VITE_API_URL || "/api"
+  All functions use native fetch() with JSON bodies.
+
+  sendChatMessage(msg, history, profile, lang, sessionId) POST /api/chat
+  getRecommendations(profile)                             POST /api/recommend
+  getFeasibility(businessId, profile)                     POST /api/feasibility
+  getFinancialPlan(inputs)                                POST /api/financial
+  matchSchemes(profile, bizId, bizCat, cost)              POST /api/schemes/match
+  generateReport(profile, bizId, cost)                    POST /api/report
+  fetchBusinesses(domain, search)                         GET  /api/businesses
+  fetchSchemes()                                          GET  /api/schemes
+  fetchTrainStatus()                                      GET  /api/train/status
+  triggerModelTraining(filePath)                          POST /api/train
+  uploadAndTrainFile(file)                                POST /api/businesses/import
+  fetchEquipment(businessName, scale)                     GET  /api/equipment/{name}
+  searchSuppliers(params)                                 POST /api/suppliers/search
+  recommendSuppliers(params)                              POST /api/suppliers/recommend
+
+--- services/voice.js ---
+
+  speakText(text, language)
+    SpeechSynthesisUtterance with lang: en-IN / hi-IN / mr-IN
+    Only called in voice mode (chatMode === "voice").
+
+  stopSpeaking()
+    window.speechSynthesis.cancel()
+
+--- services/translations.js ---
+
+  getTranslation(language) -> Object with all UI string keys
+  Supports: "en" (English), "hi" (Hindi), "mr" (Marathi)
+  Keys include: appName, navChat, chatPlaceholder, chatThinking,
+  journey step labels, occupation names, button labels, etc.
+
+--- Other Components ---
+
+  Header.jsx
+    Nav tabs: Home, About, Chat, Catalogue (admin only), Schemes (admin only).
+    Language selector. Reset button. Profile icon. Admin login button.
+
+  HomeView.jsx
+    Landing page: hero section with tagline, features grid,
+    3 category cards (Agriculture, Dairy, Food Processing),
+    "Start Your Journey" CTA button -> switches to chat tab.
+
+  AboutView.jsx
+    Mission statement, features explanation, tech overview, team info.
+
+  RecommendationCard.jsx
+    Shows top 3 businesses with overall_score, score breakdown bars,
+    why_matches list, required_investment, main_opportunity, main_risk.
+    Business selector tabs to switch between recommendations.
+
+  FeasibilityCard.jsx
+    Displays feasibility_score gauge, market_opportunity text,
+    competition_level badge, positive_factors and caution_factors lists.
+
+  FinancialSummary.jsx
+    Interactive EMI calculator. User can adjust project_cost, own_contribution.
+    Displays: scheme_tier, required_loan, monthly_emi, tenure, total_repayment,
+    break_even_months, monthly_profit.
+    Calls /api/financial on input change (debounced).
+
+  SchemesCard.jsx
+    Lists matched government schemes with why_relevant, possible_support,
+    eligibility_summary, required_documents, myscheme_url link.
+
+  BusinessSetupCard.jsx
+    Shows required machinery list for selected business.
+    Calls /api/equipment/{businessName} on load.
+    Displays supplier details for each machine (name, price, location, phone).
+
+  ProfileCard.jsx
+    Form with all UserProfile fields for display and editing.
+
+  ReportModal.jsx
+    Full-screen modal with 90-Day DPR sections:
+      Project Overview (business name, location, financials)
+      Machinery and Equipment list
+      Financial Structure (loan, EMI, repayment timeline)
+      Government Schemes section
+      90-Day Action Plan (Month 1 / Month 2 / Month 3)
+    Download as PDF / Print buttons.
+
+  CatalogueModal.jsx (Admin Only)
+    Browsable business catalogue with domain filter and keyword search.
+    Excel/CSV file upload section for retraining the model.
+    Shows business cards with investment range, skills, category.
+    "Analyze This Business" button -> triggers advisory pipeline.
+
+  AdminLoginModal.jsx
+    Simple password modal for admin RBAC.
+    On success: sets userRole = "admin" in localStorage.
+    Grants access to Catalogue and Schemes admin views.
+
+================================================================================
+8. DATA LAYER
+================================================================================
+
+data/businesses.json (90 records, 168 KB)
+  Each record:
+    id, business_name, category
+    required_skills: [skill1, skill2, skill3]  -- EXACTLY 3 skills per business
+    minimum_investment: float (INR)
+    recommended_investment: float (INR)
+    description: str
+    risks: List[str]
+    market_factors: {market_reach: str, demand_trend: str}
+    scalability: "High" | "Medium" | "Low"
+    required_resources: List[str]
+
+  Business categories covered:
+    Dairy and Livestock, Poultry, Goat and Sheep, Food Processing,
+    Spice Processing, Bakery, Flour Milling, Textiles and Garments,
+    Agriculture (Mushroom, Vermicompost, Beekeeping, Organic Farming),
+    Manufacturing (Brick, Paper, Candle, Soap),
+    Services (Mobile Repair, Handicrafts, Solar Energy),
+    Cold Storage, Fisheries/Aquaculture, Bamboo and Coir Products
+
+data/schemes.json (60+ records, 109 KB)
+  Each record:
+    id, scheme_name, level ("Central" | "State")
+    category, ministry
+    eligible_businesses: List[str] (sector keywords)
+    eligible_ids: List[str] (specific business IDs)
+    eligibility_summary, possible_support
+    required_documents: List[str]
+    official_source: URL
+    myscheme_url: URL
+    notes: str
+
+  Notable schemes included:
+    PMEGP, MUDRA (Shishu/Kishore/Tarun tiers), NABARD, PM-FME,
+    Dairy Entrepreneurship Development Scheme (DEDS),
+    National Livestock Mission (NLM), PM Matsya Sampada Yojana,
+    PM-KUSUM (Solar), PM Vishwakarma, DAY-NRLM (SHG/Women),
+    Stand-Up India, Maharashtra CMEGP, Rajasthan RKVIB
+
+data/machines.json
+  Each record:
+    id, machine_name, category
+    price_range_min, price_range_max (INR)
+    power_requirement (kW)
+    capacity (per hour/day as string)
+    indicative_price_note: str
+
+data/suppliers.json
+  Each record:
+    supplier_id, machine_id, supplier_name
+    location: city, state
+    contact_phone, price_indicative (INR), gst_number
+    delivery_days, warranty_months, website, source_platform
+
+================================================================================
+9. AUTHENTICATION AND ROLE-BASED ACCESS CONTROL (RBAC)
+================================================================================
+
+Two user roles:
+  user  - Default: Home, About, Chat advisory funnel
+  admin - Elevated: All user tabs + Catalogue Manager + Scheme Sync
+
+Admin login: Frontend-only RBAC via localStorage key "aarambh_user_role".
+No backend JWT or session authentication (appropriate for MVP/hackathon).
+
+Admin-only features:
+  CatalogueModal: Browse 90 businesses, search/filter, Excel/CSV upload
+  Scheme Sync: triggers /api/schemes/sync -> scheme_scraper.py
+  Data endpoints: /api/train, /api/businesses/import, /api/suppliers/import
+
+================================================================================
+10. MULTILINGUAL SUPPORT
+================================================================================
+
+Languages: English (en), Hindi (hi), Marathi (mr)
+
+Frontend:
+  All UI labels and strings from services/translations.js
+  Language switcher buttons in TextChatMode header (EN/HI/MR)
+  Occupation starter tile query text changes per language
+  Suggested quick-replies can be in local language from backend
+
+Backend (chatbot.py):
+  get_bot_response() generates replies in selected language
+  Entity extraction handles HI/MR text:
+    "ek lakh", "pannas hazar", "mera naam", "mazhe gaon", etc.
+  DPR report generated in EN/HI/MR based on session language
+  Capital parsing handles Devanagari words and numerals
+
+Voice (VoiceChatMode.jsx + voice.js):
+  SpeechRecognition language: hi-IN, mr-IN, en-IN
+  SpeechSynthesis language: same mapping
+
+================================================================================
+11. AI USAGE - GEMINI vs. DETERMINISTIC
+================================================================================
+
+GEMINI IS USED FOR:
+  chatbot.py -> call_gemini_nlu() function only
+  NLU fallback: extracts name/location/skills from free-form chat text
+  Model: gemini-1.5-flash
+  Prompt: structured JSON extraction from user message
+  Gracefully disabled and skipped when GEMINI_API_KEY is not set
+
+ALL CRITICAL OUTPUTS ARE DETERMINISTIC (NO LLM):
+  Business recommendation scoring  (recommendation.py)
+  Financial EMI and loan plan       (finance.py)
+  Feasibility scoring               (feasibility.py)
+  Government scheme matching        (schemes.py)
+  Machinery and supplier matching   (supplier.py)
+  DPR report generation             (chatbot.py DPR state)
+  All chatbot bot message replies   (get_bot_response())
+
+WHY DETERMINISTIC APPROACH:
+  - No hallucination risk in financial advice to rural users
+  - System works fully offline without GEMINI_API_KEY
+  - All outputs are reproducible, auditable, and explainable
+  - Financial accuracy is critical for real loan and scheme applications
+
+================================================================================
+12. API ENDPOINT REFERENCE
+================================================================================
+
+METHOD  PATH                         DESCRIPTION
+------  ---------------------------  ------------------------------------
+GET     /                            App info and version
+GET     /health, /api/health         Health check
+POST    /api/chat                    Stateful chatbot main endpoint
+POST    /api/profile                 Update user profile
+POST    /api/recommend               Top 3 business recommendations
+POST    /api/feasibility             Hyper-local feasibility analysis
+POST    /api/financial               EMI and loan financial plan
+GET     /api/businesses              List and filter 90 businesses
+GET     /api/schemes                 List 60+ government schemes
+GET     /api/schemes/stats           Scheme database statistics
+POST    /api/schemes/sync            Sync from myscheme.gov.in
+POST    /api/schemes/match           Match schemes to user profile
+GET     /api/equipment/{name}        Required machinery for business
+POST    /api/suppliers/search        Search suppliers for machine
+POST    /api/suppliers/recommend     Full machinery and supplier pipeline
+POST    /api/report                  Generate 90-Day DPR report
+GET     /api/train/status            Business catalogue metadata
+POST    /api/train                   Retrain model from Excel
+POST    /api/businesses/import       Upload Excel/CSV businesses
+POST    /api/suppliers/import        Upload Excel/CSV suppliers
+
+Interactive Swagger docs: http://localhost:8000/docs
+
+================================================================================
+13. LOCAL DEVELOPMENT SETUP
+================================================================================
+
+BACKEND:
+  cd Ruraltech
+  echo GEMINI_API_KEY=your_key_here > backend/.env   (optional)
+  pip install -r backend/requirements.txt
+  python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
+  # API at http://127.0.0.1:8000
+
+FRONTEND:
+  cd frontend
+  npm install
+  npm run dev
+  # UI at http://localhost:5173
+
+PRODUCTION BUILD:
+  cd frontend
+  npm run build
+  # Output: frontend/dist/
+
+ENVIRONMENT VARIABLES:
+  GEMINI_API_KEY   Google Gemini API key (optional, system works without it)
+  PORT             Server port (default: 8000 local, 8080 in Docker)
+  HOST             Bind host (default: 0.0.0.0)
+  VITE_API_URL     Frontend API base URL (default: /api for same-origin proxy)
+
+================================================================================
+14. DEPLOYMENT CONFIGURATION
+================================================================================
+
+Dockerfile:
+  FROM python:3.11-slim
+  WORKDIR /app
+  COPY backend/requirements.txt -> pip install --no-cache-dir -r
+  COPY backend ./backend
+  COPY data ./data
+  ENV PORT=8080
+  EXPOSE 8080
+  CMD uvicorn backend.main:app --host 0.0.0.0 --port ${PORT:-8080}
+
+render.yaml:
+  type: web, name: aarambh-saathi-backend, env: python
+  buildCommand: pip install -r backend/requirements.txt
+  startCommand: python -m uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+  envVars: GEMINI_API_KEY (set manually in Render dashboard)
+
+firebase.json:
+  site: aarambh-saathi-prod
+  public: frontend/dist
+  rewrites: "**" -> /index.html  (SPA routing, single page app)
+
+Procfile:
+  web: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+
+================================================================================
+15. KEY DESIGN DECISIONS AND PRINCIPLES
+================================================================================
+
+1. DETERMINISTIC FIRST
+   All critical outputs (scores, EMI, scheme matches, DPR) are fully deterministic.
+   Gemini used only as NLU fallback for free-text entity extraction.
+   Prevents hallucinations in financial advice given to rural users.
+
+2. OFFLINE RESILIENCE
+   All business, scheme, machine, and supplier data stored locally in JSON.
+   System works fully without any external API calls.
+   Gemini gracefully degrades if GEMINI_API_KEY is missing.
+
+3. RURAL ACCESSIBILITY
+   Voice input and output in Hindi, Marathi, and English.
+   Large tap targets and simple UI for low-digital-literacy users.
+   Occupation-specific quick-reply chips eliminate the need to type.
+   Capital input handles: "1 lakh", "50 hazar", "ek lakh", "Rs 50,000" etc.
+
+4. FRONTEND-ONLY RBAC
+   Admin RBAC via localStorage (no backend auth).
+   Suitable for hackathon and MVP stage.
+   Can be upgraded to JWT-based backend auth in production.
+
+5. PLUGGABLE SUPPLIER SOURCES (Adapter Pattern)
+   ACTIVE_SOURCES list in supplier.py.
+   New supplier data source: add adapter class to backend/supplier_sources/.
+   No changes needed in core supplier.py logic.
+
+6. STATE MACHINE SAFETY
+   Business keyword interceptor is DISABLED during early profile collection
+   states (PERSONAL_NAME through BUSINESS_INTEREST).
+   Prevents occupation answers like "Farmer" from incorrectly jumping
+   to the supplier lookup state mid-profile-collection.
+
+7. CHAT SCROLL ISOLATION
+   chatContainerRef.scrollTop = scrollHeight for internal chat scroll only.
+   scrollIntoView() is NEVER called from the message-send handler.
+   Page/window position is unchanged when user sends chat messages.
+   Journey navigation (steps 2/3/4) uses scrollIntoView only on
+   explicit user click via handleJourneyStepClick().
+
+================================================================================
+16. RECENT GIT COMMIT HISTORY
+================================================================================
+
+13fe2a0  Fix chat auto-scroll: scroll internal container only (Sep 7, 2026)
+df1940f  Fix interceptor guard for profile states + trilingual DPR output
+eba4bc6  Fix chatbot funnel, business idea recognition, supplier routing
+867648f  Import supplier and machine datasets from SAATH_Machines_Suppliers.xlsx
+0c3d4ec  Parse markdown bold cleanly in chat (remove raw ** asterisks)
+d83bbb5  Remove overlapping text/badges from hero and avatar images
+9542ad4  Fix mobile UI layout, button collisions, speech bubble positioning
+
+================================================================================
+17. TEST FILES
+================================================================================
+
+backend/test_backend.py      Backend module unit tests
+test_chatbot_flow.py         End-to-end chatbot conversation flow test
+test_advanced_flow.py        Advanced multi-turn conversation flow test
+test_workflow_rebuild.py     Full workflow rebuild and validation test
+test_hardcore_mvp.py         MVP assertion tests (farmer, tailor, labourer)
+
+================================================================================
+END OF DOCUMENT - AARAMBH SAATHI / GRAMVANTAGE AI v1.2.0
+================================================================================
