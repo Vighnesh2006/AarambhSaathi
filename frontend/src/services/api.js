@@ -45,6 +45,18 @@ export async function getFeasibility(businessId, profile) {
   return res.json();
 }
 
+export async function fetchBusinessSetup(setupRequest) {
+  const res = await fetch(`${API_BASE_URL}/business-setup`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(setupRequest)
+  });
+  if (!res.ok) {
+    throw new Error(`Business Setup API error: ${res.statusText}`);
+  }
+  return res.json();
+}
+
 export async function getFinancialPlan(financialInputs) {
   const res = await fetch(`${API_BASE_URL}/financial`, {
     method: 'POST',
@@ -57,15 +69,19 @@ export async function getFinancialPlan(financialInputs) {
   return res.json();
 }
 
-export async function matchSchemes(profile, businessId = null, businessCategory = null, projectCost = null) {
+export async function matchSchemes(profile, businessId = null, businessCategory = null, projectCost = null, ownContribution = null, fundingRequirement = null, businessName = null) {
   const res = await fetch(`${API_BASE_URL}/schemes/match`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       profile,
+      user_profile: profile,
       business_id: businessId,
       business_category: businessCategory,
-      project_cost: projectCost
+      business_name: businessName,
+      project_cost: projectCost,
+      own_contribution: ownContribution,
+      funding_requirement: fundingRequirement
     })
   });
   if (!res.ok) {
@@ -74,15 +90,33 @@ export async function matchSchemes(profile, businessId = null, businessCategory 
   return res.json();
 }
 
-export async function generateReport(profile, selectedBusinessId = null, customProjectCost = null) {
+export async function generateReport(
+  profile,
+  selectedBusinessId = null,
+  customProjectCost = null,
+  setupMode = 'starter',
+  options = {}
+) {
+  const payload = {
+    profile,
+    user_profile: profile,
+    selected_business_id: selectedBusinessId,
+    business_id: selectedBusinessId,
+    custom_project_cost: customProjectCost,
+    project_cost: customProjectCost,
+    setup_mode: setupMode,
+    recommendation: options.recommendation || null,
+    feasibility: options.feasibility || null,
+    business_setup: options.businessSetup || null,
+    financial_plan: options.financialPlan || null,
+    scheme_matches: options.schemeMatches || null,
+    language: options.language || profile?.language || 'en'
+  };
+
   const res = await fetch(`${API_BASE_URL}/report`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      profile,
-      selected_business_id: selectedBusinessId,
-      custom_project_cost: customProjectCost
-    })
+    body: JSON.stringify(payload)
   });
   if (!res.ok) {
     throw new Error(`Report API error: ${res.statusText}`);

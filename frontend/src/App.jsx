@@ -58,15 +58,22 @@ export default function App() {
   // Profile State
   const [profile, setProfile] = useState({
     name: null,
-    location: null,
+    intent: null,
+    age: null,
+    gender: null,
+    village: null,
     district: null,
     state: null,
+    location: null,
+    education: null,
     occupation: null,
     skills: [],
     experience: null,
-    capital: null,
     resources: [],
+    available_investment: null,
+    capital: null,
     business_interest: null,
+    existing_business: null,
     goal: null,
     scale: null,
     constraints: [],
@@ -100,12 +107,15 @@ export default function App() {
   const [suggestedReplies, setSuggestedReplies] = useState([]);
   const [isProfileReady, setIsProfileReady] = useState(false);
 
+  const [isDemoMode, setIsDemoMode] = useState(false);
+
   // Analysis Intelligence Results
   const [recommendations, setRecommendations] = useState([]);
   const [selectedBusinessId, setSelectedBusinessId] = useState(null);
   const [feasibility, setFeasibility] = useState(null);
   const [schemes, setSchemes] = useState([]);
   const [financialPlan, setFinancialPlan] = useState(null);
+  const [pipelineLoading, setPipelineLoading] = useState(false);
 
   // Modals & Metadata
   const [isReportOpen, setIsReportOpen] = useState(false);
@@ -159,15 +169,22 @@ export default function App() {
   const handleReset = () => {
     const emptyProfile = {
       name: null,
-      location: null,
+      intent: null,
+      age: null,
+      gender: null,
+      village: null,
       district: null,
       state: null,
+      location: null,
+      education: null,
       occupation: null,
       skills: [],
       experience: null,
-      capital: null,
       resources: [],
+      available_investment: null,
+      capital: null,
       business_interest: null,
+      existing_business: null,
       goal: null,
       scale: null,
       constraints: [],
@@ -181,6 +198,7 @@ export default function App() {
     setFinancialPlan(null);
     setGeneratedReportData(null);
     setIsProfileReady(false);
+    setIsDemoMode(false);
     setJourneyStep(1);
     const newSessionId = 'sess_' + Math.random().toString(36).substring(2, 9) + Date.now().toString(36);
     setSessionId(newSessionId);
@@ -195,6 +213,7 @@ export default function App() {
 
   // Advisory pipeline trigger
   const runAnalysisPipeline = async (currentProfile, preferredBusinessId = null) => {
+    setPipelineLoading(true);
     try {
       // 1. Recommendations
       const recRes = await getRecommendations(currentProfile);
@@ -220,8 +239,11 @@ export default function App() {
       }
     } catch (err) {
       console.error('Error in advisory pipeline:', err);
+    } finally {
+      setPipelineLoading(false);
     }
   };
+
 
   // Send message handler (works for both text and voice input)
   const handleSendMessage = async (text) => {
@@ -275,9 +297,18 @@ export default function App() {
     }
   };
 
-  // Switch selected business
+  // Switch selected business (Preserves profile, resets downstream dependent intelligence)
   const handleSelectBusiness = async (bizId) => {
+    if (bizId === selectedBusinessId && feasibility) return;
+    
     setSelectedBusinessId(bizId);
+    // Reset downstream dependent results to avoid stale DPR / calculations
+    setFeasibility(null);
+    setFinancialPlan(null);
+    setSchemes([]);
+    setGeneratedReportData(null);
+    setPipelineLoading(true);
+
     try {
       const feasRes = await getFeasibility(bizId, profile);
       setFeasibility(feasRes);
@@ -294,6 +325,8 @@ export default function App() {
       }
     } catch (err) {
       console.error('Error updating business:', err);
+    } finally {
+      setPipelineLoading(false);
     }
   };
 
@@ -309,10 +342,19 @@ export default function App() {
 
     try {
       const targetCost = financialPlan?.project_cost || recommendations?.find((r) => r.business_id === targetBusinessId)?.required_investment;
+      const selectedRec = recommendations?.find((r) => r.business_id === targetBusinessId) || recommendations?.[0];
       const res = await generateReport(
         profile,
         targetBusinessId,
-        targetCost
+        targetCost,
+        profile.scale || 'starter',
+        {
+          recommendation: selectedRec,
+          feasibility: feasibility,
+          financialPlan: financialPlan,
+          schemeMatches: schemes,
+          language: language
+        }
       );
       setGeneratedReportData(res);
       setIsReportOpen(true);
@@ -374,6 +416,117 @@ export default function App() {
     }
   };
 
+  // 1-Click Sample Profile Handler for Rapid Verification & Testing (Demo Mode)
+  const handleSelectSampleProfile = async (sampleType) => {
+    let sampleProfile;
+    let introMsg;
+
+    if (sampleType === 'dairy') {
+      sampleProfile = {
+        name: 'Ramesh Patil',
+        intent: 'Start a new business',
+        age: 28,
+        gender: 'Male',
+        village: 'Shirol',
+        district: 'Kolhapur',
+        state: 'Maharashtra',
+        location: 'Shirol, Kolhapur, Maharashtra',
+        education: '12th Pass',
+        occupation: 'Farming',
+        skills: ['Dairy farming', 'Cattle care', 'Animal husbandry'],
+        experience: '4 years of animal handling & milk production',
+        resources: ['Agricultural land', 'Water source', 'Cattle shed space'],
+        available_investment: 100000,
+        capital: 100000,
+        business_interest: 'Dairy Farming',
+        existing_business: null,
+        goal: 'Start sustainable modern dairy farm with cold chain access',
+        scale: 'starter',
+        constraints: [],
+        language
+      };
+      introMsg = language === 'mr'
+        ? 'मी **रमेश पाटील** (कोल्हापूर, ₹१ लाख भांडवल, दुग्धव्यवसाय कौशल्य) यांचे डेमो प्रोफाइल लोड केले आहे. खालील ९-घटक जुळणी विश्लेषण तपासा!'
+        : language === 'hi'
+        ? 'मैंने **रमेश पाटिल** (कोल्हापुर, ₹1 लाख पूंजी, डेयरी कौशल) की डेमो प्रोफ़ाइल लोड कर दी है। नीचे 9-कारक मैच विश्लेषण देखें!'
+        : 'Loaded demo profile for **Ramesh Patil** (Kolhapur, ₹1,00,000 capital, Dairy skills, Land + Water). Deterministic multi-factor recommendations computed below!';
+    } else if (sampleType === 'retail') {
+      sampleProfile = {
+        name: 'Rahul Verma',
+        intent: 'Start a new business',
+        age: 22,
+        gender: 'Male',
+        village: 'Khed Town',
+        district: 'Pune',
+        state: 'Maharashtra',
+        location: 'Khed Town, Pune, Maharashtra',
+        education: 'Graduate (B.Com)',
+        occupation: 'Store Assistant',
+        skills: ['Retail sales', 'Customer management', 'Accounting & Billing'],
+        experience: '2 years retail shop counter experience',
+        resources: ['Commercial shop space', 'Electricity connection', 'Main road access'],
+        available_investment: 200000,
+        capital: 200000,
+        business_interest: 'Commercial Retail / FMCG Store',
+        existing_business: null,
+        goal: 'Start profitable retail business with existing shop',
+        scale: 'micro',
+        constraints: [],
+        language
+      };
+      introMsg = language === 'mr'
+        ? 'मी **राहुल वर्मा** (पुणे, ₹२ लाख भांडवल, दुकान जागा व किरकोळ विक्री कौशल्य) यांचे डेमो प्रोफाइल लोड केले आहे. खालील ९-घटक विश्लेषण तपासा!'
+        : language === 'hi'
+        ? 'मैंने **राहुल वर्मा** (पुणे, ₹2 लाख पूंजी, दुकान व रिटेल कौशल) की डेमो प्रोफ़ाइल लोड कर दी है। नीचे 9-कारक मैच देखें!'
+        : 'Loaded demo profile for **Rahul Verma** (Pune, ₹2,00,000 capital, Commercial Shop space, Retail sales skills). Top matches computed below!';
+    } else {
+      sampleProfile = {
+        name: 'Sunita Kulkarni',
+        intent: 'Start a new business',
+        age: 35,
+        gender: 'Female',
+        village: 'Miraj',
+        district: 'Sangli',
+        state: 'Maharashtra',
+        location: 'Miraj, Sangli, Maharashtra',
+        education: '10th Pass',
+        occupation: 'Home maker / SHG member',
+        skills: ['Food processing', 'Pickle making', 'Spice grinding', 'Packaging'],
+        experience: 'SHG group food packaging experience',
+        resources: ['Processing shed', '3-phase electricity', 'Continuous water supply'],
+        available_investment: 500000,
+        capital: 500000,
+        business_interest: 'Food Processing Unit',
+        existing_business: null,
+        goal: 'Set up automated food processing micro unit',
+        scale: 'small',
+        constraints: [],
+        language
+      };
+      introMsg = language === 'mr'
+        ? 'मी **सुनिता कुलकर्णी** (सांगली, ₹५ लाख भांडवल, अन्न प्रक्रिया कौशल्य) यांचे डेमो प्रोफाइल लोड केले आहे. खालील विश्लेषण तपासा!'
+        : language === 'hi'
+        ? 'मैंने **सुनीता कुलकर्णी** (सांगली, ₹5 लाख पूंजी, खाद्य प्रसंस्करण कौशल) की डेमो प्रोफ़ाइल लोड कर दी है। नीचे 9-कारक मैच देखें!'
+        : 'Loaded demo profile for **Sunita Kulkarni** (Sangli, ₹5,00,000 capital, Food Processing skills, 3-Phase power). Top matches computed below!';
+    }
+
+    setIsDemoMode(true);
+    setProfile(sampleProfile);
+    setIsProfileReady(true);
+    setActiveTab('chat');
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: 'assistant',
+        content: introMsg,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }
+    ]);
+
+    await runAnalysisPipeline(sampleProfile);
+  };
+
+
   // Direct selection from catalogue
   const handleSelectFromCatalogue = (biz) => {
     const updatedProfile = {
@@ -422,10 +575,18 @@ export default function App() {
               }
             }}
             onSelectCategory={(cat) => {
-              setProfile((prev) => ({ ...prev, business_interest: cat }));
+              const updatedProfile = {
+                ...profile,
+                business_interest: cat,
+                skills: [cat],
+                capital: profile.capital || 100000
+              };
+              setProfile(updatedProfile);
               setActiveTab('chat');
               handleSendMessage(`I am interested in opportunities under ${cat}.`);
+              runAnalysisPipeline(updatedProfile);
             }}
+            onSelectSampleProfile={handleSelectSampleProfile}
             language={language}
           />
         )}
@@ -442,6 +603,26 @@ export default function App() {
         {activeTab === 'chat' && (
           <div className="max-w-[1500px] mx-auto p-4 sm:p-6 lg:p-8">
             
+            {/* Demo Mode Notice Banner */}
+            {isDemoMode && (
+              <div className="mb-5 p-3.5 rounded-2xl bg-gradient-to-r from-amber-50 to-emerald-50 border border-amber-300 text-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs shadow-xs">
+                <div className="flex items-center gap-2.5">
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase tracking-wider">
+                    Demo Mode
+                  </span>
+                  <span>
+                    Simulating Journey with Sample Persona: <strong>{profile.name}</strong> ({profile.district || 'Rural'}, {profile.state} • ₹{Number(profile.capital || 100000).toLocaleString('en-IN')})
+                  </span>
+                </div>
+                <button
+                  onClick={handleReset}
+                  className="px-3 py-1 rounded-xl bg-white border border-amber-300 hover:bg-amber-100 text-slate-800 font-bold transition text-xs shadow-2xs"
+                >
+                  Start New Real Journey
+                </button>
+              </div>
+            )}
+
             {/* Mode Toggle Header */}
             <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center gap-2">
@@ -474,13 +655,15 @@ export default function App() {
 
               {/* Quick Jump to Generated Plan */}
               {recommendations.length > 0 && (
-                <button
-                  onClick={handleOpenReport}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-[#15803d] text-slate-950 font-extrabold text-xs shadow-md animate-soft-pulse hover:brightness-105 transition"
-                >
-                  <FileText size={15} />
-                  <span>{t.journeyGenReportBtn} Ready</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleOpenReport}
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-[#15803d] text-slate-950 font-extrabold text-xs shadow-md animate-soft-pulse hover:brightness-105 transition"
+                  >
+                    <FileText size={15} />
+                    <span>{t.journeyGenReportBtn} Ready</span>
+                  </button>
+                </div>
               )}
             </div>
 
@@ -517,20 +700,55 @@ export default function App() {
                 onJourneyStepClick={handleJourneyStepClick}
                 isProfileReady={isProfileReady || recommendations.length > 0}
                 onOpenReport={handleOpenReport}
+                onSelectSampleProfile={handleSelectSampleProfile}
               />
             )}
 
             {/* Live Intelligence Cards Container */}
             {recommendations.length > 0 && (
               <div id="decision-support-container" className="mt-8 space-y-6 pt-6 border-t border-slate-200 scroll-mt-10">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-amber-500" />
-                  <h3 className="text-xl font-black text-[#072a24] font-display">
-                    {t.journeyTitle} — Decision Support
-                  </h3>
+                <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-[#d6e5da] shadow-xs">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center">
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 className="text-base sm:text-lg font-black text-[#072a24] font-display">
+                        {t.journeyTitle} — Decision Support
+                      </h3>
+                      <p className="text-xs text-[#527068]">
+                        Selected Opportunity: <strong>{activeBusiness?.business_name}</strong>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => {
+                        const el = document.getElementById('opportunities-section');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      className="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-[#075247] border border-emerald-200 font-bold text-xs transition"
+                    >
+                      🔄 Change Business
+                    </button>
+                    <button
+                      onClick={handleReset}
+                      className="px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 font-semibold text-xs transition"
+                    >
+                      Start New Journey
+                    </button>
+                  </div>
                 </div>
 
+                {pipelineLoading && (
+                  <div className="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 flex items-center gap-3 text-xs text-[#075247] animate-pulse">
+                    <div className="w-4 h-4 border-2 border-[#075247] border-t-transparent rounded-full animate-spin"></div>
+                    <span>Evaluating local feasibility, setup requirements & financial structuring for {activeBusiness?.business_name}...</span>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
                   {/* Top 3 Recommendations */}
                   <div className="lg:col-span-6 scroll-mt-20" id="opportunities-section">
                     <RecommendationCard
@@ -545,10 +763,13 @@ export default function App() {
                   <div className="lg:col-span-6 scroll-mt-20" id="machinery-section">
                     {activeBusiness && (
                       <BusinessSetupCard
+                        businessId={activeBusiness.id || activeBusiness.business_id}
                         businessName={activeBusiness.business_name}
                         businessScale={profile.scale || 'small'}
                         userLocation={`${profile.district || profile.location || ''} ${profile.state || ''}`.trim()}
-                        userBudget={profile.capital || undefined}
+                        userBudget={profile.capital || profile.available_investment || undefined}
+                        userProfile={profile}
+                        feasibilityResult={feasibility}
                         language={language}
                       />
                     )}
@@ -569,7 +790,10 @@ export default function App() {
                   <div className="lg:col-span-6 scroll-mt-20" id="finance-section">
                     <FinancialSummary
                       initialCost={activeBusiness?.required_investment || 140000}
-                      userCapital={profile.capital || 15000}
+                      userCapital={profile.capital || profile.available_investment || 15000}
+                      businessId={activeBusiness?.id || activeBusiness?.business_id}
+                      businessName={activeBusiness?.business_name}
+                      userProfile={profile}
                       onPlanUpdated={setFinancialPlan}
                       language={language}
                     />

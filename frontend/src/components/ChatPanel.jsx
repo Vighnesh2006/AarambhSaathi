@@ -95,7 +95,7 @@ export default function ChatPanel({
           </div>
           <div>
             <h2 className="text-sm font-bold text-white flex items-center space-x-1.5 font-display">
-              <span>GramVantage AI Assistant</span>
+              <span>Aarambh Saathi Assistant</span>
               <span className="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.2 rounded border border-amber-400/30">Live Hybrid AI</span>
             </h2>
             <p className="text-[11px] text-emerald-100">Decision-Support & Conversational Advisor</p>
@@ -128,7 +128,7 @@ export default function ChatPanel({
                     : 'bg-gv-primary text-amber-300 border border-amber-400/40'
                 }`}
               >
-                {isUser ? <User className="w-4 h-4" /> : 'GV'}
+                {isUser ? <User className="w-4 h-4" /> : 'AS'}
               </div>
 
               {/* Message Bubble */}
@@ -158,14 +158,14 @@ export default function ChatPanel({
         {isLoading && (
           <div className="flex items-start gap-2.5">
             <div className="w-8 h-8 rounded-full bg-gv-primary text-amber-300 flex items-center justify-center text-xs font-bold border border-amber-400/30">
-              GV
+              AS
             </div>
             <div className="bg-white border border-slate-200 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
               <div className="flex items-center space-x-1.5">
                 <span className="w-2 h-2 rounded-full bg-gv-secondary animate-bounce [animation-delay:-0.3s]"></span>
                 <span className="w-2 h-2 rounded-full bg-gv-secondary animate-bounce [animation-delay:-0.15s]"></span>
                 <span className="w-2 h-2 rounded-full bg-gv-secondary animate-bounce"></span>
-                <span className="text-xs text-slate-400 ml-2 font-medium">GramVantage AI is analyzing...</span>
+                <span className="text-xs text-slate-400 ml-2 font-medium">Aarambh Saathi is analyzing...</span>
               </div>
             </div>
           </div>

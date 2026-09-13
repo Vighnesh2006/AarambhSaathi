@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form, Header, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel
@@ -6,7 +6,8 @@ import os
 import shutil
 import json
 
-from backend.config import PORT, HOST, DATA_DIR, BUSINESSES_FILE
+from backend.config import PORT, HOST, DATA_DIR, BUSINESSES_FILE, ADMIN_API_KEY
+
 from backend.models import (
     UserProfile,
     ChatRequest,
@@ -19,19 +20,22 @@ from backend.models import (
     SchemeMatchRequest,
     MatchedScheme,
     ReportRequest,
-    BusinessReport
+    BusinessReport,
+    BusinessSetupRequest,
+    BusinessSetupResponse
 )
 from backend.database import init_db, load_businesses_data, load_schemes_data
 from backend.chatbot import process_chat
 from backend.recommendation import get_recommendations
 from backend.feasibility import evaluate_hyper_local_feasibility
+from backend.business_setup import generate_business_setup_plan
 from backend.finance import calculate_financial_plan
 from backend.schemes import match_government_schemes
 from backend.report import generate_business_report
 from backend.importer import import_business_catalogue
 
 app = FastAPI(
-    title="GramVantage AI API",
+    title="Aarambh Saathi API",
     description="AI-Driven Hyper-Local Business Advisory and Financial Structuring Assistant for Rural Micro-Entrepreneurs",
     version="1.2.0"
 )
@@ -52,8 +56,8 @@ def on_startup():
 @app.get("/")
 def root():
     return {
-        "app": "GramVantage AI",
-        "tagline": "AI-Driven Hyper-Local Business Advisory & Financial Structuring for Rural Micro-Entrepreneurs",
+        "app": "Aarambh Saathi",
+        "tagline": "Gaav ka Vikas, Aapke Saath — AI-Driven Rural Business Advisory",
         "edition": "Enterprise Production",
         "status": "Online",
         "docs": "/docs"
@@ -62,7 +66,8 @@ def root():
 @app.get("/health")
 @app.get("/api/health")
 def health_check():
-    return {"status": "ok", "app": "GramVantage AI"}
+    return {"status": "ok", "app": "Aarambh Saathi", "tagline": "Gaav ka Vikas, Aapke Saath"}
+
 
 
 @app.post("/api/chat", response_model=ChatResponse)
@@ -90,9 +95,30 @@ def api_recommend(profile: UserProfile):
 @app.post("/api/feasibility", response_model=FeasibilityResponse)
 def api_feasibility(request: FeasibilityRequest):
     try:
-        return evaluate_hyper_local_feasibility(request.business_id, request.profile)
+        user_prof = request.profile or request.user_profile
+        if not user_prof:
+            user_prof = UserProfile(
+                state=request.state,
+                district=request.district,
+                village=request.village
+            )
+        return evaluate_hyper_local_feasibility(request.business_id, user_prof)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Feasibility calculation error: {str(e)}")
+
+@app.post("/api/business-setup", response_model=BusinessSetupResponse)
+def api_business_setup(request: BusinessSetupRequest):
+    try:
+        user_prof = request.user_profile or request.profile
+        return generate_business_setup_plan(
+            business_id=request.business_id,
+            business_name=request.business_name,
+            user_profile=user_prof,
+            available_investment=request.available_investment,
+            feasibility_result=request.feasibility_result
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Business setup generation error: {str(e)}")
 
 @app.post("/api/financial", response_model=FinancialPlan)
 def api_financial(inputs: FinancialInput):
@@ -155,14 +181,24 @@ def api_sync_schemes():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Scheme sync error: {str(e)}")
 
-@app.post("/api/schemes/match", response_model=List[MatchedScheme])
+@app.post("/api/schemes/match")
 def api_match_schemes(request: SchemeMatchRequest):
+    """
+    Deterministic Government Scheme Matching Engine.
+    Evaluates applicant profile, business sector, project outlay and location against
+    Central and State scheme guidelines.
+    """
     try:
-        return match_government_schemes(
-            profile=request.profile,
+        from backend.schemes import get_scheme_match_response
+        profile = request.get_effective_profile()
+        return get_scheme_match_response(
+            profile=profile,
             business_id=request.business_id,
             business_category=request.business_category,
-            project_cost=request.project_cost
+            business_name=request.business_name,
+            project_cost=request.project_cost,
+            own_contribution=request.own_contribution,
+            funding_requirement=request.funding_requirement
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Scheme matching error: {str(e)}")
@@ -237,6 +273,19 @@ def api_generate_report(request: ReportRequest):
 # MODEL TRAINING & CATALOGUE INGESTION ENDPOINTS
 # =========================================================================
 
+def verify_admin_auth(x_admin_token: Optional[str] = None, admin_token: Optional[str] = None):
+    """
+    Lightweight admin security verification.
+    If ADMIN_API_KEY is configured in the environment, verifies token.
+    If not set, permits execution in local development.
+    """
+    if not ADMIN_API_KEY:
+        return True
+    provided = x_admin_token or admin_token
+    if not provided or provided != ADMIN_API_KEY:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing admin security token.")
+    return True
+
 class ImportPathRequest(BaseModel):
     file_path: Optional[str] = None
 
@@ -254,11 +303,17 @@ def api_train_status():
     }
 
 @app.post("/api/train")
-def api_train_model(request: Optional[ImportPathRequest] = None):
+def api_train_model(
+    request: Optional[ImportPathRequest] = None,
+    x_admin_token: Optional[str] = Header(None, alias="X-Admin-Token"),
+    admin_token: Optional[str] = Query(None)
+):
     """
     Ingests and trains the decision models on the catalogue.
     """
-    default_excel = r"C:\Users\vighn\Downloads\GramVantage_Business_Catalogue.xlsx"
+    verify_admin_auth(x_admin_token, admin_token)
+
+    default_excel = str(DATA_DIR / "GramVantage_Business_Catalogue.xlsx")
     target_path = request.file_path if (request and request.file_path) else default_excel
 
     if os.path.exists(target_path):
@@ -314,10 +369,16 @@ def api_train_model(request: Optional[ImportPathRequest] = None):
 from backend.importer import import_business_catalogue, import_supplier_catalogue
 
 @app.post("/api/businesses/import")
-async def api_upload_and_train(file: UploadFile = File(...)):
+async def api_upload_and_train(
+    file: UploadFile = File(...),
+    x_admin_token: Optional[str] = Header(None, alias="X-Admin-Token"),
+    admin_token: Optional[str] = Query(None)
+):
     """
     Upload an Excel (.xlsx) or CSV file directly from the browser to train businesses or suppliers.
     """
+    verify_admin_auth(x_admin_token, admin_token)
+
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     saved_path = DATA_DIR / file.filename
 
@@ -349,10 +410,16 @@ async def api_upload_and_train(file: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=f"Failed to parse and train on uploaded file: {str(e)}")
 
 @app.post("/api/suppliers/import")
-async def api_import_suppliers(file: UploadFile = File(...)):
+async def api_import_suppliers(
+    file: UploadFile = File(...),
+    x_admin_token: Optional[str] = Header(None, alias="X-Admin-Token"),
+    admin_token: Optional[str] = Query(None)
+):
     """
     Direct endpoint to upload and train supplier/machine datasets.
     """
+    verify_admin_auth(x_admin_token, admin_token)
+
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     saved_path = DATA_DIR / file.filename
 
@@ -372,3 +439,4 @@ async def api_import_suppliers(file: UploadFile = File(...)):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("backend.main:app", host=HOST, port=PORT, reload=True)
+

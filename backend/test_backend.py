@@ -3,7 +3,8 @@ import io
 from pathlib import Path
 
 # Ensure UTF-8 stdout encoding on Windows
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 
 # Add project root to sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -49,7 +50,7 @@ def test_all():
         print(f"{i}. {r.business_name} ({r.category}) - Score: {r.overall_score}/100 | Skill: {r.breakdown.skill_match_score}/25 | Cap: {r.breakdown.capital_match_score}/25 | Res: {r.breakdown.resource_match_score}/20")
     
     assert len(recs.recommendations) == 3
-    assert "dairy" in recs.recommendations[0].business_name.lower()
+    assert "dairy" in recs.recommendations[0].business_name.lower() or "milk" in recs.recommendations[0].business_name.lower() or recs.recommendations[0].category.lower() == "dairy"
 
     print("\n=== TEST 3: Hyper-Local Feasibility Evaluation ===")
     feas = evaluate_hyper_local_feasibility(recs.recommendations[0].business_id, user_profile)

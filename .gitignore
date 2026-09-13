@@ -12,6 +12,9 @@ __pycache__/
 venv/
 ENV/
 *.sqlite3
+*.sqlite
+*.db
+backend/*.db
 
 # Node & Frontend
 node_modules/

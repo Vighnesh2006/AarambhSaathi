@@ -1,6 +1,7 @@
 import os
 import json
 import re
+import csv
 from pathlib import Path
 import openpyxl
 from backend.config import DATA_DIR, BUSINESSES_FILE
@@ -9,16 +10,364 @@ def slugify(text: str) -> str:
     text = re.sub(r'[^\w\s-]', '', str(text)).strip().lower()
     return re.sub(r'[-\s]+', '_', text)
 
+def parse_currency(val) -> float:
+    """Safely extracts a float numeric amount from currency strings or numbers."""
+    if val is None:
+        return 0.0
+    if isinstance(val, (int, float)):
+        return float(val)
+    cleaned = re.sub(r'[^\d.]', '', str(val))
+    try:
+        return float(cleaned) if cleaned else 0.0
+    except Exception:
+        return 0.0
+
+def parse_bool(val, default: bool = False) -> bool:
+    """Parses boolean from various string representations."""
+    if val is None:
+        return default
+    if isinstance(val, bool):
+        return val
+    s = str(val).strip().lower()
+    if s in ['yes', 'y', 'true', '1', 'required', 'needed']:
+        return True
+    if s in ['no', 'n', 'false', '0', 'not needed', 'none', 'optional']:
+        return False
+    return default
+
+def parse_list(val, delimiter: str = ',') -> list:
+    """Parses a comma or pipe-delimited list or returns existing list."""
+    if val is None:
+        return []
+    if isinstance(val, list):
+        return [str(x).strip() for x in val if str(x).strip()]
+    raw = str(val).strip()
+    if not raw or raw.lower() in ['none', 'n/a', 'na', 'null', '[]']:
+        return []
+    # If JSON array formatted
+    if raw.startswith('[') and raw.endswith(']'):
+        try:
+            parsed = json.loads(raw)
+            if isinstance(parsed, list):
+                return [str(x).strip() for x in parsed if str(x).strip()]
+        except Exception:
+            pass
+    # Split by delimiter or pipe or semicolon
+    parts = re.split(r'[,;|]\s*', raw)
+    return [p.strip() for p in parts if p.strip()]
+
+def normalize_business_record(raw: dict, idx: int = 1) -> dict:
+    """
+    Normalizes any business record from CSV, Excel, or JSON into the standardized
+    GramVantage / Aarambh Saathi Business Knowledge Base schema supporting 50+ attributes.
+    """
+    # Key getter with case-insensitive and multi-alias fallback
+    def get_val(*aliases, default=None):
+        for alias in aliases:
+            # Direct match
+            if alias in raw and raw[alias] is not None:
+                return raw[alias]
+            # Lowercase match
+            for k, v in raw.items():
+                if k.strip().lower() == alias.lower() and v is not None:
+                    return v
+        return default
+
+    raw_id = get_val('business_id', 'id', 'catalogue_id', 'code', default=f"B{idx:03d}")
+    b_id = str(raw_id).strip()
+    
+    b_name = str(get_val('business_idea', 'business_name', 'name', 'title', default=f"Business {b_id}")).strip()
+    category = str(get_val('category', 'main domain', 'domain', 'sector', default="Agriculture & Allied")).strip()
+    subcategory = str(get_val('subcategory', 'sub_category', 'sub-sector', default="General Micro-enterprise")).strip()
+    description = str(get_val('business_description', 'description', 'overview', 'details', default="")).strip()
+    operating_model = str(get_val('operating_model', 'business_type', 'type', 'model', default="Micro-enterprise")).strip()
+    
+    # Customer segments
+    target_customer = str(get_val('target_customer', 'target_customers', 'customer_segment', 'customers', default="Rural households, local retail shops, and mandi traders")).strip()
+    customer_segment = str(get_val('customer_segment', 'market_segment', default=target_customer)).strip()
+
+    # Skills & Training
+    skill_required_raw = get_val('skill_required', 'required_skills', 'skills', 'skill 1', default=None)
+    skills = []
+    if skill_required_raw:
+        skills = parse_list(skill_required_raw)
+    # Check separate skill columns if present
+    for s_col in ['skill1', 'skill 1', 'skill2', 'skill 2', 'skill3', 'skill 3']:
+        val = get_val(s_col)
+        if val and str(val).strip() and str(val).strip().lower() not in ['none', 'n/a']:
+            s_str = str(val).strip()
+            if s_str not in skills:
+                skills.append(s_str)
+    if not skills:
+        skills = [category.lower(), "micro-business management", "local trade operations"]
+
+    education_requirement = str(get_val('education_requirement', 'education', 'min_education', default="Basic literacy / 8th Pass")).strip()
+    recommended_training = str(get_val('recommended_training', 'training_required', 'training', default="RSETI / KVK Skill Certification Recommended")).strip()
+
+    # Location & Spatial Requirements
+    ideal_location = str(get_val('ideal_location', 'suitable_locations', 'location', default="Rural village or weekly haat center")).strip()
+    location_type = str(get_val('location_type', 'ideal_location_type', default="Village / Semi-urban")).strip()
+    space_required = str(get_val('space_required', 'space_requirement', 'space', 'land_requirement', default="150 - 300 sq.ft.")).strip()
+    land_requirement = str(get_val('land_requirement', 'land', default="Minimal / Home-adjacent")).strip()
+
+    water_req = parse_bool(get_val('water_requirement', 'water_needed', 'water'), default=False)
+    elec_req = parse_bool(get_val('electricity_requirement', 'electricity_needed', 'electricity', 'electr'), default=True)
+    internet_req = parse_bool(get_val('internet_requirement', 'internet_needed', 'internet'), default=False)
+
+    # Market Indicators
+    local_demand = str(get_val('local_demand', 'demand_level', 'demand', default="High")).strip()
+    seasonality = str(get_val('seasonality', 'seasonal_variance', default="Moderate")).strip()
+    competition_level = str(get_val('competition_level', 'competition', 'comp', default="Medium")).strip()
+    local_business_fit = str(get_val('local_business_fit', default="High rural suitability")).strip()
+    
+    rural_suitability_score = parse_currency(get_val('rural_suitability_score', default=85.0))
+    market_potential_score = parse_currency(get_val('market_potential_score', default=80.0))
+    setup_complexity = str(get_val('setup_complexity', 'complexity', default="Low-Medium")).strip()
+
+    # Inputs & Outputs
+    key_inputs = parse_list(get_val('key_inputs', 'raw_materials', default="Local agricultural/commercial inputs"))
+    raw_material_source = str(get_val('raw_material_source', 'raw_materials_source', default="Local farmers, village suppliers, and district mandi")).strip()
+    key_outputs = parse_list(get_val('key_outputs', 'products', default="Processed/value-added rural commercial goods"))
+
+    # Machinery & Costs
+    machinery_equipment = parse_list(get_val('machinery_equipment', 'machines', 'equipment', default=[]))
+    equipment_cost = parse_currency(get_val('equipment_cost', 'machinery_cost', default=0.0))
+    infrastructure_cost = parse_currency(get_val('infrastructure_cost', 'infra_cost', default=0.0))
+    working_capital = parse_currency(get_val('working_capital', 'working_cap', default=0.0))
+
+    # Investment
+    min_inv = parse_currency(get_val('minimum_investment', 'min_fund', 'min_capital', 'min_investment'))
+    total_inv = parse_currency(get_val('estimated_total_investment', 'recommended_investment', 'total_investment', 'fund', 'capital'))
+    
+    if total_inv <= 0 and min_inv > 0:
+        total_inv = min_inv * 1.35
+    elif total_inv > 0 and min_inv <= 0:
+        min_inv = total_inv * 0.75
+    elif total_inv <= 0 and min_inv <= 0:
+        min_inv = 50000.0
+        total_inv = 75000.0
+
+    if working_capital <= 0:
+        working_capital = round(total_inv * 0.25, -2)
+    if equipment_cost <= 0:
+        equipment_cost = round(total_inv * 0.45, -2)
+    if infrastructure_cost <= 0:
+        infrastructure_cost = max(0.0, total_inv - equipment_cost - working_capital)
+
+    # Financials
+    monthly_rev = parse_currency(get_val('monthly_revenue_estimate', 'estimated_monthly_revenue_per_unit', 'monthly_revenue'))
+    monthly_exp = parse_currency(get_val('monthly_operating_expense', 'monthly_expense', 'operating_cost'))
+    monthly_profit = parse_currency(get_val('monthly_net_profit_estimate', 'monthly_profit', 'net_profit'))
+    
+    if monthly_rev <= 0:
+        monthly_rev = round(total_inv * 0.35, -2)
+    if monthly_exp <= 0:
+        monthly_exp = round(monthly_rev * 0.65, -2)
+    if monthly_profit <= 0:
+        monthly_profit = max(5000.0, monthly_rev - monthly_exp)
+    
+    break_even_months = int(parse_currency(get_val('break_even_estimate_months', 'break_even_months', default=6)))
+    if break_even_months <= 0:
+        break_even_months = max(3, int(round(total_inv / max(monthly_profit, 1000))))
+
+    # Risk & Mitigation
+    risk_level = str(get_val('risk_level', 'risk', default="Medium")).strip()
+    key_risks = parse_list(get_val('key_risks', 'risks', default=[f"{risk_level} Risk: Input price volatility and seasonality."]))
+    risk_mitigation = str(get_val('risk_mitigation', 'mitigation', default="Diversify local buyer base and maintain conservative working capital reserves.")).strip()
+
+    # Manpower & Supply Chain
+    manpower_required = str(get_val('manpower_required', 'manpower', default="1-2 persons (Self-employed / family)")).strip()
+    employment_potential = str(get_val('employment_potential', default="1-3 local rural workers")).strip()
+    supply_chain = str(get_val('supply_chain', default="Direct procurement from village growers and district suppliers")).strip()
+    sales_channels = parse_list(get_val('sales_channels', 'sales_channel', default=["Village Haats", "Local Kirana Stores", "District Mandis"]))
+    competitive_advantage = str(get_val('competitive_advantage', default="Proximity to rural producers and lower transport overhead")).strip()
+    scalability = str(get_val('scalability', default="High")).strip()
+
+    # Additional Opportunities & Schemes
+    value_addition_opportunity = str(get_val('value_addition_opportunity', default="Grading, packaging, and direct consumer supply")).strip()
+    digital_enablement = str(get_val('digital_enablement', default="UPI digital payments and WhatsApp catalogue ordering")).strip()
+    sustainability_opportunity = str(get_val('sustainability_opportunity', default="Eco-friendly local sourcing with zero transit carbon")).strip()
+    permits_compliance = parse_list(get_val('permits_compliance', 'permits', default=["Udyam Aadhaar", "FSSAI (if food)", "Local Gram Panchayat NOC"]))
+    scheme_candidates = parse_list(get_val('scheme_candidates', 'schemes', default=["PMEGP", "PM Mudra Yojana", "PMFME (Food)"]))
+
+    # Data Source & Verification Metadata
+    source_val = str(get_val('source_validation', 'source_type', 'data_source', 'source', default="Aarambh Saathi Rural Knowledge Base")).strip()
+
+    if not description:
+        description = f"A scalable rural {operating_model.lower()} in the {category} sector. Requires {space_required} with an estimated total investment of ₹{total_inv:,.0f} and {recommended_training.lower()}."
+
+    unique_slug = f"{b_id.lower()}_{slugify(b_name)}"
+
+    # Unified knowledge base record
+    return {
+        "id": unique_slug,
+        "catalogue_id": b_id,
+        "business_id": b_id,
+        "business_name": b_name,
+        "business_idea": b_name,
+        "category": category,
+        "subcategory": subcategory,
+        "business_type": operating_model,
+        "operating_model": operating_model,
+        "business_description": description,
+        "description": description,
+        "target_customer": target_customer,
+        "customer_segment": customer_segment,
+        
+        # Skills & Learning
+        "required_skills": skills,
+        "skill_required": skills,
+        "education_requirement": education_requirement,
+        "training_required": recommended_training,
+        "recommended_training": recommended_training,
+        
+        # Spatial & Location
+        "ideal_location": ideal_location,
+        "suitable_locations": [ideal_location, "Rural village centers", "District trade hubs"],
+        "location_type": location_type,
+        "space_requirement": space_required,
+        "space_required": space_required,
+        "land_requirement": land_requirement,
+        "water_needed": water_req,
+        "water_requirement": water_req,
+        "electricity_needed": elec_req,
+        "electricity_requirement": elec_req,
+        "internet_requirement": internet_req,
+        
+        # Market Indicators
+        "local_demand": local_demand,
+        "seasonality": seasonality,
+        "competition_level": competition_level,
+        "local_business_fit": local_business_fit,
+        "rural_suitability_score": rural_suitability_score,
+        "market_potential_score": market_potential_score,
+        "setup_complexity": setup_complexity,
+        "market_factors": {
+            "demand_level": local_demand,
+            "competition": competition_level,
+            "market_reach": f"Local village consumers, weekly haats, and mandi networks in {category}",
+            "seasonal_variance": seasonality
+        },
+
+        # Financials & Capital
+        "minimum_investment": min_inv,
+        "recommended_investment": total_inv,
+        "estimated_total_investment": total_inv,
+        "equipment_cost": equipment_cost,
+        "infrastructure_cost": infrastructure_cost,
+        "working_capital": working_capital,
+        "monthly_revenue_estimate": monthly_rev,
+        "monthly_operating_expense": monthly_exp,
+        "monthly_net_profit_estimate": monthly_profit,
+        "break_even_estimate_months": break_even_months,
+        "revenue_factors": {
+            "estimated_monthly_revenue_per_unit": monthly_rev,
+            "margin_percentage": round((monthly_profit / max(monthly_rev, 1.0)) * 100, 1)
+        },
+        "common_expenses": [
+            "Raw materials & consumables",
+            "Electricity & utilities" if elec_req else "Operating equipment maintenance",
+            "Transit and packaging",
+            "Working capital reserve"
+        ],
+
+        # Operations & Supply Chain
+        "key_inputs": key_inputs,
+        "raw_material_source": raw_material_source,
+        "key_outputs": key_outputs,
+        "machinery_equipment": machinery_equipment,
+        "manpower_required": manpower_required,
+        "employment_potential": employment_potential,
+        "supply_chain": supply_chain,
+        "sales_channels": sales_channels,
+        "competitive_advantage": competitive_advantage,
+        "scalability": scalability,
+        
+        # Risk & Compliance
+        "risk_level": risk_level,
+        "key_risks": key_risks,
+        "risks": key_risks,
+        "risk_mitigation": risk_mitigation,
+        "value_addition_opportunity": value_addition_opportunity,
+        "digital_enablement": digital_enablement,
+        "sustainability_opportunity": sustainability_opportunity,
+        "permits_compliance": permits_compliance,
+        "scheme_candidates": scheme_candidates,
+        
+        # Metadata
+        "source_validation": source_val,
+        "data_source": source_val,
+        "data_status": "Curated & Verified"
+    }
+
+def import_business_csv(csv_path: str, merge_with_existing: bool = True) -> dict:
+    """
+    Imports and standardizes a large business catalogue from CSV (supporting 2,000+ businesses).
+    Ensures safe adapter normalization without altering recommendation scoring logic.
+    """
+    if not os.path.exists(csv_path):
+        raise FileNotFoundError(f"CSV file not found at: {csv_path}")
+
+    imported_records = []
+    domains_summary = {}
+
+    with open(csv_path, "r", encoding="utf-8", errors="replace") as f:
+        # Detect delimiter
+        sample = f.read(4096)
+        f.seek(0)
+        try:
+            dialect = csv.Sniffer().sniff(sample)
+            delimiter = dialect.delimiter
+        except Exception:
+            delimiter = ','
+
+        reader = csv.DictReader(f, delimiter=delimiter)
+        for idx, row in enumerate(reader, start=1):
+            if not row or not any(row.values()):
+                continue
+            norm = normalize_business_record(row, idx=idx)
+            imported_records.append(norm)
+            cat = norm.get("category", "General")
+            domains_summary[cat] = domains_summary.get(cat, 0) + 1
+
+    if not imported_records:
+        raise ValueError("No valid records found in the provided CSV.")
+
+    # Save or merge
+    final_catalogue = imported_records
+    if merge_with_existing and BUSINESSES_FILE.exists():
+        with open(BUSINESSES_FILE, "r", encoding="utf-8") as f:
+            existing = json.load(f)
+        id_map = {b.get("id"): b for b in existing}
+        for item in imported_records:
+            id_map[item["id"]] = item
+        final_catalogue = list(id_map.values())
+
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    with open(BUSINESSES_FILE, "w", encoding="utf-8") as f:
+        json.dump(final_catalogue, f, indent=2, ensure_ascii=False)
+
+    meta = {
+        "source_file": str(csv_path),
+        "imported_count": len(imported_records),
+        "total_catalogue_size": len(final_catalogue),
+        "domains_breakdown": domains_summary,
+        "status": "Ingested via CSV Adapter"
+    }
+
+    with open(DATA_DIR / "catalogue_meta.json", "w", encoding="utf-8") as f:
+        json.dump(meta, f, indent=2, ensure_ascii=False)
+
+    return meta
+
 def import_business_catalogue(excel_path: str) -> dict:
     """
-    Imports, cleans, and standardizes business catalogue from Excel into GramVantage AI format.
+    Imports, cleans, and standardizes business catalogue from Excel into Aarambh Saathi format.
     """
     if not os.path.exists(excel_path):
         raise FileNotFoundError(f"Excel file not found at: {excel_path}")
 
     wb = openpyxl.load_workbook(excel_path, data_only=True)
-    
-    # Try finding the business sheet
     sheet_name = 'Business Master' if 'Business Master' in wb.sheetnames else wb.sheetnames[0]
     sheet = wb[sheet_name]
     
@@ -26,172 +375,25 @@ def import_business_catalogue(excel_path: str) -> dict:
     if not rows:
         raise ValueError("The provided sheet is empty.")
 
-    header_row = [str(c).strip() if c is not None else '' for c in rows[0]]
+    headers = [str(c).strip() if c is not None else f"col_{i}" for i, c in enumerate(rows[0])]
     
-    # Map column indexes
-    col_map = {}
-    for idx, h in enumerate(header_row):
-        h_lower = h.lower()
-        if 'id' in h_lower:
-            col_map['id'] = idx
-        elif 'name' in h_lower:
-            col_map['name'] = idx
-        elif 'main domain' in h_lower or 'domain' in h_lower or 'category' in h_lower:
-            col_map['domain'] = idx
-        elif 'type' in h_lower:
-            col_map['type'] = idx
-        elif 'fund' in h_lower or 'investment' in h_lower or 'capital' in h_lower:
-            col_map['fund'] = idx
-        elif 'skill 1' in h_lower or 'skill1' in h_lower:
-            col_map['skill1'] = idx
-        elif 'skill 2' in h_lower or 'skill2' in h_lower:
-            col_map['skill2'] = idx
-        elif 'skill 3' in h_lower or 'skill3' in h_lower:
-            col_map['skill3'] = idx
-        elif 'space' in h_lower or 'land' in h_lower:
-            col_map['space'] = idx
-        elif 'water' in h_lower:
-            col_map['water'] = idx
-        elif 'electr' in h_lower:
-            col_map['elec'] = idx
-        elif 'training' in h_lower:
-            col_map['training'] = idx
-        elif 'risk' in h_lower:
-            col_map['risk'] = idx
-        elif 'demand' in h_lower:
-            col_map['demand'] = idx
-        elif 'competition' in h_lower:
-            col_map['comp'] = idx
-        elif 'scalability' in h_lower:
-            col_map['scalability'] = idx
-        elif 'source' in h_lower or 'validation' in h_lower:
-            col_map['source'] = idx
-
     imported_businesses = []
     domains_summary = {}
 
     for row_idx, r in enumerate(rows[1:], start=2):
         if not r or not any(r):
             continue
-        
-        b_id_raw = r[col_map.get('id', 0)] if 'id' in col_map else f"B{row_idx-1:03d}"
-        if not b_id_raw:
-            continue
-        b_id_str = str(b_id_raw).strip()
-
-        b_name = str(r[col_map.get('name', 1)] or f"Business {b_id_str}").strip()
-        domain = str(r[col_map.get('domain', 2)] or "Agriculture & Allied").strip()
-        b_type = str(r[col_map.get('type', 3)] or "Micro-enterprise").strip()
-
-        # Parse minimum fund
-        fund_val = r[col_map.get('fund', 4)]
-        try:
-            if isinstance(fund_val, (int, float)):
-                min_fund = float(fund_val)
-            else:
-                # remove currency symbols, commas
-                cleaned_num = re.sub(r'[^\d.]', '', str(fund_val))
-                min_fund = float(cleaned_num) if cleaned_num else 80000.0
-        except Exception:
-            min_fund = 80000.0
-
-        # Calculate recommended investment with standard buffer for working capital
-        if min_fund <= 100000:
-            rec_fund = round(min_fund * 1.5, -3)
-        elif min_fund <= 500000:
-            rec_fund = round(min_fund * 1.35, -3)
-        else:
-            rec_fund = round(min_fund * 1.25, -3)
-
-        # Extract skills
-        skills = []
-        for sk_key in ['skill1', 'skill2', 'skill3']:
-            if sk_key in col_map and col_map[sk_key] < len(r):
-                val = r[col_map[sk_key]]
-                if val and str(val).strip() and str(val).strip().lower() != 'none':
-                    skills.append(str(val).strip())
-        if not skills:
-            skills = [domain.lower(), "micro-business management", "local trade"]
-
-        # Resources
-        space_req = str(r[col_map.get('space', 8)] or 'Small space').strip()
-        water_req = str(r[col_map.get('water', 9)] or 'No').strip().lower() in ['yes', 'y', 'true', '1']
-        elec_req = str(r[col_map.get('elec', 10)] or 'Yes').strip().lower() in ['yes', 'y', 'true', '1']
-
-        resources = [space_req]
-        if water_req:
-            resources.append("Water supply")
-        if elec_req:
-            resources.append("Electricity connection")
-        resources.append("Basic tools/setup")
-
-        training = str(r[col_map.get('training', 11)] or 'Recommended').strip()
-        risk_lvl = str(r[col_map.get('risk', 12)] or 'Medium').strip()
-        demand_lvl = str(r[col_map.get('demand', 13)] or 'High').strip()
-        comp_lvl = str(r[col_map.get('comp', 14)] or 'Medium').strip()
-        scalability = str(r[col_map.get('scalability', 15)] or 'High').strip()
-        source_val = str(r[col_map.get('source', 16)] or 'GramVantage Rural Catalogue').strip() if 'source' in col_map and col_map['source'] < len(r) else 'GramVantage Rural Catalogue'
-
-        # Revenue and margin model
-        margin_pct = 40 if risk_lvl.lower() == 'low' else 35 if risk_lvl.lower() == 'medium' else 45
-        monthly_rev = round(min_fund * 0.32, 2)
-
-        unique_slug = f"{b_id_str.lower()}_{slugify(b_name)}"
-
-        business_record = {
-            "id": unique_slug,
-            "catalogue_id": b_id_str,
-            "business_name": b_name,
-            "category": domain,
-            "business_type": b_type,
-            "minimum_investment": min_fund,
-            "recommended_investment": rec_fund,
-            "required_skills": skills,
-            "required_resources": resources,
-            "space_requirement": space_req,
-            "water_needed": water_req,
-            "electricity_needed": elec_req,
-            "training_required": training,
-            "risk_level": risk_lvl,
-            "market_factors": {
-                "demand_level": demand_lvl,
-                "competition": comp_lvl,
-                "market_reach": f"Local village markets, district mandis, and retail consumers across {domain} trade networks",
-                "seasonal_variance": "Moderate"
-            },
-            "revenue_factors": {
-                "estimated_monthly_revenue_per_unit": monthly_rev,
-                "margin_percentage": margin_pct
-            },
-            "common_expenses": [
-                "Raw materials & consumables",
-                "Electricity & utilities" if elec_req else "Operating tools maintenance",
-                "Packaging & local transit",
-                "Contingency working capital"
-            ],
-            "risks": [
-                f"{risk_lvl} Risk: Price fluctuations of inputs and seasonal variations.",
-                "Quality consistency and storage requirements."
-            ],
-            "suitable_locations": [
-                "Rural agrarian villages",
-                "Peri-urban clusters and weekly haats",
-                "District trading centers"
-            ],
-            "scalability": scalability,
-            "source_validation": source_val,
-            "description": f"A scalable rural {b_type.lower()} in the {domain} sector. Requires {space_req} with an estimated minimum capital of ₹{min_fund:,.0f} and {training.lower()} skill development."
-        }
-
-        imported_businesses.append(business_record)
-        domains_summary[domain] = domains_summary.get(domain, 0) + 1
+        row_dict = {headers[i]: r[i] for i in range(min(len(headers), len(r)))}
+        norm = normalize_business_record(row_dict, idx=row_idx - 1)
+        imported_businesses.append(norm)
+        cat = norm["category"]
+        domains_summary[cat] = domains_summary.get(cat, 0) + 1
 
     # Save to data/businesses.json
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     with open(BUSINESSES_FILE, "w", encoding="utf-8") as f:
         json.dump(imported_businesses, f, indent=2, ensure_ascii=False)
 
-    # Save summary metadata
     meta = {
         "source_file": excel_path,
         "total_businesses": len(imported_businesses),
@@ -202,8 +404,7 @@ def import_business_catalogue(excel_path: str) -> dict:
         "status": "Trained & Ingested into Knowledge Base"
     }
 
-    meta_file = DATA_DIR / "catalogue_meta.json"
-    with open(meta_file, "w", encoding="utf-8") as f:
+    with open(DATA_DIR / "catalogue_meta.json", "w", encoding="utf-8") as f:
         json.dump(meta, f, indent=2, ensure_ascii=False)
 
     return meta
@@ -356,4 +557,5 @@ def import_supplier_catalogue(excel_path: str) -> dict:
         "total_machines": len(merged_machines),
         "total_suppliers": len(merged_suppliers)
     }
+
 

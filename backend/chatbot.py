@@ -21,9 +21,14 @@ SESSIONS: Dict[str, Dict[str, Any]] = {}
 
 WORKFLOW_STATES = [
     "PERSONAL_NAME",
-    "PERSONAL_PLACE",
-    "PERSONAL_OCCUPATION",
+    "USER_INTENT",
+    "EXISTING_BUSINESS",
+    "PERSONAL_AGE",
+    "PERSONAL_GENDER",
+    "PERSONAL_LOCATION",
+    "PERSONAL_EDUCATION",
     "BUSINESS_SKILLS",
+    "BUSINESS_EXPERIENCE",
     "BUSINESS_RESOURCES",
     "BUSINESS_CAPITAL",
     "BUSINESS_INTEREST",
@@ -40,6 +45,13 @@ WORKFLOW_STATES = [
     "DPR",
     "COMPLETE"
 ]
+
+PROFILE_COLLECTION_STATES = {
+    "PERSONAL_NAME", "USER_INTENT", "EXISTING_BUSINESS", "PERSONAL_AGE",
+    "PERSONAL_GENDER", "PERSONAL_LOCATION", "PERSONAL_PLACE", "PERSONAL_EDUCATION",
+    "PERSONAL_OCCUPATION", "BUSINESS_SKILLS", "BUSINESS_EXPERIENCE",
+    "BUSINESS_RESOURCES", "BUSINESS_CAPITAL", "BUSINESS_INTEREST"
+}
 
 # Maps business sector keywords to machine category names in the local database
 BIZ_SECTOR_TO_MACHINE_CATEGORIES = {
@@ -103,7 +115,8 @@ def extract_capital_from_text(text: str) -> Optional[float]:
         "तीन लाख": 300000.0, "३ लाख": 300000.0, "3 लाख": 300000.0,
         "पाच लाख": 500000.0, "५ लाख": 500000.0, "5 लाख": 500000.0,
         "पचास हजार": 50000.0, "पन्नास हजार": 50000.0, "५० हजार": 50000.0, "50 हजार": 50000.0,
-        "एक लाख रुपये": 100000.0, "२५ हजार": 25000.0, "25 हजार": 25000.0, "पचीस हजार": 25000.0
+        "एक लाख रुपये": 100000.0, "२५ हजार": 25000.0, "25 हजार": 25000.0, "पचीस हजार": 25000.0,
+        "₹25,000": 25000.0, "₹50,000": 50000.0, "₹1,00,000": 100000.0, "₹2,50,000": 250000.0, "₹5,00,000": 500000.0
     }
     for w, val in word_map.items():
         if w in t:
@@ -134,7 +147,7 @@ def clean_name_string(raw: str) -> str:
         val = re.sub(p, '', val, flags=re.IGNORECASE).strip()
     val = re.sub(r'[\.\,\!\?]+$', '', val).strip()
     val = re.sub(r'\s+(?:है|आहे)$', '', val).strip()
-    return val.capitalize() if val else raw.strip()
+    return " ".join([w.capitalize() for w in val.split()]) if val else raw.strip()
 
 def clean_location_string(raw: str) -> str:
     val = raw.strip()
@@ -150,14 +163,18 @@ def clean_location_string(raw: str) -> str:
     return val.capitalize() if val else raw.strip()
 
 OTHER_INDIAN_STATES = {
-    "Gujarat": ["surat", "ahmedabad", "vadodara", "rajkot", "gandhinagar"],
-    "Karnataka": ["bangalore", "bengaluru", "belgaum", "mysore", "hubli"],
-    "Madhya Pradesh": ["indore", "bhopal", "jabalpur", "gwalior", "ujjain"],
-    "Rajasthan": ["jaipur", "jodhpur", "udaipur", "kota"],
-    "Uttar Pradesh": ["lucknow", "kanpur", "varanasi", "agra"],
-    "Bihar": ["patna", "gaya", "muzaffarpur"],
-    "Telangana": ["hyderabad", "warangal"],
-    "Tamil Nadu": ["chennai", "coimbatore", "madurai"]
+    "Maharashtra": ["pune", "satara", "baramati", "kolhapur", "nashik", "nagpur", "solapur", "aurangabad", "chhatrapati sambhajinagar", "amravati", "sangli", "nanded", "ahmednagar", "jalgaon", "latur", "akola", "dhule", "chandrapur", "parbhani", "shirwal", "khed", "maharashtra"],
+    "Gujarat": ["surat", "ahmedabad", "vadodara", "rajkot", "gandhinagar", "bhavnagar", "jamnagar", "junagadh", "anand", "navsari", "gujarat"],
+    "Karnataka": ["bangalore", "bengaluru", "belgaum", "mysore", "hubli", "dharwad", "mangalore", "gulbarga", "karnataka"],
+    "Madhya Pradesh": ["indore", "bhopal", "jabalpur", "gwalior", "ujjain", "sagar", "rewa", "madhya pradesh", "mp"],
+    "Rajasthan": ["jaipur", "jodhpur", "udaipur", "kota", "bikaner", "ajmer", "bhilwara", "alwar", "rajasthan"],
+    "Uttar Pradesh": ["lucknow", "kanpur", "varanasi", "agra", "meerut", "prayagraj", "allahabad", "bareilly", "aligarh", "uttar pradesh", "up"],
+    "Bihar": ["patna", "gaya", "muzaffarpur", "bhagalpur", "darbhanga", "bihar"],
+    "Telangana": ["hyderabad", "warangal", "nizamabad", "karimnagar", "telangana"],
+    "Tamil Nadu": ["chennai", "coimbatore", "madurai", "tiruchirappalli", "salem", "tamil nadu"],
+    "Andhra Pradesh": ["visakhapatnam", "vijayawada", "guntur", "nellore", "kurnool", "andhra pradesh"],
+    "Haryana": ["gurugram", "faridabad", "panipat", "ambala", "karnal", "haryana"],
+    "Punjab": ["ludhiana", "amritsar", "jalandhar", "patiala", "bathinda", "punjab"]
 }
 
 def resolve_state_from_location(loc: str) -> str:
@@ -171,7 +188,7 @@ def resolve_state_from_location(loc: str) -> str:
 
 def extract_entities_locally(user_msg: str, current_state: str) -> Dict[str, Any]:
     """Rule-based multi-entity extractor that extracts all available fields in parallel."""
-    extracted = {}
+    extracted: Dict[str, Any] = {}
     text_lower = user_msg.lower().strip()
     
     negative_words = ["i don't know", "dont know", "not sure", "pata nahi", "mahit nahi", "nahi", "no", "yes", "none", "hello", "hi", "namaskar", "namaste"]
@@ -184,51 +201,121 @@ def extract_entities_locally(user_msg: str, current_state: str) -> Dict[str, Any
         "pmegp", "mudra", "nabard", "sewing", "garment", "stitching", "masala", "chakki", "atta"
     }
 
-    # 1. Capital
+    # 1. Capital / Available Personal Investment
     cap = extract_capital_from_text(user_msg)
     if cap is not None:
         extracted["capital"] = cap
+        extracted["available_investment"] = cap
 
     # 2. Name
-    name_match = re.search(r'\b(?:my\s+name\s+is|i\s+am|i\'m|myself|मेरा\s+नाम|माझे\s+नाव|माझं\s+नाव)\s+([A-Z\u0900-\u097F][a-zA-Z\u0900-\u097F]+)\b', user_msg, re.IGNORECASE)
+    name_match = re.search(r'\b(?:my\s+name\s+is|i\s+am|i\'m|myself|मेरा\s+नाम|माझे\s+नाव|माझं\s+नाव)\s+([A-Z\u0900-\u097F][a-zA-Z\u0900-\u097F]+(?:\s+[A-Z\u0900-\u097F][a-zA-Z\u0900-\u097F]+)?)\b', user_msg, re.IGNORECASE)
     if name_match:
         cand = name_match.group(1).strip()
-        if cand.lower() not in negative_words and cand.lower() not in invalid_words:
-            extracted["name"] = cand.capitalize()
+        cand_clean = clean_name_string(cand)
+        if cand_clean.lower() not in negative_words and cand_clean.lower() not in invalid_words:
+            extracted["name"] = cand_clean
     elif current_state == "PERSONAL_NAME" and len(user_msg.split()) <= 4:
         cleaned = clean_name_string(user_msg)
         if cleaned.lower() not in negative_words and cleaned.lower() not in invalid_words:
             extracted["name"] = cleaned
 
-    # 3. Location / Place
-    loc_match = re.search(r'\b(?:from|living\s+in|staying\s+in|live\s+in|गाव|राहतो|राहते)\s+([A-Z\u0900-\u097F][a-zA-Z\u0900-\u097F]+(?:\s*,\s*[A-Z\u0900-\u097F][a-zA-Z\u0900-\u097F]+)?)\b', user_msg, re.IGNORECASE)
+    # 3. Intent
+    if any(k in text_lower for k in ["start a new", "new business", "start new", "नवीन व्यवसाय", "नया व्यवसाय", "नया उद्यम", "नवीन उद्योग"]):
+        extracted["intent"] = "Start a new business"
+    elif any(k in text_lower for k in ["expand", "existing business", "grow business", "माझा व्यवसाय वाढवणे", "आधीचा व्यवसाय", "पुराना व्यापार", "बढ़ाना", "विस्तार"]):
+        extracted["intent"] = "Expand an existing business"
+    elif any(k in text_lower for k in ["don't know", "dont know", "not sure", "help me choose", "help me decide", "योग्य व्यवसाय सुचवा", "मदत हवी", "मदद करें", "सुझाव"]):
+        extracted["intent"] = "I don't know what business to start"
+    elif current_state == "USER_INTENT":
+        if "new" in text_lower or "नवीन" in text_lower or "नया" in text_lower:
+            extracted["intent"] = "Start a new business"
+        elif "expand" in text_lower or "वाढ" in text_lower or "बढ़ा" in text_lower:
+            extracted["intent"] = "Expand an existing business"
+        else:
+            extracted["intent"] = "I don't know what business to start"
+
+    # 4. Age
+    age_match = re.search(r'\b(?:age|वय|उम्र|आयु)?\s*(?:is|आहे|है|:)?\s*(\b(?:1[6-9]|[2-9][0-9])\b)\s*(?:years|yrs|वर्षे|वर्ष|साल|years old)?\b', text_lower)
+    if age_match:
+        try:
+            val = int(age_match.group(1))
+            if 16 <= val <= 95:
+                extracted["age"] = val
+        except Exception:
+            pass
+    elif current_state == "PERSONAL_AGE":
+        raw_num = re.search(r'\b(\d{2})\b', text_lower)
+        if raw_num:
+            try:
+                val = int(raw_num.group(1))
+                if 16 <= val <= 95:
+                    extracted["age"] = val
+            except Exception:
+                pass
+        elif "18-25" in text_lower or "18 ते 25" in text_lower:
+            extracted["age"] = 22
+        elif "26-35" in text_lower or "26 ते 35" in text_lower:
+            extracted["age"] = 30
+        elif "36-50" in text_lower or "36 ते 50" in text_lower:
+            extracted["age"] = 42
+        elif "50+" in text_lower:
+            extracted["age"] = 52
+
+    # 5. Gender
+    if any(k in text_lower for k in ["female", "woman", "girl", "महिला", "स्त्री", "लड़की", "औरत"]):
+        extracted["gender"] = "Female"
+    elif any(k in text_lower for k in ["male", "man", "boy", "पुरुष", "मुलगा", "लड़का", "आदमी"]):
+        extracted["gender"] = "Male"
+    elif any(k in text_lower for k in ["other", "इतर", "अन्य"]):
+        extracted["gender"] = "Other"
+
+    # 6. Location (Village, District, State)
+    loc_match = re.search(r'\b(?:from|living\s+in|staying\s+in|live\s+in|गाव|राहतो|राहते|रहता|रहती)\s+([A-Z\u0900-\u097F][a-zA-Z\u0900-\u097F]+(?:\s*,\s*[A-Z\u0900-\u097F][a-zA-Z\u0900-\u097F]+)?)\b', user_msg, re.IGNORECASE)
     if loc_match:
         raw_loc = loc_match.group(1).strip()
         if raw_loc.lower() not in negative_words:
             if "," in raw_loc:
                 parts = [clean_location_string(p) for p in raw_loc.split(",")]
-                extracted["location"] = parts[0]
-                extracted["district"] = parts[0]
-                extracted["state"] = parts[1] if len(parts) > 1 and parts[1] else resolve_state_from_location(parts[0])
+                extracted["village"] = parts[0]
+                extracted["district"] = parts[1] if len(parts) > 1 else parts[0]
+                extracted["state"] = parts[2] if len(parts) > 2 else resolve_state_from_location(parts[0])
+                extracted["location"] = ", ".join(parts[:2])
             else:
                 c_loc = clean_location_string(raw_loc)
-                extracted["location"] = c_loc
                 extracted["district"] = c_loc
+                extracted["village"] = c_loc
+                extracted["location"] = c_loc
                 extracted["state"] = resolve_state_from_location(c_loc)
-    elif current_state == "PERSONAL_PLACE":
+    elif current_state in ["PERSONAL_LOCATION", "PERSONAL_PLACE"]:
         loc = clean_location_string(user_msg)
         if loc.lower() not in negative_words:
             if "," in loc:
                 parts = [clean_location_string(p) for p in loc.split(",")]
-                extracted["location"] = parts[0]
-                extracted["district"] = parts[0]
-                extracted["state"] = parts[1] if len(parts) > 1 and parts[1] else resolve_state_from_location(parts[0])
+                extracted["village"] = parts[0]
+                extracted["district"] = parts[1] if len(parts) > 1 else parts[0]
+                extracted["state"] = parts[2] if len(parts) > 2 else resolve_state_from_location(parts[0])
+                extracted["location"] = ", ".join(parts[:2])
             else:
-                extracted["location"] = loc
+                extracted["village"] = loc
                 extracted["district"] = loc
+                extracted["location"] = loc
                 extracted["state"] = resolve_state_from_location(loc)
 
-    # 4. Occupation
+    # 7. Education
+    if any(k in text_lower for k in ["10th", "10वी", "१०वी", "ssc", "matric", "दसवीं"]):
+        extracted["education"] = "10th Pass"
+    elif any(k in text_lower for k in ["12th", "12वी", "१२वी", "hsc", "inter", "बारहवीं"]):
+        extracted["education"] = "12th Pass"
+    elif any(k in text_lower for k in ["graduate", "degree", "ba", "bcom", "bsc", "btech", "be", "b.a", "b.com", "b.sc", "पदवीधर", "ग्रेजुएट"]):
+        extracted["education"] = "Graduate"
+    elif any(k in text_lower for k in ["diploma", "iti", "polytechnic", "डिप्लोमा", "आयटीआय", "आईटीआई"]):
+        extracted["education"] = "Diploma / Vocational"
+    elif any(k in text_lower for k in ["no formal", "uneducated", "illiterate", "शिकलो नाही", "शिक्षण नाही", "अनपढ़", "प्राथमिक"]):
+        extracted["education"] = "No Formal Schooling"
+    elif current_state == "PERSONAL_EDUCATION" and text_lower not in negative_words:
+        extracted["education"] = user_msg.strip()
+
+    # 8. Occupation
     if "farm" in text_lower or "शेत" in text_lower or "किसान" in text_lower or "कृषि" in text_lower:
         extracted["occupation"] = "Farmer"
     elif "tailor" in text_lower or "शिलाई" in text_lower or "सिलाई" in text_lower:
@@ -237,88 +324,86 @@ def extract_entities_locally(user_msg: str, current_state: str) -> Dict[str, Any
         extracted["occupation"] = "Student"
     elif "housewife" in text_lower or "गृहिणी" in text_lower or "homemaker" in text_lower:
         extracted["occupation"] = "Homemaker"
-    elif current_state == "PERSONAL_OCCUPATION":
-        occ = user_msg.strip()
-        patterns = [r'^(?:i\s+am\s+a|i\s+am\s+an|i\s+am|i\s+work\s+as|working\s+as)\s+', r'^(?:मैं\s+एक|मैं|हम)\s+']
-        for p in patterns:
-            occ = re.sub(p, '', occ, flags=re.IGNORECASE).strip()
-        occ = re.sub(r'[\.\,\!\?]+$', '', occ).strip()
-        if occ.lower() not in negative_words:
-            extracted["occupation"] = occ.capitalize()
 
-    # 5. Skills & Experience
+    # 9. Skills & Experience
     skills_found = []
-    if "cattle" in text_lower or "गाय" in text_lower or "म्हैस" in text_lower or "पशु" in text_lower or "cow" in text_lower or "animal" in text_lower:
+    if any(k in text_lower for k in ["cattle", "गाय", "म्हैस", "पशु", "cow", "buffalo", "dairy", "दुग्ध", "पशुपालन"]):
         skills_found.append("Cattle Rearing & Animal Husbandry")
         extracted["experience"] = "Cattle handling and dairy experience"
-    if "tailor" in text_lower or "शिलाई" in text_lower or "सिलाई" in text_lower or "sewing" in text_lower:
+    if any(k in text_lower for k in ["tailor", "शिलाई", "सिलाई", "sewing", "garment", "कपडे"]):
         skills_found.append("Tailoring & Garments")
-    if "machine" in text_lower or "मशीन" in text_lower or "यंत्र" in text_lower:
+    if any(k in text_lower for k in ["machine", "मशीन", "यंत्र", "repair", "ऑपरेटर"]):
         skills_found.append("Machinery Operation")
+    if any(k in text_lower for k in ["crop", "शेती", "farming", "मशरूम", "organic"]):
+        skills_found.append("Farming & Crop Management")
+    if any(k in text_lower for k in ["shop", "retail", "विक्री", "दुकान", "sales", "व्यापार"]):
+        skills_found.append("Retail & Customer Sales")
+        
     if skills_found:
         extracted["skills"] = skills_found
     elif current_state == "BUSINESS_SKILLS" and text_lower not in negative_words:
         extracted["skills"] = [user_msg.strip()]
+
+    # Experience
+    if any(k in text_lower for k in ["beginner", "fresh", "नवा", "काही अनुभव नाही", "नया"]):
+        extracted["experience"] = "Beginner / Fresh Start"
+    elif any(k in text_lower for k in ["1-3", "1 to 3", "१ ते ३", "1 साल", "2 साल", "1 वर्ष", "2 वर्षे"]):
+        extracted["experience"] = "1-3 Years Experience"
+    elif any(k in text_lower for k in ["3-5", "3 to 5", "३ ते ५", "3 साल", "4 साल", "3 वर्षे", "4 वर्षे"]):
+        extracted["experience"] = "3-5 Years Experience"
+    elif any(k in text_lower for k in ["5+", "5 years", "10 years", "५ वर्षांपेक्षा जास्त", "5 साल से अधिक", "दीर्घ अनुभव"]):
+        extracted["experience"] = "5+ Years Experience"
+    elif current_state == "BUSINESS_EXPERIENCE" and text_lower not in negative_words:
         extracted["experience"] = user_msg.strip()
 
-    # 6. Resources
+    # 10. Resources
     res_list = []
-    if "shed" in text_lower or "गोठा" in text_lower or "शेड" in text_lower or "बाड़ा" in text_lower:
+    if any(k in text_lower for k in ["shed", "गोठा", "शेड", "बाड़ा"]):
         res_list.append("Cattle Shed / Storage Shed")
-    if "land" in text_lower or "जमीन" in text_lower or "प्लॉट" in text_lower or "field" in text_lower:
+    if any(k in text_lower for k in ["land", "जमीन", "प्लॉट", "field", "शेती"]):
         res_list.append("Agricultural Land")
-    if "water" in text_lower or "पाणी" in text_lower or "पानी" in text_lower or "well" in text_lower or "borewell" in text_lower:
+    if any(k in text_lower for k in ["water", "पाणी", "पानी", "well", "borewell", "विहीर", "बोअरवेल"]):
         res_list.append("Water Source / Borewell")
-    if "electric" in text_lower or "वीज" in text_lower or "बिजली" in text_lower or "power" in text_lower:
+    if any(k in text_lower for k in ["electric", "वीज", "बिजली", "power", "मीटर"]):
         res_list.append("Electricity Connection")
-    if "tractor" in text_lower or "ट्रॅक्टर" in text_lower or "vehicle" in text_lower:
+    if any(k in text_lower for k in ["tractor", "ट्रॅक्टर", "vehicle", "गाडी", "वाहन"]):
         res_list.append("Transport / Tractor")
+    if any(k in text_lower for k in ["shop", "दुकान", "counter", "जागा"]):
+        res_list.append("Commercial Shop Space")
+    if any(k in text_lower for k in ["none", "काहीही नाही", "कुछ नहीं", "no assets"]):
+        res_list.append("No Prior Assets")
+        
     if res_list:
         extracted["resources"] = res_list
     elif current_state == "BUSINESS_RESOURCES" and text_lower not in negative_words:
         extracted["resources"] = [user_msg.strip()]
 
-    # 7. Business Interest
-    if "dairy" in text_lower or "दूध" in text_lower or "दुग्ध" in text_lower or "गौपालन" in text_lower:
+    # 11. Existing Business (if in EXISTING_BUSINESS state)
+    if current_state == "EXISTING_BUSINESS" and text_lower not in negative_words:
+        extracted["existing_business"] = user_msg.strip()
+        extracted["business_interest"] = user_msg.strip()
+
+    # 12. Business Interest
+    if any(k in text_lower for k in ["dairy", "दूध", "दुग्ध", "गौपालन"]):
         extracted["business_interest"] = "Dairy Farming"
-        if not extracted.get("skills"):
-            extracted["skills"] = ["Cattle Rearing", "Milking", "Animal Husbandry"]
-    elif "poultry" in text_lower or "कुक्कुट" in text_lower or "मुर्गी" in text_lower:
+    elif any(k in text_lower for k in ["poultry", "कुक्कुट", "मुर्गी"]):
         extracted["business_interest"] = "Poultry Farming"
-        if not extracted.get("skills"):
-            extracted["skills"] = ["Poultry Management", "Bird Care"]
-    elif "mushroom" in text_lower or "मशरूम" in text_lower or "अळिंबी" in text_lower:
+    elif any(k in text_lower for k in ["mushroom", "मशरूम", "अळिंबी"]):
         extracted["business_interest"] = "Mushroom Farming"
-    elif "spice" in text_lower or "मसाला" in text_lower or "मसाले" in text_lower:
+    elif any(k in text_lower for k in ["spice", "मसाला", "मसाले"]):
         extracted["business_interest"] = "Spice Processing & Packaging"
-    elif "flour" in text_lower or "chakki" in text_lower or "चक्की" in text_lower or "पीठ गिरणी" in text_lower or "आटा" in text_lower:
+    elif any(k in text_lower for k in ["flour", "chakki", "चक्की", "पीठ गिरणी", "आटा"]):
         extracted["business_interest"] = "Mini Flour Mill (Atta Chakki)"
-    elif "beekeep" in text_lower or "honey" in text_lower or "मध" in text_lower:
+    elif any(k in text_lower for k in ["beekeep", "honey", "मध", "मधुमक्खी"]):
         extracted["business_interest"] = "Beekeeping & Honey Production"
-    elif "vermicompost" in text_lower or "गांडूळ" in text_lower or "केंचुआ" in text_lower:
+    elif any(k in text_lower for k in ["vermicompost", "गांडूळ", "केंचुआ"]):
         extracted["business_interest"] = "Vermicompost Production"
-    elif "tailor" in text_lower or "शिलाई" in text_lower or "garment" in text_lower:
+    elif any(k in text_lower for k in ["tailor", "शिलाई", "garment", "सिलाई"]):
         extracted["business_interest"] = "Rural Tailoring & Garment Unit"
-    elif "goat" in text_lower or "शेळी" in text_lower or "बकरी" in text_lower:
+    elif any(k in text_lower for k in ["goat", "शेळी", "बकरी"]):
         extracted["business_interest"] = "Goat Rearing & Breeding"
     elif current_state == "BUSINESS_INTEREST" and text_lower not in negative_words:
         extracted["business_interest"] = user_msg.strip()
-
-    # 8. Scheme Demographics (if in SCHEME_PROFILE state)
-    if current_state == "SCHEME_PROFILE":
-        if "female" in text_lower or "woman" in text_lower or "महिला" in text_lower or "स्त्री" in text_lower:
-            extracted["gender"] = "Female"
-        elif "male" in text_lower or "man" in text_lower or "पुरुष" in text_lower:
-            extracted["gender"] = "Male"
-            
-        if "obc" in text_lower:
-            extracted["category"] = "OBC"
-        elif "sc" in text_lower or " अनुसूचित जाती" in text_lower:
-            extracted["category"] = "SC"
-        elif "st" in text_lower or "अनुसूचित जमाती" in text_lower:
-            extracted["category"] = "ST"
-        elif "general" in text_lower or "ओपन" in text_lower or "open" in text_lower:
-            extracted["category"] = "General"
 
     return extracted
 
@@ -339,11 +424,23 @@ def merge_profile_entities(existing: UserProfile, new_data: Dict[str, Any]) -> U
 
 def determine_current_state(p: UserProfile, previous_state: str = "PERSONAL_NAME") -> str:
     """
-    Determines next state strictly based on profile completion rules.
+    Determines next onboarding state progressively.
     Never re-asks fields already populated in UserProfile.
     """
     if not p.name or not str(p.name).strip():
         return "PERSONAL_NAME"
+
+    if not p.intent or not str(p.intent).strip():
+        return "USER_INTENT"
+
+    if p.intent == "Expand an existing business" and (not p.existing_business or not str(p.existing_business).strip()):
+        return "EXISTING_BUSINESS"
+
+    if p.age is None:
+        return "PERSONAL_AGE"
+
+    if not p.gender or not str(p.gender).strip():
+        return "PERSONAL_GENDER"
 
     if p.location and str(p.location).strip():
         if not p.district:
@@ -351,26 +448,29 @@ def determine_current_state(p: UserProfile, previous_state: str = "PERSONAL_NAME
         if not p.state:
             p.state = resolve_state_from_location(str(p.location).strip())
 
-    if not p.location or not str(p.location).strip():
-        return "PERSONAL_PLACE"
+    if (not p.location or not str(p.location).strip()) and (not p.district or not str(p.district).strip()):
+        return "PERSONAL_LOCATION"
 
-    if not p.occupation or not str(p.occupation).strip():
-        return "PERSONAL_OCCUPATION"
+    if not p.education or not str(p.education).strip():
+        return "PERSONAL_EDUCATION"
 
-    if (not p.skills or len(p.skills) == 0) and (not p.experience or not str(p.experience).strip()):
+    if not p.skills or len(p.skills) == 0:
         return "BUSINESS_SKILLS"
+
+    if not p.experience or not str(p.experience).strip():
+        return "BUSINESS_EXPERIENCE"
 
     if not p.resources or len(p.resources) == 0:
         return "BUSINESS_RESOURCES"
 
-    if p.capital is None:
+    if p.capital is None and p.available_investment is None:
         return "BUSINESS_CAPITAL"
 
     if not p.business_interest or not str(p.business_interest).strip():
         return "BUSINESS_INTEREST"
 
-    # All onboarding profile attributes collected!
-    if previous_state in ["PERSONAL_NAME", "PERSONAL_PLACE", "PERSONAL_OCCUPATION", "BUSINESS_SKILLS", "BUSINESS_RESOURCES", "BUSINESS_CAPITAL", "BUSINESS_INTEREST"]:
+    # All 14 onboarding profile dimensions collected!
+    if previous_state in PROFILE_COLLECTION_STATES or previous_state == "PROFILE_CONFIRMATION":
         return "PROFILE_CONFIRMATION"
 
     return previous_state or "PROFILE_CONFIRMATION"
@@ -385,116 +485,197 @@ def build_state_response(
     name = profile.name or "Friend"
     loc = profile.location or profile.district or "your village"
     occ = profile.occupation or "entrepreneur"
-    cap_val = f"₹{int(profile.capital):,}" if profile.capital is not None else "₹1,00,000"
-    skills_text = ", ".join(profile.skills[:2]) if profile.skills else "general experience"
-    res_text = ", ".join(profile.resources[:2]) if profile.resources else "standard setup"
-    b_int = profile.business_interest or "Rural Business"
+    inv_num = profile.available_investment if profile.available_investment is not None else profile.capital
+    cap_val = f"₹{int(inv_num):,}" if inv_num is not None else "₹1,00,000"
+    skills_text = ", ".join(profile.skills[:2]) if profile.skills else "general practical skills"
+    res_text = ", ".join(profile.resources[:2]) if profile.resources else "standard assets"
+    b_int = profile.business_interest or "Rural Micro-Enterprise"
+    gender_text = profile.gender or "Not Specified"
+    age_text = f"{profile.age} Years" if profile.age else "Not Specified"
+    edu_text = profile.education or "General"
+    intent_text = profile.intent or "Start a new business"
 
     quick_replies = []
 
     if state == "PERSONAL_NAME":
         if lang == "mr":
-            reply = "नमस्कार! 👋 मी 'आरंभ साथी' आहे — तुमचा हक्काचा ग्रामीण उद्योग व स्वयंरोजगार सल्लागार.\n\nतुमच्या गावात कमी भांडवलात यशस्वी व फायदेशीर व्यवसाय सुरू करण्यासाठी मी तुम्हाला मार्गदर्शन करेन. चला सुरुवात करूया, कृपया तुमचे **पूर्ण नाव** काय आहे?"
+            reply = "नमस्कार! 👋 मी **आरंभ साथी** आहे — तुमचा हक्काचा ग्रामीण व्यवसाय सल्लागार.\n\nतुमचे नाव काय आहे?"
         elif lang == "hi":
-            reply = "नमस्कार! 👋 मैं 'आरंभ साथी' हूँ — आपका ग्रामीण व्यवसाय एवं स्वरोजगार सलाहकार।\n\nकम लागत में अपने गांव में सफल व्यवसाय स्थापित करने के लिए मैं आपका मार्गदर्शन करूंगा। आइए शुरुआत करें, कृपया अपना **पूरा नाम** बताएं?"
+            reply = "नमस्कार! 👋 मैं **आरंभ साथी** हूँ — आपका ग्रामीण व्यवसाय सलाहकार।\n\nआपका नाम क्या है?"
         else:
-            reply = "Namaste! 👋 I am 'Aarambh Saathi' — your dedicated Rural Business & Micro-Enterprise Advisor.\n\nI am here to guide you step-by-step to choose, setup, and launch a profitable business in your village. Let's begin, may I know your **full name**?"
-        quick_replies = []  # No sample name suggestions on first message!
+            reply = "Namaskar! 👋 I am **Aarambh Saathi** — your dedicated rural enterprise advisor.\n\nWhat is your name?"
+        quick_replies = []
 
-    elif state == "PERSONAL_PLACE":
+    elif state == "USER_INTENT":
         if lang == "mr":
-            reply = f"छान वाटले भेटून, **{name}** जी! 📍 स्थानिक बाजारपेठ आणि ग्राहक मागणीचा अभ्यास करण्यासाठी मला तुमचे स्थान आवश्यक आहे.\n\nतुम्ही कोणत्या **गावात, तालुक्यात किंवा जिल्ह्यात** राहता?"
-            quick_replies = ["पुणे", "सातारा", "बारामती", "कोल्हापूर"]
+            reply = f"छान वाटले भेटून, **{name}** जी! 👋\n\nमी तुम्हाला कशात मदत करू?"
+            quick_replies = ["नवीन व्यवसाय सुरू करणे", "माझा व्यवसाय वाढवणे", "मला योग्य व्यवसाय सुचवा"]
         elif lang == "hi":
-            reply = f"आपसे मिलकर खुशी हुई, **{name}** जी! 📍 स्थानीय बाजार की मांग और आपूर्ति को समझने के लिए आपका क्षेत्र जानना जरूरी है।\n\nआप किस **गांव, तहसील या जिले** में रहते हैं?"
-            quick_replies = ["पुणे", "सतारा", "बारामती", "कोल्हापुर"]
+            reply = f"आपसे मिलकर खुशी हुई, **{name}** जी! 👋\n\nमैं आपकी किस प्रकार मदद करूँ?"
+            quick_replies = ["नया व्यवसाय शुरू करना", "मौजूदा व्यवसाय बढ़ाना", "मुझे सही व्यवसाय सुझाएं"]
         else:
-            reply = f"Pleased to connect with you, **{name}**! 📍 Knowing your local area helps me analyze raw material availability and village market demand.\n\nWhich **village, town, or district** do you live in?"
-            quick_replies = ["Pune", "Satara", "Baramati", "Kolhapur"]
+            reply = f"Nice to meet you, **{name}**! 👋\n\nWhat would you like help with?"
+            quick_replies = ["Start a new business", "Expand an existing business", "I don't know what business to start"]
 
-    elif state == "PERSONAL_OCCUPATION":
+    elif state == "EXISTING_BUSINESS":
         if lang == "mr":
-            reply = f"धन्यवाद, **{name}** जी! **{loc}** परिसर हा व्यवसायासाठी अतिशय उत्तम भाग आहे. 🌾\n\nसध्या तुम्ही काय काम किंवा व्यवसाय करता? (उदा. शेती, रोजंदारी कामगार, छोटे व्यापारी, गृहिणी, किंवा कुशल कारागीर)"
-            quick_replies = ["शेतकरी", "मजूर / कामगार", "दुकानदार / छोटे व्यापारी", "गृहिणी"]
+            reply = f"उत्तम, **{name}** जी! तुमचा सध्या कोणता **विद्यमान व्यवसाय** आहे जो तुम्हाला वाढवायचा आहे?"
+            quick_replies = ["दुग्ध व्यवसाय / डेअरी", "किराणा दुकान", "शिलाई व कपडे", "पोल्ट्री फार्म"]
         elif lang == "hi":
-            reply = f"धन्यवाद, **{name}** जी! **{loc}** में नए छोटे उद्यमों के लिए बेहतरीन संभावनाएं हैं। 🌾\n\nवर्तमान में आप क्या काम या व्यवसाय करते हैं? (जैसे खेती, मजदूरी, छोटी दुकान, गृहिणी, या कारीगर)"
-            quick_replies = ["किसान", "मजदूर / कामगार", "दुकानदार / छोटा व्यापारी", "गृहिणी"]
+            reply = f"बहुत अच्छा, **{name}** जी! आपका वर्तमान में कौन सा **व्यवसाय** है जिसे आप बढ़ाना चाहते हैं?"
+            quick_replies = ["डेयरी व्यवसाय", "किराना दुकान", "सिलाई व गारमेंट", "पोल्ट्री फार्म"]
         else:
-            reply = f"Thank you, **{name}**! **{loc}** is a promising cluster for rural enterprise. 🌾\n\nWhat work or occupation do you currently do? (e.g., Farmer, Daily wage worker, Retail shopkeeper, Skilled craftsman, Homemaker)"
-            quick_replies = ["Farmer", "Daily Wage Labourer", "Retail Shopkeeper", "Homemaker"]
+            reply = f"Great, **{name}**! Which **existing business** do you currently run and wish to expand?"
+            quick_replies = ["Dairy Farming", "Grocery / Kirana Shop", "Tailoring & Garments", "Poultry Farming"]
+
+    elif state == "PERSONAL_AGE":
+        if lang == "mr":
+            reply = f"योग्य शासकीय योजना व कर्ज योजनांची पात्रता तपासण्यासाठी: तुमचे **वय** किती आहे?"
+            quick_replies = ["18 ते 25 वर्षे", "26 ते 35 वर्षे", "36 ते 50 वर्षे", "50+ वर्षे"]
+        elif lang == "hi":
+            reply = f"उचित सरकारी योजनाओं और ऋण पात्रता के लिए: आपकी **आयु (उम्र)** कितनी है?"
+            quick_replies = ["18 से 25 वर्ष", "26 से 35 वर्ष", "36 से 50 वर्ष", "50+ वर्ष"]
+        else:
+            reply = f"To check eligible credit schemes and government subsidies: what is your **age**?"
+            quick_replies = ["18-25 Years", "26-35 Years", "36-50 Years", "50+ Years"]
+
+    elif state == "PERSONAL_GENDER":
+        if lang == "mr":
+            reply = f"महिला व विशेष प्रवर्गासाठी ३५% पर्यंत अतिरिक्त सरकारी अनुदान (Subsidy) उपलब्ध असते. तुमचे **लिंग** कोणते आहे?"
+            quick_replies = ["महिला (Female)", "पुरुष (Male)", "इतर (Other)"]
+        elif lang == "hi":
+            reply = f"महिला व विशेष वर्गों के लिए 35% तक अतिरिक्त सरकारी सब्सिडी उपलब्ध होती है। आपका **लिंग** क्या है?"
+            quick_replies = ["महिला (Female)", "पुरुष (Male)", "अन्य (Other)"]
+        else:
+            reply = f"Women entrepreneurs and special categories receive up to 35% higher government subsidies. What is your **gender**?"
+            quick_replies = ["Female", "Male", "Other"]
+
+    elif state == "PERSONAL_LOCATION":
+        if lang == "mr":
+            reply = f"स्थानिक बाजारपेठ व कच्च्या मालाचा अभ्यास करण्यासाठी: तुम्ही कोणत्या **गावात, तालुक्यात व जिल्ह्यात** राहता?"
+            quick_replies = ["पुणे, महाराष्ट्र", "सातारा, महाराष्ट्र", "बारामती, पुणे", "कोल्हापूर, महाराष्ट्र"]
+        elif lang == "hi":
+            reply = f"स्थानीय बाजार मांग और कच्चे माल की उपलब्धता समझने के लिए: आप किस **गांव, तहसील व जिले** में रहते हैं?"
+            quick_replies = ["पुणे, महाराष्ट्र", "सतारा, महाराष्ट्र", "बारामती, पुणे", "कोल्हापुर, महाराष्ट्र"]
+        else:
+            reply = f"To evaluate local market demand and raw material access: which **village/town, district, and state** do you live in?"
+            quick_replies = ["Pune, Maharashtra", "Satara, Maharashtra", "Baramati, Pune", "Kolhapur, Maharashtra"]
+
+    elif state == "PERSONAL_EDUCATION":
+        if lang == "mr":
+            reply = f"तुमचे **शिक्षण (Education)** कुठपर्यंत झाले आहे?"
+            quick_replies = ["१०वी पास (10th)", "१२वी पास (12th)", "पदवीधर (Graduate)", "डिप्लोमा / ITI", "शालेय शिक्षण नाही"]
+        elif lang == "hi":
+            reply = f"आपकी **शिक्षा (Education)** कहाँ तक हुई है?"
+            quick_replies = ["10वीं पास (10th)", "12वीं पास (12th)", "स्नातक (Graduate)", "डिप्लोमा / ITI", "अनौपचारिक"]
+        else:
+            reply = f"What is your highest level of **education**?"
+            quick_replies = ["10th Pass", "12th Pass", "Graduate", "Diploma / ITI", "No Formal Schooling"]
 
     elif state == "BUSINESS_SKILLS":
-        # Determine occupation-specific quick-reply skills
-        occ_key = (profile.occupation or "").lower()
-        occ_skills: list = []
-        for _key, _skills in OCCUPATION_SKILLS_MAP.items():
-            if _key in occ_key or occ_key in _key:
-                occ_skills = _skills
-                break
-
         if lang == "mr":
-            reply = f"उत्तम! **{occ}** म्हणून तुमचा अनुभव नवीन व्यवसायासाठी मोठा पाया ठरेल. 💡\n\nतुमच्याकडे कोणती **प्रात्यक्षिक कौशल्ये किंवा कामाचा अनुभव** आहे?"
-            quick_replies = occ_skills[:4] if occ_skills else ["पशुपालन व दुग्ध व्यवसाय", "सिलाई व टेलरिंग", "शेती व पीक काळजी", "मशिनरी चालवणे"]
+            reply = f"तुमच्याकडे कोणती **प्रात्यक्षिक कौशल्ये किंवा कामाचा अनुभव** आहे?"
+            quick_replies = ["पशुपालन व दुग्ध व्यवसाय", "सिलाई व टेलरिंग", "शेती व पीक काळजी", "दुकान / किरकोळ विक्री"]
         elif lang == "hi":
-            reply = f"बहुत बढ़िया! **{occ}** के रूप में आपका व्यावहारिक अनुभव बहुत काम आएगा। 💡\n\nआपके पास कौन सा **व्यावहारिक कौशल या अनुभव** है?"
-            quick_replies = occ_skills[:4] if occ_skills else ["पशुपालन व डेयरी", "सिलाई व दर्जी काम", "खेती व फसल देखभाल", "मशीन संचालन"]
+            reply = f"आपके पास कौन सा **व्यावहारिक कौशल या कार्य अनुभव** है?"
+            quick_replies = ["पशुपालन व डेयरी", "सिलाई व गारमेंट", "खेती व फसल देखभाल", "दुकान / खुदरा बिक्री"]
         else:
-            reply = f"Great! Working as a **{occ}** provides a strong practical foundation. 💡\n\nWhat specific **hands-on skills or experience** do you possess?"
-            quick_replies = occ_skills[:4] if occ_skills else ["Livestock & Dairy Care", "Tailoring & Stitching", "Farming & Crop Care", "Machinery Operation"]
+            reply = f"What **practical hands-on skills** do you possess?"
+            quick_replies = ["Cattle Rearing & Dairy", "Tailoring & Stitching", "Farming & Crop Care", "Retail & Shop Management"]
+
+    elif state == "BUSINESS_EXPERIENCE":
+        if lang == "mr":
+            reply = f"या क्षेत्रात किंवा इतर कामात तुम्हाला किती **वर्षांचा अनुभव** आहे?"
+            quick_replies = ["नवीन सुरुवात (Beginner)", "१ ते ३ वर्षे", "३ ते ५ वर्षे", "५ वर्षांपेक्षा जास्त"]
+        elif lang == "hi":
+            reply = f"इस क्षेत्र या अन्य कार्य में आपका लगभग कितना **अनुभव** है?"
+            quick_replies = ["नई शुरुआत (Beginner)", "1 से 3 वर्ष", "3 से 5 वर्ष", "5 वर्ष से अधिक"]
+        else:
+            reply = f"How much **prior work/business experience** do you have?"
+            quick_replies = ["Beginner / Fresh Start", "1-3 Years", "3-5 Years", "5+ Years Experience"]
 
     elif state == "BUSINESS_RESOURCES":
         if lang == "mr":
-            reply = f"छान! **{skills_text}** या कौशल्याचा व्यवसाय निवडीत मोठा फायदा होईल. 🚜\n\nतुमच्याकडे आधीपासून कोणती **साधने किंवा जागा उपलब्ध** आहे? (उदा. १ एकर शेती, गोठा, मोकळी दुकान जागा, बोअरवेल पाणी, ट्रॅक्टर, वाहन)"
-            quick_replies = ["जमीन व पाण्याची सोय", "गोठा / पशू शेड", "मोकळी दुकान जागा", "काहीही साधने नाहीत"]
+            reply = f"तुमच्याकडे आधीपासून कोणती **साधने किंवा जागा उपलब्ध** आहे? (उदा. जमीन, गोठा, दुकान जागा, विहीर पाणी)"
+            quick_replies = ["जमीन व पाणी सोय", "गोठा / शेड", "दुकान / व्यावसायिक जागा", "काहीही साधने नाहीत"]
         elif lang == "hi":
-            reply = f"बहुत अच्छा! **{skills_text}** का कौशल व्यवसाय में आपकी सफलता की संभावना बढ़ाएगा। 🚜\n\nआपके पास पहले से क्या **साधन या स्थान उपलब्ध** है? (जैसे जमीन, पशु शेड, दुकान, बोरवेल पानी, वाहन, या कुछ नहीं)"
-            quick_replies = ["ज़मीन व पानी का स्रोत", "पशु शेड / गोठा", "छोटी दुकान की जगह", "कोई साधन उपलब्ध नहीं"]
+            reply = f"आपके पास पहले से कौन से **संसाधन या स्थान उपलब्ध** हैं? (जैसे ज़मीन, पशु शेड, दुकान, पानी स्रोत)"
+            quick_replies = ["ज़मीन व पानी स्रोत", "पशु शेड / गोठा", "दुकान / वाणिज्यिक स्थान", "कोई साधन उपलब्ध नहीं"]
         else:
-            reply = f"Understood! Your background in **{skills_text}** will be a key competitive advantage. 🚜\n\nWhat **physical resources or assets** do you currently have available? (e.g., Own land, Cattle shed, Shop counter, Water source, Vehicle, or None)"
-            quick_replies = ["Land & Water Source", "Cattle Shed / Gotha", "Small Shop Space", "No Prior Assets"]
+            reply = f"What **physical assets or resources** do you currently have available?"
+            quick_replies = ["Own Land & Water", "Cattle Shed / Storage", "Shop / Commercial Space", "No Prior Assets"]
 
     elif state == "BUSINESS_CAPITAL":
         if lang == "mr":
-            reply = f"व्यवसायाचे योग्य बजेट आखण्यासाठी: नवीन उद्योगात तुम्ही स्वतःचे किती **भांडवल (पैसे)** गुंतवू शकता? 💰\n\n(उदा. ₹५० हजार, ₹१ लाख, ₹२.५ लाख, ₹५ लाख)"
-            quick_replies = ["₹५०,०००", "₹१ लाख (₹१,००,०००)", "₹२.५ लाख (₹२,५०,०००)", "₹५ लाख"]
+            reply = f"हा व्यवसाय सुरू करण्यासाठी तुम्ही स्वतःचे अंदाजे किती **भांडवल (बचत)** गुंतवू शकता? 💰"
+            quick_replies = ["₹२५,०००", "₹५०,०००", "₹१ लाख", "₹२.५ लाख", "₹५ लाख+"]
         elif lang == "hi":
-            reply = f"व्यवसाय का सही बजट तैयार करने के लिए: नए उद्यम में आप अपनी बचत से लगभग कितनी **पूंजी** निवेश कर सकते हैं? 💰\n\n(जैसे ₹50 हजार, ₹1 लाख, ₹2.5 लाख, ₹5 लाख)"
-            quick_replies = ["₹50,000", "₹1 लाख (₹1,00,000)", "₹2.5 लाख (₹2,50,000)", "₹5 लाख"]
+            reply = f"यह उद्यम शुरू करने के लिए आप अपनी बचत से लगभग कितनी **पूंजी** निवेश कर सकते हैं? 💰"
+            quick_replies = ["₹25,000", "₹50,000", "₹1 लाख", "₹2.5 लाख", "₹5 लाख+"]
         else:
-            reply = f"To structure a realistic project budget: approximately how much **own capital/savings** can you invest to start? 💰\n\n(e.g., ₹50,000, ₹1 Lakh, ₹2.5 Lakhs, ₹5 Lakhs)"
-            quick_replies = ["₹50,000", "₹1 Lakh (₹1,00,000)", "₹2.5 Lakhs (₹2,50,000)", "₹5 Lakhs"]
+            reply = f"Approximately how much **personal investment (savings)** can you contribute to start? 💰"
+            quick_replies = ["₹25,000", "₹50,000", "₹1 Lakh", "₹2.5 Lakhs", "₹5 Lakhs+"]
 
     elif state == "BUSINESS_INTEREST":
-        # Show occupation-specific business ideas
-        occ_key = (profile.occupation or "").lower()
-        biz_opts_en: list = []
-        for _key, _biz_list in OCCUPATION_BUSINESS_MAP.items():
-            if _key in occ_key or occ_key in _key:
-                biz_opts_en = _biz_list
-                break
-        if not biz_opts_en:
-            biz_opts_en = ["Dairy Farming", "Mushroom Farming", "Poultry Farming"]
-
         if lang == "mr":
-            reply = f"उत्तम! **{cap_val}** चे भांडवल आणि **{skills_text}** चे कौशल्य यासह तुमच्याकडे उत्तम संधी आहे. 🎯\n\nतुमच्या मनात आधीपासून कोणता **विशिष्ट व्यवसाय** आहे, की मी तुम्हाला **{loc}** साठी सर्वोत्कृष्ट पर्याय सुचवू?"
-            quick_replies = biz_opts_en[:3] + ["सर्वोत्कृष्ट पर्याय सुचवा"]
+            reply = f"तुमच्या मनात आधीपासून कोणता **विशिष्ट व्यवसाय** आहे, की मी तुमच्या प्रोफाइलसाठी सर्वोत्कृष्ट पर्याय सुचवू?"
+            quick_replies = ["सर्वोत्कृष्ट व्यवसाय सुचवा", "दुग्ध व्यवसाय (Dairy)", "मशरूम शेती", "पीठ गिरणी (Atta Chakki)"]
         elif lang == "hi":
-            reply = f"शानदार! **{cap_val}** की पूंजी और **{skills_text}** के कौशल के साथ आपके लिए बेहतरीन अवसर हैं। 🎯\n\nक्या आपके मन में पहले से कोई **विशेष व्यवसाय** है, या मैं आपको **{loc}** के लिए सर्वश्रेष्ठ 3 विकल्प सुझाऊं?"
-            quick_replies = biz_opts_en[:3] + ["सर्वश्रेष्ठ 3 विकल्प सुझाएं"]
+            reply = f"क्या आपके मन में पहले से कोई **विशेष व्यवसाय** है, या मैं आपके प्रोफाइल अनुसार सर्वश्रेष्ठ विकल्प सुझाऊं?"
+            quick_replies = ["सर्वश्रेष्ठ व्यवसाय सुझाएं", "डेयरी फार्मिंग", "मशरूम फार्मिंग", "आटा चक्की (Flour Mill)"]
         else:
-            reply = f"Excellent! With **{cap_val}** capital and skills in **{skills_text}**, you have strong business potential. 🎯\n\nDo you already have a **specific business idea** in mind, or would you like me to recommend the top 3 best-suited options for **{loc}**?"
-            quick_replies = biz_opts_en[:3] + ["Suggest Best 3 Options"]
+            reply = f"Do you have a **specific business idea** in mind, or would you like me to recommend the best matching options for your profile?"
+            quick_replies = ["Suggest Best Businesses", "Dairy Farming", "Mushroom Farming", "Mini Flour Mill"]
 
     elif state == "PROFILE_CONFIRMATION":
         if lang == "mr":
-            reply = f"📋 **तुमचा व्यावसायिक प्रोफाइल सारांश:**\n\n• **नाव:** {name}\n• **ठिकाण:** {loc}, {profile.state or 'Maharashtra'}\n• **सध्याचा व्यवसाय:** {occ}\n• **प्रमुख कौशल्ये:** {skills_text}\n• **उपलब्ध साधने:** {res_text}\n• **स्वतःचे भांडवल:** {cap_val}\n• **इच्छित क्षेत्र:** {b_int}\n\nमी या माहितीच्या आधारे तुमचे व्यवसाय विश्लेषण सुरू करू का?"
-            quick_replies = ["होय, शिफारसी दाखवा", "माहिती बदला"]
+            reply = (
+                f"🎉 **छान! मी तुमचे संपूर्ण प्रोफाइल समजून घेतले आहे.**\n\n"
+                f"📋 **तुमचा प्रोफाइल सारांश:**\n"
+                f"• **नाव:** {name}\n"
+                f"• **उद्देश:** {intent_text}\n"
+                f"• **वय व लिंग:** {age_text}, {gender_text}\n"
+                f"• **ठिकाण:** {loc}, {profile.state or 'Maharashtra'}\n"
+                f"• **शिक्षण:** {edu_text}\n"
+                f"• **कौशल्ये व अनुभव:** {skills_text} ({profile.experience or 'Fresh'})\n"
+                f"• **उपलब्ध साधने:** {res_text}\n"
+                f"• **स्वतःची गुंतवणूक:** {cap_val}\n"
+                f"• **इच्छित व्यवसाय:** {b_int}\n\n"
+                f"आता आम्ही तुमच्यासाठी सर्वात जास्त नफा देणाऱ्या व्यवसायांचे विश्लेषण करू शकतो."
+            )
+            quick_replies = ["योग्य व्यवसाय शोधा", "माहिती तपासा / बदला"]
         elif lang == "hi":
-            reply = f"📋 **आपका व्यावसायिक प्रोफाइल सारांश:**\n\n• **नाम:** {name}\n• **स्थान:** {loc}, {profile.state or 'Maharashtra'}\n• **वर्तमान व्यवसाय:** {occ}\n• **प्रमुख कौशल:** {skills_text}\n• **उपलब्ध संसाधन:** {res_text}\n• **निवेश पूंजी:** {cap_val}\n• **इच्छित क्षेत्र:** {b_int}\n\nक्या मैं इस जानकारी के आधार पर आपका व्यवसाय विश्लेषण शुरू करूं?"
-            quick_replies = ["हां, सिफारिशें दिखाएं", "प्रोफ़ाइल बदलें"]
+            reply = (
+                f"🎉 **शानदार! मैंने आपका पूरा प्रोफाइल समझ लिया है।**\n\n"
+                f"📋 **आपका प्रोफाइल सारांश:**\n"
+                f"• **नाम:** {name}\n"
+                f"• **उद्देश्य:** {intent_text}\n"
+                f"• **आयु व लिंग:** {age_text}, {gender_text}\n"
+                f"• **स्थान:** {loc}, {profile.state or 'Maharashtra'}\n"
+                f"• **शिक्षा:** {edu_text}\n"
+                f"• **कौशल व अनुभव:** {skills_text} ({profile.experience or 'Fresh'})\n"
+                f"• **उपलब्ध संसाधन:** {res_text}\n"
+                f"• **व्यक्तिगत पूंजी:** {cap_val}\n"
+                f"• **इच्छित व्यवसाय:** {b_int}\n\n"
+                f"अब हम आपके लिए सर्वाधिक उपयुक्त एवं लाभदायक व्यवसायों का विश्लेषण शुरू कर सकते हैं।"
+            )
+            quick_replies = ["उपयुक्त व्यवसाय खोजें", "विवरण देखें / बदलें"]
         else:
-            reply = f"📋 **Your Verified Business Profile Summary:**\n\n• **Name:** {name}\n• **Location:** {loc}, {profile.state or 'Maharashtra'}\n• **Current Occupation:** {occ}\n• **Primary Skills:** {skills_text}\n• **Available Assets:** {res_text}\n• **Investment Capital:** {cap_val}\n• **Target Business Interest:** {b_int}\n\nShall I proceed with calculating your top business recommendations?"
-            quick_replies = ["Yes, Show Recommendations", "Edit Profile"]
+            reply = (
+                f"🎉 **Great! I have understood your profile.**\n\n"
+                f"📋 **Your Structured Profile Summary:**\n"
+                f"• **Name:** {name}\n"
+                f"• **Intent:** {intent_text}\n"
+                f"• **Age & Gender:** {age_text}, {gender_text}\n"
+                f"• **Location:** {loc}, {profile.state or 'Maharashtra'}\n"
+                f"• **Education:** {edu_text}\n"
+                f"• **Skills & Experience:** {skills_text} ({profile.experience or 'Fresh'})\n"
+                f"• **Available Assets:** {res_text}\n"
+                f"• **Personal Investment:** {cap_val}\n"
+                f"• **Business Interest:** {b_int}\n\n"
+                f"Shall we now calculate and find the most profitable business opportunities tailored for you?"
+            )
+            quick_replies = ["Find Suitable Businesses", "Review / Edit My Details"]
 
     elif state == "RECOMMENDATION":
         from backend.recommendation import get_recommendations
@@ -521,7 +702,6 @@ def build_state_response(
         all_machines = source.load_all_machines()
         all_suppliers = source.load_all_suppliers()
         
-        # ── Better machine matching using sector keyword map ──
         biz_lower = biz_name.lower()
         target_cats = []
         for key, cats in BIZ_SECTOR_TO_MACHINE_CATEGORIES.items():
@@ -537,7 +717,6 @@ def build_state_response(
                 if any(cat in m_all for cat in target_cats):
                     matched_m.append(m)
         
-        # Fallback: match by individual meaningful biz name words against machine name only
         if not matched_m:
             SKIP = {"farm", "farming", "unit", "mini", "small", "rural", "value",
                     "processing", "manufacturing", "production", "centre", "center"}
@@ -555,7 +734,6 @@ def build_state_response(
         if not matched_suppliers:
             matched_suppliers = all_suppliers[:2]
 
-        # Format Machines for Chatbox
         m_items_en, m_items_hi, m_items_mr = [], [], []
         for idx, m in enumerate(matched_m[:3], 1):
             m_name = m.get('machine_name', 'Machinery')
@@ -569,7 +747,6 @@ def build_state_response(
             m_items_hi.append(f"{idx}. **{m_name}**\n   • **उद्देश्य:** {purp}\n   • **क्षमता:** {cap} | **अनुमानित मूल्य:** {price_en}")
             m_items_mr.append(f"{idx}. **{m_name}**\n   • **उद्दिष्ट:** {purp}\n   • **क्षमता:** {cap} | **अंदाजे किंमत:** {price_mr}")
 
-        # Format Suppliers for Chatbox
         s_items_en, s_items_hi, s_items_mr = [], [], []
         for idx, s in enumerate(matched_suppliers[:2], 1):
             s_name = s.get('supplier_name', 'Verified Supplier')
@@ -607,7 +784,6 @@ def build_state_response(
             quick_replies = ["View Financial Plan", "Check Government Schemes", "View DPR Report"]
 
     elif state == "SUPPLIER_DONE":
-        # Ask if user wants the financial plan after viewing suppliers
         if lang == "mr":
             reply = ("✅ **यंत्रसामग्री व सप्लायर माहिती तयार आहे!**\n\n"
                      "पुढे तुम्हाला काय पाहायचे आहे?\n\n"
@@ -660,14 +836,14 @@ def build_state_response(
 
     elif state == "SCHEME_PROFILE":
         if lang == "mr":
-            reply = f"अनुदान (Subsidy) ची अचूक टक्केवारी ठरवण्यासाठी, कृपया तुमचे **लिंग (महिला/पुरुष)** आणि **सामाजिक प्रवर्ग (General / OBC / SC / ST)** सांगा."
-            quick_replies = ["महिला, General", "महिला, OBC", "पुरुष, General", "पुरुष, OBC", "पुरुष, SC/ST"]
+            reply = f"अनुदान (Subsidy) ची अचूक टक्केवारी ठरवण्यासाठी, कृपया तुमचे **सामाजिक प्रवर्ग (General / OBC / SC / ST)** सांगा."
+            quick_replies = ["General", "OBC", "SC", "ST"]
         elif lang == "hi":
-            reply = f"सटीक सब्सिडी राशि और पात्रता के लिए, कृपया अपना **लिंग (महिला/पुरुष)** और **सामाजिक वर्ग (General / OBC / SC / ST)** बताएं।"
-            quick_replies = ["महिला, General", "महिला, OBC", "पुरुष, General", "पुरुष, OBC", "पुरुष, SC/ST"]
+            reply = f"सटीक सब्सिडी राशि और पात्रता के लिए, कृपया अपना **सामाजिक वर्ग (General / OBC / SC / ST)** बताएं।"
+            quick_replies = ["General", "OBC", "SC", "ST"]
         else:
-            reply = f"To calculate your exact subsidy entitlement percentage, please specify your **gender (Female/Male)** and **social category (General / OBC / SC / ST)**."
-            quick_replies = ["Female, General", "Female, OBC", "Male, General", "Male, OBC", "Male, SC/ST"]
+            reply = f"To calculate your exact subsidy entitlement percentage, please specify your **social category (General / OBC / SC / ST)**."
+            quick_replies = ["General", "OBC", "SC", "ST"]
 
     elif state == "SCHEME_MATCHING":
         cat = profile.category or "General"
@@ -690,7 +866,6 @@ def build_state_response(
         occ_lower = (profile.occupation or "").lower()
         biz_lower = biz_name.lower()
 
-        # ── Choose archetype DPR template ──
         if "dairy" in biz_lower or "milk" in biz_lower:
             project_cost, loan_amt = 300000, max(0, 300000 - int(user_cap))
             monthly_revenue, monthly_profit, payback = 35000, 22000, "12-15"
@@ -707,46 +882,14 @@ def build_state_response(
             month1   = "Register Udyam (MSME), purchase 2 sewing machines, attend garment stitching training at ITI"
             month2   = "Accept school uniform orders & alteration work, market via WhatsApp with price list"
             month3   = "Hire 1 helper, launch readymade blouse/kurta collection, target ₹25,000/month revenue"
-        elif "mushroom" in biz_lower:
-            project_cost, loan_amt = 80000, max(0, 80000 - int(user_cap))
-            monthly_revenue, monthly_profit, payback = 18000, 12000, "6-9"
-            machines = "Spawn Culture Bags (₹15,000) | Sterilization Drum (₹8,000) | Polythene Shelving & Polyhouse (₹25,000)"
-            scheme   = "PMEGP – 25%-35% Subsidy | NABARD Horticulture Promotion Scheme"
-            month1   = "Source paddy straw substrate, buy spawn from KVK, set up polyhouse (14°C–28°C range)"
-            month2   = "First harvest in 30-40 days, supply fresh mushrooms to vegetable vendors & restaurants"
-            month3   = "Scale to 200 kg/month, explore dried mushroom value-added products for higher margins"
-        elif "poultry" in biz_lower:
-            project_cost, loan_amt = 200000, max(0, 200000 - int(user_cap))
-            monthly_revenue, monthly_profit, payback = 30000, 18000, "10-14"
-            machines = "Brooder & Heating System (₹15,000) | Automatic Feeder & Drinkers (₹10,000) | Egg Trays & Crates (₹5,000)"
-            scheme   = "NABARD Poultry Development Scheme | PMEGP | State Animal Husbandry Dept Subsidy"
-            month1   = "Register with State Animal Husbandry Dept, construct shed for 500 birds, procure day-old chicks (DOC)"
-            month2   = "Manage 6-8 week feed & vaccination cycle, tie-up with local poultry market/aggregator"
-            month3   = "Complete first batch (500 birds), target ₹30,000/month, plan second batch cycle"
-        elif "flour" in biz_lower or "chakki" in biz_lower or "atta" in biz_lower:
-            project_cost, loan_amt = 150000, max(0, 150000 - int(user_cap))
-            monthly_revenue, monthly_profit, payback = 20000, 13000, "10-14"
-            machines = "Atta Chakki / Flour Mill (₹75,000) | Weighing Scale (₹5,000) | Packing Machine (₹20,000)"
-            scheme   = "PMEGP – 25%-35% Subsidy | PM-MUDRA Kishore Loan"
-            month1   = "Register Udyam, secure location, procure flour mill, obtain FSSAI licence"
-            month2   = "Begin wheat/jowar/bajra milling, supply to local kirana stores & households"
-            month3   = "Add home delivery, target 500 kg/day milling, achieve ₹20,000/month profit"
-        elif "goat" in biz_lower:
-            project_cost, loan_amt = 100000, max(0, 100000 - int(user_cap))
-            monthly_revenue, monthly_profit, payback = 15000, 9000, "12-18"
-            machines = "Feeder Troughs (₹5,000) | Goat Shed / Housing (₹30,000) | Weighing Balance (₹3,000)"
-            scheme   = "NABARD Animal Husbandry Scheme | PMEGP | State Goat Development Corporation Subsidy"
-            month1   = "Register with Animal Husbandry Dept, build shed for 20 goats, procure Osmanabadi/Sirohi goats"
-            month2   = "Set up feed & health management, establish tie-up with local meat market"
-            month3   = "First kidding cycle, expand to 40 goats, target ₹15,000/month revenue"
         else:
             project_cost = max(150000, int(user_cap) * 2)
             loan_amt     = max(0, project_cost - int(user_cap))
             monthly_revenue = int(project_cost * 0.25)
             monthly_profit  = int(monthly_revenue * 0.6)
             payback  = "12-18"
-            machines = "Primary Processing & Production Equipment (as listed in supplier section above)"
-            scheme   = "PMEGP – 25%-35% Capital Subsidy | PM-MUDRA Loan (up to ₹10 Lakhs collateral-free)"
+            machines = "Primary Processing & Production Equipment"
+            scheme   = "PMEGP – 25%-35% Capital Subsidy | PM-MUDRA Loan"
             month1   = "Business registration (Udyam/GST/FSSAI), equipment procurement, raw material sourcing"
             month2   = "Trial production, local market entry, bank loan disbursement, hire 1-2 helpers"
             month3   = "Full production scale-up, achieve monthly revenue target, open business bank account"
@@ -820,7 +963,7 @@ def build_state_response(
 
     else:
         reply = f"Thank you {name}! Your advisory workflow is fully active."
-        quick_replies = ["View DPR Report", "Check Suppliers", "Edit Profile"]
+        quick_replies = ["Find Suitable Businesses", "Review / Edit My Details"]
 
     return reply, quick_replies
 
@@ -850,18 +993,17 @@ def process_chat(request: ChatRequest) -> ChatResponse:
 
     # Language detection
     if re.search(r'[\u0900-\u097F]', user_msg):
-        if any(w in user_msg for w in ["आहे", "नाही", "माझं", "माझे", "करायचा", "पाहिजे", "गावात", "भांडवल"]):
+        if any(w in user_msg for w in ["आहे", "नाही", "माझं", "माझे", "करायचा", "पाहिजे", "गावात", "भांडवल", "करा"]):
             session_lang = "mr"
-        elif any(w in user_msg for w in ["है", "नहीं", "मेरा", "मेरी", "करना", "चाहिए", "गांव", "पूंजी"]):
+        elif any(w in user_msg for w in ["है", "नहीं", "मेरा", "मेरी", "करना", "चाहिए", "गांव", "पूंजी", "करें"]):
             session_lang = "hi"
 
     session["language"] = session_lang
     current_profile.language = session_lang
 
-    # 1. Global Interceptor for Business Ideas & Supplier Queries Across All States
     msg_lower = user_msg.lower()
-    
-    # Check for direct business selection or supplier/machinery query across ALL states
+
+    # 1. Global Interceptor for direct business ideas & supplier queries
     KEYWORD_MAP = {
         "tailor": "Rural Tailoring & Garment Unit",
         "tailoring": "Rural Tailoring & Garment Unit",
@@ -900,13 +1042,6 @@ def process_chat(request: ChatRequest) -> ChatResponse:
 
     asking_suppliers = any(k in msg_lower for k in ["supplier", "suppliers", "machinery", "machine", "equipment", "vendor", "vendors"])
 
-    # Don't intercept during early profile-collection states — occupation/skill answers
-    # contain business keywords but should not skip the funnel.
-    PROFILE_COLLECTION_STATES = {
-        "PERSONAL_NAME", "PERSONAL_PLACE", "PERSONAL_OCCUPATION",
-        "BUSINESS_SKILLS", "BUSINESS_RESOURCES", "BUSINESS_CAPITAL", "BUSINESS_INTEREST"
-    }
-
     if (matched_biz or asking_suppliers) and current_state not in PROFILE_COLLECTION_STATES:
         if matched_biz:
             current_profile.business_interest = matched_biz
@@ -915,9 +1050,9 @@ def process_chat(request: ChatRequest) -> ChatResponse:
         current_state = "EQUIPMENT_SUPPLIER"
 
     elif current_state == "PROFILE_CONFIRMATION":
-        if any(k in msg_lower for k in ["yes", "continue", "confirm", "होय", "सही", "पुढे"]):
+        if any(k in msg_lower for k in ["find", "suitable", "recommend", "show", "yes", "continue", "confirm", "होय", "सही", "पुढे", "योग्य व्यवसाय", "व्यवसाय खोजें", "व्यवसाय शोधा"]):
             current_state = "RECOMMENDATION"
-        elif any(k in msg_lower for k in ["edit", "change", "बदल"]):
+        elif any(k in msg_lower for k in ["edit", "change", "review", "बदल", "माहिती बदला", "विवरण बदलें", "संपादित"]):
             current_state = "PERSONAL_NAME"
             current_profile.name = None
 
@@ -928,44 +1063,23 @@ def process_chat(request: ChatRequest) -> ChatResponse:
         selected_name = None
         businesses = load_businesses_data()
         
-        # PRIORITY 1: Exact full name match
         for b in businesses:
             if b["business_name"].lower() == msg_lower.strip():
                 selected_name = b["business_name"]
                 break
         
-        # PRIORITY 2: Full business name is contained in the user message
         if not selected_name:
             for b in businesses:
                 if b["business_name"].lower() in msg_lower:
                     selected_name = b["business_name"]
                     break
         
-        # PRIORITY 3: User message contains the business name
         if not selected_name:
             for b in businesses:
                 if msg_lower in b["business_name"].lower():
                     selected_name = b["business_name"]
                     break
         
-        # PRIORITY 4: Match ONLY meaningful unique words (4+ chars, not generic terms)
-        GENERIC = {"farm", "farming", "unit", "mini", "small", "rural", "production",
-                   "manufacturing", "processing", "making", "centre", "center",
-                   "services", "service", "business", "value", "added", "local"}
-        if not selected_name:
-            msg_words = {w for w in msg_lower.split() if len(w) > 4 and w not in GENERIC}
-            if msg_words:
-                best_match = None
-                best_overlap = 0
-                for b in businesses:
-                    b_words = {w for w in b["business_name"].lower().split() if len(w) > 4 and w not in GENERIC}
-                    overlap = len(msg_words & b_words)
-                    if overlap > 0 and overlap >= len(b_words) * 0.6 and overlap > best_overlap:
-                        best_overlap = overlap
-                        best_match = b["business_name"]
-                selected_name = best_match
-        
-        # PRIORITY 5: fallback only if none matched — use top recommendation
         if not selected_name:
             rec_res = get_recommendations(current_profile, top_n=3)
             if rec_res.recommendations:
@@ -979,13 +1093,10 @@ def process_chat(request: ChatRequest) -> ChatResponse:
         current_state = "SUPPLIER_DONE"
 
     elif current_state == "SUPPLIER_DONE":
-        # Route to FINANCIAL ONLY if user asks about finance/budget/loan/profit/plan
         if any(k in msg_lower for k in ["finance", "financial", "loan", "budget", "cost", "profit", "आर्थिक", "नफा"]):
             current_state = "FINANCIAL"
-        # Route to SCHEME_OPT_IN if asking about government schemes
         elif any(k in msg_lower for k in ["scheme", "government", "subsidy", "pmegp", "mudra", "nabard", "योजना"]):
             current_state = "SCHEME_OPT_IN"
-        # Route to COMPLETE if asking for DPR report
         elif any(k in msg_lower for k in ["dpr", "report", "download", "अहवाल", "रिपोर्ट"]):
             current_state = "DPR"
         elif any(k in msg_lower for k in ["no", "skip"]):
@@ -994,7 +1105,6 @@ def process_chat(request: ChatRequest) -> ChatResponse:
             current_state = "SUPPLIER_DONE"
 
     elif current_state == "FINANCIAL":
-        # After financial plan shown, ask about schemes
         if any(k in msg_lower for k in ["no", "skip", "नाही", "नहीं", "छोड़", "सोडा"]):
             current_state = "COMPLETE"
         else:
@@ -1026,11 +1136,11 @@ def process_chat(request: ChatRequest) -> ChatResponse:
     updated_profile = merge_profile_entities(current_profile, extracted_data)
     session["profile"] = updated_profile
 
-    # 4. Advance State Machine: If a business idea or supplier request was intercepted, stay in EQUIPMENT_SUPPLIER/SUPPLIER_DONE
-    if matched_biz or asking_suppliers:
-        next_state = current_state
-    elif current_state in ["PERSONAL_NAME", "PERSONAL_PLACE", "PERSONAL_OCCUPATION", "BUSINESS_SKILLS", "BUSINESS_RESOURCES", "BUSINESS_CAPITAL", "BUSINESS_INTEREST"]:
+    # 4. Advance State Machine
+    if current_state in PROFILE_COLLECTION_STATES:
         next_state = determine_current_state(updated_profile, current_state)
+    elif matched_biz or asking_suppliers:
+        next_state = current_state
     else:
         next_state = current_state
 
@@ -1051,8 +1161,13 @@ def process_chat(request: ChatRequest) -> ChatResponse:
     is_ready = next_state in ["PROFILE_CONFIRMATION", "RECOMMENDATION", "FINANCIAL", "DPR", "COMPLETE"]
     missing_fields = []
     if not updated_profile.name: missing_fields.append("Name")
-    if not updated_profile.location: missing_fields.append("Location")
-    if not updated_profile.occupation: missing_fields.append("Occupation")
+    if not updated_profile.intent: missing_fields.append("Intent")
+    if updated_profile.age is None: missing_fields.append("Age")
+    if not updated_profile.gender: missing_fields.append("Gender")
+    if not updated_profile.location and not updated_profile.district: missing_fields.append("Location")
+    if not updated_profile.education: missing_fields.append("Education")
+    if not updated_profile.skills: missing_fields.append("Skills")
+    if updated_profile.capital is None and updated_profile.available_investment is None: missing_fields.append("Investment")
 
     return ChatResponse(
         session_id=session_id,
@@ -1064,4 +1179,3 @@ def process_chat(request: ChatRequest) -> ChatResponse:
         suggested_quick_replies=quick_replies[:4],
         language=session_lang
     )
-

@@ -195,9 +195,24 @@ export const translations = {
     paybackPeriod: "Payback Period",
     schemesTitle: "Government Subsidy & Credit Schemes",
     schemesBadge: "Verified Subsidies",
-    schemesSub: "60+ verified central & state subsidy schemes from myScheme.gov.in",
     viewDprBtn: "View 90-Day DPR Report",
     downloadDprBtn: "Download Summary",
+
+    // Profile & Onboarding
+    profileIntent: "Intent / Goal",
+    profileAge: "Age",
+    profileGender: "Gender",
+    profileVillage: "Village / Town",
+    profileDistrict: "District",
+    profileState: "State",
+    profileEducation: "Education",
+    profileExperience: "Experience",
+    profileInvestment: "Available Investment",
+    profileExistingBiz: "Existing Business",
+    findSuitableBizBtn: "Find Suitable Businesses",
+    reviewEditProfileBtn: "Review / Edit My Details",
+    saveProfileBtn: "Save Details",
+    editProfileTitle: "Edit Entrepreneur Details",
 
     // Status
     completed: "Completed",
@@ -400,9 +415,24 @@ export const translations = {
     paybackPeriod: "पूंजी वापसी समय",
     schemesTitle: "सरकारी सब्सिडी एवं ऋण योजनाएं",
     schemesBadge: "सत्यापित योजनाएं",
-    schemesSub: "myScheme.gov.in से 60+ सत्यापित सब्सिडी योजनाएं",
     viewDprBtn: "90-दिवसीय DPR रिपोर्ट देखें",
     downloadDprBtn: "सारांश डाउनलोड करें",
+
+    // Profile & Onboarding
+    profileIntent: "उद्देश्य / लक्ष्य",
+    profileAge: "आयु (उम्र)",
+    profileGender: "लिंग",
+    profileVillage: "गांव / कस्बा",
+    profileDistrict: "ज़िला",
+    profileState: "राज्य",
+    profileEducation: "शिक्षा",
+    profileExperience: "कार्य अनुभव",
+    profileInvestment: "उपलब्ध व्यक्तिगत पूंजी",
+    profileExistingBiz: "मौजूदा व्यवसाय",
+    findSuitableBizBtn: "उपयुक्त व्यवसाय खोजें",
+    reviewEditProfileBtn: "विवरण देखें / बदलें",
+    saveProfileBtn: "विवरण सहेजें",
+    editProfileTitle: "उद्यमी प्रोफ़ाइल संपादित करें",
 
     // Status
     completed: "पूर्ण",
@@ -605,9 +635,24 @@ export const translations = {
     paybackPeriod: "भांडवल परतफेड कालावधी",
     schemesTitle: "शासकीय योजना व अनुदान (Subsidies)",
     schemesBadge: "प्रमाणित योजना",
-    schemesSub: "myScheme.gov.in वरून ६०+ अधिकृत शासकीय योजना",
     viewDprBtn: "९० दिवसांचा DPR अहवाल पहा",
     downloadDprBtn: "सारांश डाउनलोड करा",
+
+    // Profile & Onboarding
+    profileIntent: "उद्देश / उद्दिष्ट",
+    profileAge: "वय",
+    profileGender: "लिंग",
+    profileVillage: "गाव / शहर",
+    profileDistrict: "जिल्हा",
+    profileState: "राज्य",
+    profileEducation: "शिक्षण",
+    profileExperience: "कामाचा अनुभव",
+    profileInvestment: "उपलब्ध स्वतःची गुंतवणूक",
+    profileExistingBiz: "विद्यमान व्यवसाय",
+    findSuitableBizBtn: "योग्य व्यवसाय शोधा",
+    reviewEditProfileBtn: "माहिती तपासा / बदला",
+    saveProfileBtn: "माहिती जतन करा",
+    editProfileTitle: "उद्योजक प्रोफाइल संपादन",
 
     // Status
     completed: "पूर्ण",

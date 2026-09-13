@@ -82,7 +82,8 @@ export default function TextChatMode({
   journeyStep = 1,
   onJourneyStepClick,
   isProfileReady,
-  onOpenReport
+  onOpenReport,
+  onSelectSampleProfile
 }) {
   const t = getTranslation(language);
   const [input, setInput] = useState('');
@@ -431,6 +432,34 @@ export default function TextChatMode({
               <span>{t.actCheckSchemes}</span>
             </button>
           </div>
+
+          {/* Quick 1-Click Test Samples */}
+          {onSelectSampleProfile && (
+            <div className="mt-2 pt-1.5 border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto text-[11px]">
+              <span className="text-slate-400 font-bold shrink-0">⚡ Test Profiles:</span>
+              <button
+                type="button"
+                onClick={() => onSelectSampleProfile('dairy')}
+                className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 font-bold shrink-0 transition"
+              >
+                🐮 Dairy (₹1L)
+              </button>
+              <button
+                type="button"
+                onClick={() => onSelectSampleProfile('retail')}
+                className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 font-bold shrink-0 transition"
+              >
+                🏪 Retail (₹2L)
+              </button>
+              <button
+                type="button"
+                onClick={() => onSelectSampleProfile('food')}
+                className="px-2 py-0.5 rounded-md bg-teal-50 text-teal-800 border border-teal-200 hover:bg-teal-100 font-bold shrink-0 transition"
+              >
+                🌾 Food (₹5L)
+              </button>
+            </div>
+          )}
         </div>
 
       </div>
