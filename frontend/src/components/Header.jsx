@@ -29,6 +29,7 @@ export default function Header({
   onOpenProfileDrawer,
   totalBusinesses = 90,
   userRole = 'user', // 'user' | 'admin'
+  hasRecommendations = false,
   onOpenAdminLogin,
   onAdminLogout
 }) {
@@ -44,12 +45,13 @@ export default function Header({
 
   const currentLangObj = languages.find((l) => l.code === language) || languages[0];
 
+  const recommendationsLabel = language === 'mr' ? 'व्यवसाय शिफारशी' : language === 'hi' ? 'व्यवसाय सिफारिशें' : 'Opportunities';
+
   // Role-Based Navigation Items:
-  // Customers/Users only have access to: Home, About, Chat
-  // Admin has access to: Home, About, Chat, Catalogue, Schemes
   const navItems = userRole === 'admin'
     ? [
         { id: 'home', label: t.navHome, icon: Home },
+        ...(hasRecommendations ? [{ id: 'recommendations', label: recommendationsLabel, icon: Sprout, badge: '9-Match' }] : []),
         { id: 'catalogue', label: t.navCatalogue, icon: BookOpen, badge: 'Admin' },
         { id: 'schemes', label: t.navSchemes, icon: Package, badge: 'Admin' },
         { id: 'about', label: t.navAbout, icon: Info },
@@ -57,6 +59,7 @@ export default function Header({
       ]
     : [
         { id: 'home', label: t.navHome, icon: Home },
+        ...(hasRecommendations ? [{ id: 'recommendations', label: recommendationsLabel, icon: Sprout, badge: '9-Match' }] : []),
         { id: 'about', label: t.navAbout, icon: Info },
         { id: 'chat', label: t.navChat, icon: MessageCircle },
       ];

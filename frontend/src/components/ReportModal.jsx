@@ -29,6 +29,7 @@ import { getTranslation } from '../services/translations';
 
 export default function ReportModal({
   report,
+  reportData,
   isOpen,
   onClose,
   isProfileReady,
@@ -40,10 +41,12 @@ export default function ReportModal({
   const printRef = useRef();
   const [activeNavSection, setActiveNavSection] = useState('overview');
 
+  const activeReport = report || reportData;
+
   if (!isOpen) return null;
 
   // If report is not ready or profile incomplete, show friendly interactive guidance
-  if (!report || !report.recommended_business) {
+  if (!activeReport || !activeReport.recommended_business) {
     return (
       <div className="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-xs flex items-center justify-center p-4">
         <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 sm:p-8 text-center border border-slate-200 relative animate-in fade-in zoom-in-95 duration-150 space-y-5">
@@ -148,7 +151,7 @@ export default function ReportModal({
     assumptions = [],
     explainable_reasons = [],
     disclaimer
-  } = report;
+  } = activeReport;
 
   const cost = fp?.project_cost || b?.required_investment || 0;
   const own = fp?.own_contribution || p?.capital || (cost * 0.1);
@@ -268,7 +271,7 @@ export default function ReportModal({
           <div className="border-b-2 border-[#075247] pb-4 flex flex-wrap justify-between items-start gap-4">
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-2xl">🌱</span>
+                <img src="/logo.png" alt="Aarambh Saathi" className="w-8 h-8 rounded-lg object-cover" />
                 <h1 className="text-xl sm:text-2xl font-black text-[#072a24] font-display tracking-tight">
                   AARAMBH SAATHI
                 </h1>

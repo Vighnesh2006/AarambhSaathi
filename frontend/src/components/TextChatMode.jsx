@@ -82,8 +82,7 @@ export default function TextChatMode({
   journeyStep = 1,
   onJourneyStepClick,
   isProfileReady,
-  onOpenReport,
-  onSelectSampleProfile
+  onOpenReport
 }) {
   const t = getTranslation(language);
   const [input, setInput] = useState('');
@@ -359,6 +358,33 @@ export default function TextChatMode({
           )}
         </div>
 
+        {/* Profile Ready -> Next Screen: Select Business Action Card */}
+        {isProfileReady && (
+          <div className="mx-3 my-2 p-3 bg-gradient-to-r from-[#075247] to-[#15803d] rounded-2xl text-white flex flex-wrap items-center justify-between gap-2 shadow-lg border border-emerald-400/30 animate-soft-pulse">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-amber-400 text-slate-950 font-black flex items-center justify-center text-sm shadow-xs">
+                🌾
+              </div>
+              <div>
+                <div className="font-extrabold text-xs sm:text-sm">
+                  {language === 'mr' ? '🎉 प्रोफाइल तयार झाले! पुढील स्क्रीन:' : language === 'hi' ? '🎉 प्रोफाइल तैयार है! अगला स्क्रीन:' : '🎉 Profile Ready! Next Screen:'}
+                </div>
+                <div className="text-[11px] text-emerald-100">
+                  {language === 'mr' ? '९-घटक जुळणीनुसार योग्य व्यवसाय निवडा' : language === 'hi' ? '9-कारक मैच अनुसार उपयुक्त व्यवसाय चुनें' : 'Review 9-factor matches & select your business'}
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => onJourneyStepClick(2)}
+              className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shadow-md transition flex items-center gap-1.5 active:scale-95 cursor-pointer"
+            >
+              <span>{language === 'mr' ? 'व्यवसाय निवडा (Select Business)' : language === 'hi' ? 'व्यवसाय चुनें (Select Business)' : 'Select Business ➜'}</span>
+              <ArrowRight size={14} />
+            </button>
+          </div>
+        )}
+
         {/* Suggested Quick Replies */}
         {suggestedReplies && suggestedReplies.length > 0 && (
           <div className="px-3 py-2 bg-white border-t border-[#e8efe9] flex items-center gap-2 overflow-x-auto">
@@ -432,34 +458,6 @@ export default function TextChatMode({
               <span>{t.actCheckSchemes}</span>
             </button>
           </div>
-
-          {/* Quick 1-Click Test Samples */}
-          {onSelectSampleProfile && (
-            <div className="mt-2 pt-1.5 border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto text-[11px]">
-              <span className="text-slate-400 font-bold shrink-0">⚡ Test Profiles:</span>
-              <button
-                type="button"
-                onClick={() => onSelectSampleProfile('dairy')}
-                className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 hover:bg-emerald-100 font-bold shrink-0 transition"
-              >
-                🐮 Dairy (₹1L)
-              </button>
-              <button
-                type="button"
-                onClick={() => onSelectSampleProfile('retail')}
-                className="px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 font-bold shrink-0 transition"
-              >
-                🏪 Retail (₹2L)
-              </button>
-              <button
-                type="button"
-                onClick={() => onSelectSampleProfile('food')}
-                className="px-2 py-0.5 rounded-md bg-teal-50 text-teal-800 border border-teal-200 hover:bg-teal-100 font-bold shrink-0 transition"
-              >
-                🌾 Food (₹5L)
-              </button>
-            </div>
-          )}
         </div>
 
       </div>

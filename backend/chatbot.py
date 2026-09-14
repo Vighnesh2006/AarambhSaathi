@@ -234,8 +234,14 @@ def extract_entities_locally(user_msg: str, current_state: str) -> Dict[str, Any
         else:
             extracted["intent"] = "I don't know what business to start"
 
-    # 4. Age
-    age_match = re.search(r'\b(?:age|वय|उम्र|आयु)?\s*(?:is|आहे|है|:)?\s*(\b(?:1[6-9]|[2-9][0-9])\b)\s*(?:years|yrs|वर्षे|वर्ष|साल|years old)?\b', text_lower)
+    # 4. Age (Exact integer parsing)
+    devanagari_digits_map = {
+        '०': '0', '१': '1', '२': '2', '३': '3', '४': '4',
+        '५': '5', '६': '6', '७': '7', '८': '8', '९': '9'
+    }
+    normalized_age_text = "".join(devanagari_digits_map.get(c, c) for c in text_lower)
+    
+    age_match = re.search(r'\b(?:age|वय|उम्र|आयु)?\s*(?:is|आहे|है|:)?\s*(\b(?:1[6-9]|[2-9][0-9])\b)\s*(?:years?|yrs?|वर्षे|वर्ष|साल|years old|चे|च्या)?\b', normalized_age_text)
     if age_match:
         try:
             val = int(age_match.group(1))
@@ -244,7 +250,7 @@ def extract_entities_locally(user_msg: str, current_state: str) -> Dict[str, Any
         except Exception:
             pass
     elif current_state == "PERSONAL_AGE":
-        raw_num = re.search(r'\b(\d{2})\b', text_lower)
+        raw_num = re.search(r'\b(1[6-9]|[2-9][0-9])\b', normalized_age_text)
         if raw_num:
             try:
                 val = int(raw_num.group(1))
@@ -252,14 +258,6 @@ def extract_entities_locally(user_msg: str, current_state: str) -> Dict[str, Any
                     extracted["age"] = val
             except Exception:
                 pass
-        elif "18-25" in text_lower or "18 ते 25" in text_lower:
-            extracted["age"] = 22
-        elif "26-35" in text_lower or "26 ते 35" in text_lower:
-            extracted["age"] = 30
-        elif "36-50" in text_lower or "36 ते 50" in text_lower:
-            extracted["age"] = 42
-        elif "50+" in text_lower:
-            extracted["age"] = 52
 
     # 5. Gender
     if any(k in text_lower for k in ["female", "woman", "girl", "महिला", "स्त्री", "लड़की", "औरत"]):
@@ -530,14 +528,14 @@ def build_state_response(
 
     elif state == "PERSONAL_AGE":
         if lang == "mr":
-            reply = f"योग्य शासकीय योजना व कर्ज योजनांची पात्रता तपासण्यासाठी: तुमचे **वय** किती आहे?"
-            quick_replies = ["18 ते 25 वर्षे", "26 ते 35 वर्षे", "36 ते 50 वर्षे", "50+ वर्षे"]
+            reply = f"योग्य शासकीय योजना व कर्ज अनुदानाची पात्रता तपासण्यासाठी: तुमचे **अचूक वय** किती आहे? (उदा. 25, 32, 45)"
+            quick_replies = ["22 वर्षे", "26 वर्षे", "32 वर्षे", "45 वर्षे"]
         elif lang == "hi":
-            reply = f"उचित सरकारी योजनाओं और ऋण पात्रता के लिए: आपकी **आयु (उम्र)** कितनी है?"
-            quick_replies = ["18 से 25 वर्ष", "26 से 35 वर्ष", "36 से 50 वर्ष", "50+ वर्ष"]
+            reply = f"उचित सरकारी योजनाओं और ऋण पात्रता के लिए: आपकी **सटीक आयु (उम्र)** कितनी है? (जैसे 25, 32, 45)"
+            quick_replies = ["22 वर्ष", "26 वर्ष", "32 वर्ष", "45 वर्ष"]
         else:
-            reply = f"To check eligible credit schemes and government subsidies: what is your **age**?"
-            quick_replies = ["18-25 Years", "26-35 Years", "36-50 Years", "50+ Years"]
+            reply = f"To check eligible credit schemes and government subsidies: what is your **exact age**? (e.g., 25, 32, 45)"
+            quick_replies = ["22 Years", "26 Years", "32 Years", "45 Years"]
 
     elif state == "PERSONAL_GENDER":
         if lang == "mr":

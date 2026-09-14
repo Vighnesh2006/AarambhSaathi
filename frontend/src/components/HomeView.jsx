@@ -26,7 +26,6 @@ export default function HomeView({
   onStartJourney,
   onOpenCatalogue,
   onSelectCategory,
-  onSelectSampleProfile,
   language
 }) {
   const t = getTranslation(language);
@@ -60,7 +59,7 @@ export default function HomeView({
       id: 'crafts',
       title: t.catCrafts,
       category: 'Handicrafts & Artisans',
-      image: 'https://images.unsplash.com/photo-1594736797933-d0c5a3f0b9f2?auto=format&fit=crop&w=800&q=80',
+      image: 'https://indian.handicrafts.gov.in/files/scheme_file/g18.jpg',
       icon: Palette,
       color: 'bg-orange-50 text-orange-700'
     },
@@ -76,7 +75,7 @@ export default function HomeView({
       id: 'tourism',
       title: t.catTourism,
       category: 'Rural Tourism & Services',
-      image: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80',
+      image: 'https://i0.wp.com/socialdhara.com/wp-content/uploads/2021/08/pic-1-11.jpg',
       icon: MapPin,
       color: 'bg-green-50 text-green-700'
     },
@@ -198,38 +197,6 @@ export default function HomeView({
                 <span>{t.exploreCatalogueBtn}</span>
               </button>
             </div>
-
-            {/* Quick 1-Click Test Profiles for Instant Verification */}
-            {onSelectSampleProfile && (
-              <div className="mt-6 pt-4 border-t border-emerald-900/10">
-                <span className="text-xs font-bold text-[#075247] uppercase tracking-wider block mb-2">
-                  ⚡ 1-Click Test Profiles (Instant 9-Factor Recommendations):
-                </span>
-                <div className="flex flex-wrap gap-2 text-xs">
-                  <button
-                    onClick={() => onSelectSampleProfile('dairy')}
-                    className="px-3 py-1.5 rounded-xl bg-white border border-emerald-300 text-emerald-800 font-bold hover:bg-emerald-100 shadow-2xs transition flex items-center gap-1.5"
-                  >
-                    <span>🐮</span>
-                    <span>Dairy Farming (₹1 Lakh)</span>
-                  </button>
-                  <button
-                    onClick={() => onSelectSampleProfile('retail')}
-                    className="px-3 py-1.5 rounded-xl bg-white border border-amber-300 text-amber-900 font-bold hover:bg-amber-100 shadow-2xs transition flex items-center gap-1.5"
-                  >
-                    <span>🏪</span>
-                    <span>Commercial Retail (₹2 Lakh)</span>
-                  </button>
-                  <button
-                    onClick={() => onSelectSampleProfile('food')}
-                    className="px-3 py-1.5 rounded-xl bg-white border border-teal-300 text-teal-900 font-bold hover:bg-teal-100 shadow-2xs transition flex items-center gap-1.5"
-                  >
-                    <span>🌾</span>
-                    <span>Food Processing (₹5 Lakh)</span>
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Right Hero Visual (Farmer + AI Robot + Speech Bubble) */}

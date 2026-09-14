@@ -295,9 +295,7 @@ export default function VoiceChatMode({
         {/* Top Header Tagline & Language Selector */}
         <div className="w-full flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-emerald-100">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-              🌱
-            </div>
+            <img src="/logo.png" alt="Aarambh Saathi" className="w-8 h-8 rounded-full object-cover shadow-xs" />
             <div className="text-left">
               <h4 className="text-sm font-extrabold text-[#072a24] font-display">
                 {t.voiceTitle}
@@ -419,9 +417,7 @@ export default function VoiceChatMode({
       <div className="w-full flex flex-wrap items-center justify-between gap-2.5 pb-3 sm:pb-4 border-b border-emerald-100">
         <div className="flex items-center gap-2">
           <div className="relative shrink-0">
-            <div className="w-8 h-8 rounded-full bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-              🌱
-            </div>
+            <img src="/logo.png" alt="Aarambh Saathi" className="w-8 h-8 rounded-full object-cover shadow-xs" />
             <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-white animate-ping" />
           </div>
           <div>
